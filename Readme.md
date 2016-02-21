@@ -28,15 +28,19 @@ To run the demonstration, first start the two servers in two different terminals
     mosser@azrael $ cd client
     mosser@azrael client$ mvn exec:java
 
+## Product vision
+
+_The Cookie Factory_ (TCF) is a major bakery brand in the USA. The _Cookie on Demand_ (CoD) system is an innovative service offered by TCF to its customer. They can order cookies online thanks to an application, and select when they'll pick-up their order in a given shop. The CoD system ensures to TCF's happy customers that they'll always retrieve their pre-paid warm cookies on time.
+
 ## Architecture
 
-System description
+### Functional components
 
-### Business Architecture
+![Architecture](https://raw.githubusercontent.com/polytechnice-si/4A_ISA_TheCookieFactory/master/docs/archi.png)
 
-Interfaces
+### Business objects
 
-Business objects
+Business objects TDB (export IntelliJ uml diagram ?)
 
 ### Technological Choices
 
@@ -51,6 +55,10 @@ Regarding the IDE support, this demonstration was designed using IntelliJ 15 Ult
 The J2E part of the TCF system is defined as a Maven project, in the `j2e` directory. The `pom.xml` file declares a set of dependency to support EJB development, as well as the configuration of the TomEE+ application server to smoothly deploy the implemented beans. As the system is implemented as a _WAR_ artifact for deployment purpose, we need to declare an empty _web.xml_ file in the `webapp/WEB-INF` directory. The unit tests are implemented as JUnit tests (classical), combined with the Arquilian framework to support the testing of components deployed in an application server. The configuration of Arquilian for test purpose is declared in the `src/test/resource` directory (file named `arquilian.xml`).
 
 __Warning__: Starting the backend with `mvn tomee:run` will not trigger a compilation of the system if the backend was previously built. You'll have to invoke `mvn package tomee:run` to force maven to recompile the system.
+
+#### Client 
+
+The client acts as an interactive command-line. We store the WSDL contracts as java resources (`src/main/resources`). The package `cli.framework` defines a very simple interactive shell, and the package `cli.commands` implements the different commands available in the shell for the customer. 
 
 ## First step: Customer's Cart
 
@@ -169,6 +177,8 @@ public class CartTest {
 ```
 
 You must remark that the `Cart` is never initialized. This is how _dependency injection_ works. The container analyzes the `@EJB` annotation and will bind your local variable to an instance a component that respect this interface, at runtime. __It is not your responsibility anymore to instantiate objects when they implement EJBs__.
+
+To run the tests from your IDE, you must configure the environment to be _Arquillian-compliant_ (_i.e._, started inside a J2E container). IntelliJ users simply have to answer to the questions asked by the IDE, selecting a TomEE container when asked for. This also allows one to activate the debug mode while testing. If you decide to go for the latests versions of the different APIs (_i.e._, using SNAPSHOTs versions in your POM), there is no IDE integration provided, you'll only rely on Maven for test execution, and no debug mode will be available.
 
 ### Going State-less
 
