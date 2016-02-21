@@ -26,4 +26,5 @@ public class CartStateLessBean extends AbstractCartBean {
 	public Set<Item> contents(Customer c) {
 		return memory.getCarts().getOrDefault(c, new HashSet<Item>());
 	}
+
 }

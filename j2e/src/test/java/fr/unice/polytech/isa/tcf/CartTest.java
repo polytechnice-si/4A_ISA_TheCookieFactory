@@ -23,34 +23,29 @@ import javax.ejb.EJB;
 import static org.junit.Assert.*;
 
 @RunWith(Arquillian.class)
-public class CartTest {
-
-	@Deployment
-	public static WebArchive createDeployment() {
-		return ShrinkWrap.create(WebArchive.class)
-				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
-				.addPackage(Database.class.getPackage())
-				.addPackage(Customer.class.getPackage())  		   // Business Objects
-				.addPackage(Cart.class.getPackage())               // Components interfaces
-				.addPackage(CartStateFullBean.class.getPackage()); // Component implementation
-	}
+public class CartTest extends AbstractTCFTest {
 
 	@EJB private Database memory;
 	@EJB(name = "cart-stateless") private Cart cart;
+	@EJB CustomerRegistry registry;
+
+	private Customer john;
 
 	@Before
-	public void flushDatabase() { memory.flush(); }
+	public void setUpContext() throws Exception {
+		memory.flush();
+		registry.register("John", "credit card number");
+		john = registry.findByName("John").get();
+	}
 
 	@Test
 	public void emptyCartByDefault() {
-		Customer c = new Customer(UUID.randomUUID().toString());
-		Set<Item> data = cart.contents(c);
+		Set<Item> data = cart.contents(john);
 		assertArrayEquals(new Item[] {}, data.toArray());
 	}
 
 	@Test
 	public void addItems() {
-		Customer john = new Customer("john");
 		cart.add(john, new Item(Cookies.CHOCOLALALA, 2));
 		cart.add(john, new Item(Cookies.DARK_TEMPTATION, 3));
 		Item[] oracle = new Item[] {new Item(Cookies.CHOCOLALALA, 2), new Item(Cookies.DARK_TEMPTATION, 3)  };
@@ -59,7 +54,6 @@ public class CartTest {
 
 	@Test
 	public void removeItems() {
-		Customer john = new Customer("john");
 		cart.add(john, new Item(Cookies.CHOCOLALALA, 2));
 		cart.remove(john, new Item(Cookies.CHOCOLALALA, 2));
 		assertArrayEquals(new Item[] {}, cart.contents(john).toArray());
@@ -70,7 +64,6 @@ public class CartTest {
 
 	@Test
 	public void modifyQuantities() {
-		Customer john = new Customer("john");
 		cart.add(john, new Item(Cookies.CHOCOLALALA, 2));
 		cart.add(john, new Item(Cookies.DARK_TEMPTATION, 3));
 		cart.add(john, new Item(Cookies.CHOCOLALALA, 3));

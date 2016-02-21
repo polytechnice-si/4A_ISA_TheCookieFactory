@@ -400,6 +400,8 @@ private static CartWebService initialize(String host, String port) {
 
 ## Complete TCF Architecture with Mocked data
 
+
+
 ### Implementing the components
 
 ### Web service exposition
@@ -417,6 +419,12 @@ private static CartWebService initialize(String host, String port) {
 ### Implementing a .Net web service using Mono
 
 ### Invoking a web service within a J2E component
+
+## Interceptors
+
+### Aspect-oriented programing concepts
+
+### Counting the number of processed carts
 
 ## Summary
   

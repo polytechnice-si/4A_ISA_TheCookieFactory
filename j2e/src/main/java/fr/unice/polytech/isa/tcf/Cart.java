@@ -10,7 +10,9 @@ import java.util.Set;
 public interface Cart {
 
 	boolean add(Customer c, Item item);
+
 	boolean remove(Customer c, Item item);
+
 	Set<Item> contents(Customer c);
 
 }
