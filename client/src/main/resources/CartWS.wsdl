@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.polytech.unice.fr/si/4a/isa/tcf" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:ns1="http://webservice.tcf.isa.polytech.unice.fr/" name="CartWebServiceImplService" targetNamespace="http://www.polytech.unice.fr/si/4a/isa/tcf">
+    <wsdl:import location="CartWSType.wsdl" namespace="http://webservice.tcf.isa.polytech.unice.fr/">
+    </wsdl:import>
+    <wsdl:binding name="CartWebServiceImplServiceSoapBinding" type="ns1:CartWebService">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="getCustomerCartContents">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="getCustomerCartContents">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="getCustomerCartContentsResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="addItemToCustomerCart">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="addItemToCustomerCart">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="addItemToCustomerCartResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="CartWebServiceImplService">
+        <wsdl:port binding="tns:CartWebServiceImplServiceSoapBinding" name="CartWebServiceImplPort">
+            <soap:address location="http://localhost:8080/tcf-backend/webservices/CartWS"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

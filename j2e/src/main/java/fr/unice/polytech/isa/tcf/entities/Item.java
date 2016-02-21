@@ -1,9 +1,13 @@
 package fr.unice.polytech.isa.tcf.entities;
 
-public class Item {
+import java.io.Serializable;
+
+public class Item implements Serializable {
 
 	private Cookies cookie;
 	private int quantity;
+
+	public Item() {}
 
 	public Item(Cookies cookie, int quantity) {
 		this.cookie = cookie;
@@ -14,7 +18,6 @@ public class Item {
 	public Cookies getCookie() {
 		return cookie;
 	}
-
 	public void setCookie(Cookies cookie) {
 		this.cookie = cookie;
 	}
@@ -22,7 +25,6 @@ public class Item {
 	public int getQuantity() {
 		return quantity;
 	}
-
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
