@@ -30,7 +30,8 @@ public class Shell<T> {
 					shouldContinue = processCommand(keyword, args);
 				} catch (IllegalArgumentException iae) {
 					System.err.println("Illegal arguments for command "+keyword+": " + args);
-					iae.printStackTrace();
+				} catch (Exception e) {
+					System.err.println("Exception caught while processing command:\n  " + e);
 				}
 			}
 		}
