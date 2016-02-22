@@ -16,6 +16,7 @@ public class Main extends Shell<TCFPublicAPI> {
 		// Registering the command available for the user
 		register(
 				Bye.class,
+				RegisterCustomer.class,
 				ShowCart.class,
 				OrderCookie.class
 		);

@@ -26,6 +26,7 @@ public class ObjectFactory {
 
     private final static QName _GetCustomerCartContentsResponse_QNAME = new QName("http://webservice.tcf.isa.polytech.unice.fr/", "getCustomerCartContentsResponse");
     private final static QName _AddItemToCustomerCartResponse_QNAME = new QName("http://webservice.tcf.isa.polytech.unice.fr/", "addItemToCustomerCartResponse");
+    private final static QName _UnknownCustomerException_QNAME = new QName("http://webservice.tcf.isa.polytech.unice.fr/", "UnknownCustomerException");
     private final static QName _GetCustomerCartContents_QNAME = new QName("http://webservice.tcf.isa.polytech.unice.fr/", "getCustomerCartContents");
     private final static QName _AddItemToCustomerCart_QNAME = new QName("http://webservice.tcf.isa.polytech.unice.fr/", "addItemToCustomerCart");
 
@@ -50,6 +51,14 @@ public class ObjectFactory {
      */
     public GetCustomerCartContents createGetCustomerCartContents() {
         return new GetCustomerCartContents();
+    }
+
+    /**
+     * Create an instance of {@link UnknownCustomerException }
+     * 
+     */
+    public UnknownCustomerException createUnknownCustomerException() {
+        return new UnknownCustomerException();
     }
 
     /**
@@ -92,6 +101,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://webservice.tcf.isa.polytech.unice.fr/", name = "addItemToCustomerCartResponse")
     public JAXBElement<AddItemToCustomerCartResponse> createAddItemToCustomerCartResponse(AddItemToCustomerCartResponse value) {
         return new JAXBElement<AddItemToCustomerCartResponse>(_AddItemToCustomerCartResponse_QNAME, AddItemToCustomerCartResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link UnknownCustomerException }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice.tcf.isa.polytech.unice.fr/", name = "UnknownCustomerException")
+    public JAXBElement<UnknownCustomerException> createUnknownCustomerException(UnknownCustomerException value) {
+        return new JAXBElement<UnknownCustomerException>(_UnknownCustomerException_QNAME, UnknownCustomerException.class, null, value);
     }
 
     /**

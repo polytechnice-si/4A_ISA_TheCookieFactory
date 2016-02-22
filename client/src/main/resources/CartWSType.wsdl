@@ -1,46 +1,36 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns1="http://webservice.tcf.isa.polytech.unice.fr/" name="CartWebService" targetNamespace="http://webservice.tcf.isa.polytech.unice.fr/">
     <wsdl:types>
-        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://webservice.tcf.isa.polytech.unice.fr/" elementFormDefault="unqualified" targetNamespace="http://webservice.tcf.isa.polytech.unice.fr/" version="1.0">
-
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://webservice.tcf.isa.polytech.unice.fr/" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://webservice.tcf.isa.polytech.unice.fr/">
             <xs:element name="addItemToCustomerCart" type="tns:addItemToCustomerCart"/>
-
             <xs:element name="addItemToCustomerCartResponse" type="tns:addItemToCustomerCartResponse"/>
-
             <xs:element name="getCustomerCartContents" type="tns:getCustomerCartContents"/>
-
             <xs:element name="getCustomerCartContentsResponse" type="tns:getCustomerCartContentsResponse"/>
-
             <xs:complexType name="getCustomerCartContents">
                 <xs:sequence>
                     <xs:element minOccurs="0" name="customer_name" type="xs:string"/>
                 </xs:sequence>
             </xs:complexType>
-
             <xs:complexType name="getCustomerCartContentsResponse">
                 <xs:sequence>
                     <xs:element maxOccurs="unbounded" minOccurs="0" name="cart_contents" type="tns:item"/>
                 </xs:sequence>
             </xs:complexType>
-
             <xs:complexType name="item">
                 <xs:sequence>
                     <xs:element minOccurs="0" name="cookie" type="tns:cookies"/>
                     <xs:element name="quantity" type="xs:int"/>
                 </xs:sequence>
             </xs:complexType>
-
             <xs:complexType name="addItemToCustomerCart">
                 <xs:sequence>
                     <xs:element minOccurs="0" name="customer_name" type="xs:string"/>
                     <xs:element minOccurs="0" name="item" type="tns:item"/>
                 </xs:sequence>
             </xs:complexType>
-
             <xs:complexType name="addItemToCustomerCartResponse">
                 <xs:sequence/>
             </xs:complexType>
-
             <xs:simpleType name="cookies">
                 <xs:restriction base="xs:string">
                     <xs:enumeration value="CHOCOLALALA"/>
@@ -48,7 +38,12 @@
                     <xs:enumeration value="SOO_CHOCOLATE"/>
                 </xs:restriction>
             </xs:simpleType>
-
+            <xs:element name="UnknownCustomerException" type="tns:UnknownCustomerException"/>
+            <xs:complexType name="UnknownCustomerException">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="message" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
         </xs:schema>
     </wsdl:types>
     <wsdl:message name="getCustomerCartContentsResponse">
@@ -57,6 +52,10 @@
     </wsdl:message>
     <wsdl:message name="addItemToCustomerCartResponse">
         <wsdl:part element="ns1:addItemToCustomerCartResponse" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="UnknownCustomerException">
+        <wsdl:part element="ns1:UnknownCustomerException" name="UnknownCustomerException">
         </wsdl:part>
     </wsdl:message>
     <wsdl:message name="getCustomerCartContents">
@@ -73,12 +72,16 @@
             </wsdl:input>
             <wsdl:output message="ns1:getCustomerCartContentsResponse" name="getCustomerCartContentsResponse">
             </wsdl:output>
+            <wsdl:fault message="ns1:UnknownCustomerException" name="UnknownCustomerException">
+            </wsdl:fault>
         </wsdl:operation>
         <wsdl:operation name="addItemToCustomerCart">
             <wsdl:input message="ns1:addItemToCustomerCart" name="addItemToCustomerCart">
             </wsdl:input>
             <wsdl:output message="ns1:addItemToCustomerCartResponse" name="addItemToCustomerCartResponse">
             </wsdl:output>
+            <wsdl:fault message="ns1:UnknownCustomerException" name="UnknownCustomerException">
+            </wsdl:fault>
         </wsdl:operation>
     </wsdl:portType>
 </wsdl:definitions>

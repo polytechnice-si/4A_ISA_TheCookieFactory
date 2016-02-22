@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns1="http://webservice.tcf.isa.polytech.unice.fr/" name="CustomerCareService" targetNamespace="http://webservice.tcf.isa.polytech.unice.fr/">
+    <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://webservice.tcf.isa.polytech.unice.fr/" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://webservice.tcf.isa.polytech.unice.fr/">
+            <xs:element name="register" type="tns:register"/>
+            <xs:element name="registerResponse" type="tns:registerResponse"/>
+            <xs:complexType name="register">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="customer_name" type="xs:string"/>
+                    <xs:element minOccurs="0" name="credit_card_number" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="registerResponse">
+                <xs:sequence/>
+            </xs:complexType>
+            <xs:element name="AlreadyExistingCustomerException" type="tns:AlreadyExistingCustomerException"/>
+            <xs:complexType name="AlreadyExistingCustomerException">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="message" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="register">
+        <wsdl:part element="ns1:register" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="AlreadyExistingCustomerException">
+        <wsdl:part element="ns1:AlreadyExistingCustomerException" name="AlreadyExistingCustomerException">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="registerResponse">
+        <wsdl:part element="ns1:registerResponse" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="CustomerCareService">
+        <wsdl:operation name="register">
+            <wsdl:input message="ns1:register" name="register">
+            </wsdl:input>
+            <wsdl:output message="ns1:registerResponse" name="registerResponse">
+            </wsdl:output>
+            <wsdl:fault message="ns1:AlreadyExistingCustomerException" name="AlreadyExistingCustomerException">
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

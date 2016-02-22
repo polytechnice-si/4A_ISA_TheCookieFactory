@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.polytech.unice.fr/si/4a/isa/tcf/customer-care" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:ns1="http://webservice.tcf.isa.polytech.unice.fr/" name="CustomerCareServiceImplService" targetNamespace="http://www.polytech.unice.fr/si/4a/isa/tcf/customer-care">
+    <wsdl:import location="CustomerCareWSType.wsdl" namespace="http://webservice.tcf.isa.polytech.unice.fr/">
+    </wsdl:import>
+    <wsdl:binding name="CustomerCareServiceImplServiceSoapBinding" type="ns1:CustomerCareService">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="register">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="register">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="registerResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="AlreadyExistingCustomerException">
+                <soap:fault name="AlreadyExistingCustomerException" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="CustomerCareServiceImplService">
+        <wsdl:port binding="tns:CustomerCareServiceImplServiceSoapBinding" name="CustomerCareServiceImplPort">
+            <soap:address location="http://localhost:8080/tcf-backend/webservices/CustomerCareWS"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

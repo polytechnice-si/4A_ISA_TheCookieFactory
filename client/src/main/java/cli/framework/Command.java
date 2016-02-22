@@ -5,7 +5,7 @@ import java.util.List;
 public abstract class Command<T> {
 
 	abstract public String identifier();
-	abstract public void execute();
+	abstract public void execute() throws Exception;
 	abstract public String describe();
 
 	public boolean shouldContinue() { return true; }  // default implementation
@@ -16,7 +16,7 @@ public abstract class Command<T> {
 
 	public void withSystem(T system)                    { this.system = system;   }
 
-	public boolean process(List<String> args) {
+	public boolean process(List<String> args) throws Exception {
 		try { load(args); }
 		catch (Exception e) {
 			throw new IllegalArgumentException(e);

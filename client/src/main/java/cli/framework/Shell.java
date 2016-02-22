@@ -46,7 +46,7 @@ public class Shell<T> {
 
 	private static final String HELP_SYMBOL = "?";
 
-	private boolean processCommand(String keyword, List<String> args) {
+	private boolean processCommand(String keyword, List<String> args) throws Exception {
 		if (!commands.containsKey(keyword)) {
 			System.out.println("Unknown command: " + keyword);
 			return true;

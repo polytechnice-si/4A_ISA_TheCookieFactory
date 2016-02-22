@@ -29,6 +29,7 @@ public interface CartWebService {
      * @param customerName
      * @return
      *     returns java.util.List<stubs.cart.Item>
+     * @throws UnknownCustomerException_Exception
      */
     @WebMethod
     @WebResult(name = "cart_contents", targetNamespace = "")
@@ -36,12 +37,15 @@ public interface CartWebService {
     @ResponseWrapper(localName = "getCustomerCartContentsResponse", targetNamespace = "http://webservice.tcf.isa.polytech.unice.fr/", className = "stubs.cart.GetCustomerCartContentsResponse")
     public List<Item> getCustomerCartContents(
         @WebParam(name = "customer_name", targetNamespace = "")
-        String customerName);
+        String customerName)
+        throws UnknownCustomerException_Exception
+    ;
 
     /**
      * 
      * @param item
      * @param customerName
+     * @throws UnknownCustomerException_Exception
      */
     @WebMethod
     @RequestWrapper(localName = "addItemToCustomerCart", targetNamespace = "http://webservice.tcf.isa.polytech.unice.fr/", className = "stubs.cart.AddItemToCustomerCart")
@@ -50,6 +54,8 @@ public interface CartWebService {
         @WebParam(name = "customer_name", targetNamespace = "")
         String customerName,
         @WebParam(name = "item", targetNamespace = "")
-        Item item);
+        Item item)
+        throws UnknownCustomerException_Exception
+    ;
 
 }

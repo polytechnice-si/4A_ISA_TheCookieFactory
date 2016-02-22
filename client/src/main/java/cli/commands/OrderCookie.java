@@ -24,7 +24,7 @@ public class OrderCookie extends Command<TCFPublicAPI> {
 	}
 
 	@Override
-	public void execute() {
+	public void execute() throws Exception {
 		Item item = new Item();
 		item.setCookie(cookie);
 		item.setQuantity(quantity);

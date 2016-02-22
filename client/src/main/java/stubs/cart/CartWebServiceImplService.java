@@ -17,14 +17,14 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "CartWebServiceImplService", targetNamespace = "http://www.polytech.unice.fr/si/4a/isa/tcf", wsdlLocation = "file:///Users/mosser/work/polytech/4A_ISA_TheCookieFactory/client/src/main/resources/CartWS.wsdl")
+@WebServiceClient(name = "CartWebServiceImplService", targetNamespace = "http://www.polytech.unice.fr/si/4a/isa/tcf/cart", wsdlLocation = "file:///Users/mosser/work/polytech/4A_ISA_TheCookieFactory/client/src/main/resources/CartWS.wsdl")
 public class CartWebServiceImplService
     extends Service
 {
 
     private final static URL CARTWEBSERVICEIMPLSERVICE_WSDL_LOCATION;
     private final static WebServiceException CARTWEBSERVICEIMPLSERVICE_EXCEPTION;
-    private final static QName CARTWEBSERVICEIMPLSERVICE_QNAME = new QName("http://www.polytech.unice.fr/si/4a/isa/tcf", "CartWebServiceImplService");
+    private final static QName CARTWEBSERVICEIMPLSERVICE_QNAME = new QName("http://www.polytech.unice.fr/si/4a/isa/tcf/cart", "CartWebServiceImplService");
 
     static {
         URL url = null;
@@ -69,7 +69,7 @@ public class CartWebServiceImplService
      */
     @WebEndpoint(name = "CartWebServiceImplPort")
     public CartWebService getCartWebServiceImplPort() {
-        return super.getPort(new QName("http://www.polytech.unice.fr/si/4a/isa/tcf", "CartWebServiceImplPort"), CartWebService.class);
+        return super.getPort(new QName("http://www.polytech.unice.fr/si/4a/isa/tcf/cart", "CartWebServiceImplPort"), CartWebService.class);
     }
 
     /**
@@ -81,7 +81,7 @@ public class CartWebServiceImplService
      */
     @WebEndpoint(name = "CartWebServiceImplPort")
     public CartWebService getCartWebServiceImplPort(WebServiceFeature... features) {
-        return super.getPort(new QName("http://www.polytech.unice.fr/si/4a/isa/tcf", "CartWebServiceImplPort"), CartWebService.class, features);
+        return super.getPort(new QName("http://www.polytech.unice.fr/si/4a/isa/tcf/cart", "CartWebServiceImplPort"), CartWebService.class, features);
     }
 
     private static URL __getWsdlLocation() {

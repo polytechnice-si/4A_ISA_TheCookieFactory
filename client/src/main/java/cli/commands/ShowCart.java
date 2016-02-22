@@ -14,7 +14,7 @@ public class ShowCart extends Command<TCFPublicAPI> {
 	public String identifier() { return "cart"; }
 
 	@Override
-	public void execute() {
+	public void execute() throws Exception {
 		List<Item> cart = system.carts.getCustomerCartContents(customerName);
 		if (cart.isEmpty()){
 			System.out.println("  Empty cart");

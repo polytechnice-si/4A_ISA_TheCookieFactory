@@ -9,7 +9,7 @@ import java.util.List;
 
 public class CartWSDemo {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		System.out.println("#### Collecting arguments (host, port)");
 		String host = ( args.length == 0 ? "localhost" : args[0] );
 		String port = ( args.length < 2  ? "8080"      : args[1] );
@@ -19,7 +19,7 @@ public class CartWSDemo {
 
 	}
 
-	private static void demo(CartWebService ws) {
+	private static void demo(CartWebService ws) throws Exception {
 		List<Item> cart = ws.getCustomerCartContents("john");
 		System.out.println("Cart is empty: " + cart.isEmpty());
 		Item i = new Item();

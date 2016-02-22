@@ -9,7 +9,7 @@ import javax.ejb.Stateless;
 import javax.jws.WebService;
 
 @WebService(targetNamespace = "http://www.polytech.unice.fr/si/4a/isa/tcf/customer-care")
-@Stateless(name = "CartWS")
+@Stateless(name = "CustomerCareWS")
 public class CustomerCareServiceImpl implements CustomerCareService {
 
 	@EJB
