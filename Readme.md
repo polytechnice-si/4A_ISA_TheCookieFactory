@@ -77,9 +77,9 @@ public interface Cart {
 }
 ```
 
-### State-full implementation
+### Stateful implementation
 
-The simple way to implement this service is to rely on a _State-full_ bean. The semantics of such class of beans is that each artifact connected to a given instance of the bean will always talk to the same instance. It implies for the J2E container to support a session between the caller and the callee, which consumes memory, introduce a bottleneck and prevent load-balancing. However, this is only the first step, so let's go easy for this one.
+The simple way to implement this service is to rely on a _Stateful_ bean. The semantics of such class of beans is that each artifact connected to a given instance of the bean will always talk to the same instance. It implies for the J2E container to support a session between the caller and the callee, which consumes memory, introduce a bottleneck and prevent load-balancing. However, this is only the first step, so let's go easy for this one.
 
 The implementation of the component is straightforward, using a Map to store the binding that exists between customers and items. The state-full property ensures that we'll always talk to the same map.
 
@@ -155,7 +155,7 @@ The previously implemented component should ensure the four following properties
 }
 ```
  
-This code is purely functional, assuming a `Cart` (the interface, no one cares about the concrete implementation). But as the Cart is a component, its lifecycle is handled by the J2E container. As a consequence, we need three to run this very test inside a container, on a deployed component. Additional information to make this test a working one is needed: (i) define how elements can be packaged into a deployable unit, (ii) inject a Cart inside this unit and (iii) asks for the _Arquilian_ test runner instead of the classical JUnit one to run the test inside a deployed version of our system.
+This code is purely functional, assuming a `Cart` (the interface, no one cares about the concrete implementation). But as the Cart is a component, its lifecycle is handled by the J2E container. As a consequence, we need three to run this very test inside a container, on a deployed component. Additional information to make this test a working one is needed: (i) define how elements can be packaged into a deployable unit, (ii) inject a Cart inside this unit and (iii) asks for the _Arquillian_ test runner instead of the classical JUnit one to run the test inside a deployed version of our system.
 
 ```java
 @RunWith(Arquillian.class)
@@ -184,7 +184,7 @@ You must remark that the `Cart` is never initialized. This is how _dependency in
 
 To run the tests from your IDE, you must configure the environment to be _Arquillian-compliant_ (_i.e._, started inside a J2E container). IntelliJ users simply have to answer to the questions asked by the IDE, selecting a TomEE container when asked for. This also allows one to activate the debug mode while testing. If you decide to go for the latests versions of the different APIs (_i.e._, using SNAPSHOTs versions in your POM), there is no IDE integration provided, you'll only rely on Maven for test execution, and no debug mode will be available.
 
-### Going State-less
+### Going Stateless
 
 The previously described component is actually wrong. It works as a client will always be connected to the very same instance of the bean, but multiple beans will not share the same in memory map, as each one contains a partial information. In addition, being state-full implies to maintain a session between the caller and the callee, which is a performance-killer for the container as it prevent the bean management process to properly handle the component lifecycle.
 
