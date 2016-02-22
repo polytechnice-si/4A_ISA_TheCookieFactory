@@ -1,5 +1,6 @@
-package fr.unice.polytech.isa.tcf.components;
+package fr.unice.polytech.isa.tcf.components.carts;
 
+import fr.unice.polytech.isa.tcf.components.CartBean;
 import fr.unice.polytech.isa.tcf.entities.Customer;
 import fr.unice.polytech.isa.tcf.entities.Item;
 
@@ -8,7 +9,7 @@ import java.util.*;
 
 
 @Stateful(name = "cart-statefull")
-public class CartStateFullBean extends AbstractCartBean {
+public class CartStateFullBean extends CartBean {
 
 	private Map<Customer, Set<Item>> carts = new HashMap<>();
 

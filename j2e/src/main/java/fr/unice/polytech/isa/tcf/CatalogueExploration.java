@@ -6,7 +6,7 @@ import javax.ejb.Local;
 import java.util.Set;
 
 @Local
-public interface CookieCatalogue {
+public interface CatalogueExploration {
 
 	Set<Cookies> listPreMadeRecipes();
 

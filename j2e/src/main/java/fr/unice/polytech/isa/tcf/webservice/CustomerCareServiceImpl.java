@@ -1,7 +1,7 @@
 package fr.unice.polytech.isa.tcf.webservice;
 
 
-import fr.unice.polytech.isa.tcf.CustomerRegistry;
+import fr.unice.polytech.isa.tcf.CustomerRegistration;
 import fr.unice.polytech.isa.tcf.exceptions.AlreadyExistingCustomerException;
 
 import javax.ejb.EJB;
@@ -13,7 +13,7 @@ import javax.jws.WebService;
 public class CustomerCareServiceImpl implements CustomerCareService {
 
 	@EJB
-	CustomerRegistry registry;
+	CustomerRegistration registry;
 
 	@Override
 	public void register(String name, String creditCard) throws AlreadyExistingCustomerException {

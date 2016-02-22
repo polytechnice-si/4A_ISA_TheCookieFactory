@@ -1,6 +1,6 @@
-package fr.unice.polytech.isa.tcf.components;
+package fr.unice.polytech.isa.tcf.components.carts;
 
-import fr.unice.polytech.isa.tcf.Cart;
+import fr.unice.polytech.isa.tcf.components.CartBean;
 import fr.unice.polytech.isa.tcf.entities.Customer;
 import fr.unice.polytech.isa.tcf.entities.Item;
 import fr.unice.polytech.isa.tcf.utils.Database;
@@ -11,10 +11,10 @@ import java.util.*;
 
 
 @Stateless(name = "cart-stateless")
-public class CartStateLessBean extends AbstractCartBean {
+public class CartStatelessBean extends CartBean {
 
 	@EJB
-	Database memory;
+	private Database memory;
 
 	@Override
 	public boolean add(Customer c, Item item) {

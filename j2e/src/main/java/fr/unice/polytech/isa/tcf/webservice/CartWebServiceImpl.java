@@ -1,7 +1,7 @@
 package fr.unice.polytech.isa.tcf.webservice;
 
-import fr.unice.polytech.isa.tcf.Cart;
-import fr.unice.polytech.isa.tcf.CustomerRegistry;
+import fr.unice.polytech.isa.tcf.CartModifier;
+import fr.unice.polytech.isa.tcf.CustomerFinder;
 import fr.unice.polytech.isa.tcf.entities.Customer;
 import fr.unice.polytech.isa.tcf.entities.Item;
 import fr.unice.polytech.isa.tcf.exceptions.UnknownCustomerException;
@@ -17,14 +17,14 @@ import java.util.Set;
 public class CartWebServiceImpl implements CartWebService {
 
 	@EJB(name="stateless-cart")
-	Cart cart;
+	CartModifier cart;
 
 	@EJB
-	CustomerRegistry registry;
+	CustomerFinder finder;
 
 	@Override
 	public void addItemToCustomerCart(String customerName, Item it) throws UnknownCustomerException {
-		Optional<Customer> c = registry.findByName(customerName);
+		Optional<Customer> c = finder.findByName(customerName);
 		if(!c.isPresent())
 			throw new UnknownCustomerException(customerName);
 		cart.add(c.get(), it);
@@ -32,7 +32,7 @@ public class CartWebServiceImpl implements CartWebService {
 
 	@Override
 	public Set<Item> getCustomerCartContents(String customerName) throws UnknownCustomerException {
-		Optional<Customer> c = registry.findByName(customerName);
+		Optional<Customer> c = finder.findByName(customerName);
 		if(!c.isPresent())
 			throw new UnknownCustomerException(customerName);
 		return cart.contents(c.get());

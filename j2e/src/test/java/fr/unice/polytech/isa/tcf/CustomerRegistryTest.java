@@ -19,14 +19,17 @@ public class CustomerRegistryTest extends AbstractTCFTest {
 	private Database memory;
 
 	@EJB
-	CustomerRegistry registry;
+	CustomerRegistration registry;
+
+	@EJB
+	CustomerFinder finder;
 
 	@Before
 	public void setUpContext() throws Exception { memory.flush(); }
 
 	@Test
 	public void unknownCustomer() {
-		assertFalse(registry.findByName("John").isPresent());
+		assertFalse(finder.findByName("John").isPresent());
 	}
 
 	@Test
@@ -34,7 +37,7 @@ public class CustomerRegistryTest extends AbstractTCFTest {
 		String name = "John";
 		String creditCard = "credit card number";
 		registry.register(name, creditCard);
-		Optional<Customer> customer = registry.findByName(name);
+		Optional<Customer> customer = finder.findByName(name);
 		assertTrue(customer.isPresent());
 		Customer john = customer.get();
 		assertEquals(name, john.getName());

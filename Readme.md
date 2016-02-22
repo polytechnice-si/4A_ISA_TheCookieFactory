@@ -34,13 +34,17 @@ _The Cookie Factory_ (TCF) is a major bakery brand in the USA. The _Cookie on De
 
 ## Architecture
 
-### Functional components
+### Components assembly
 
 ![Architecture](https://raw.githubusercontent.com/polytechnice-si/4A_ISA_TheCookieFactory/master/docs/archi.png)
 
+### Functional interfaces
+
+![Interfaces](https://raw.githubusercontent.com/polytechnice-si/4A_ISA_TheCookieFactory/master/docs/interfaces.png)
+
 ### Business objects
 
-Business objects TDB (export IntelliJ uml diagram ?)
+![Business Objects](https://raw.githubusercontent.com/polytechnice-si/4A_ISA_TheCookieFactory/master/docs/business.png)
 
 ### Technological Choices
 

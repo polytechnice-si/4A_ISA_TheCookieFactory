@@ -1,15 +1,25 @@
 package fr.unice.polytech.isa.tcf.components;
 
 
-import fr.unice.polytech.isa.tcf.Cart;
+import fr.unice.polytech.isa.tcf.CartModifier;
+import fr.unice.polytech.isa.tcf.Payment;
 import fr.unice.polytech.isa.tcf.entities.Customer;
 import fr.unice.polytech.isa.tcf.entities.Item;
+import fr.unice.polytech.isa.tcf.exceptions.PaymentException;
 
 import javax.ejb.EJB;
 import java.util.Optional;
 import java.util.Set;
 
-public abstract class AbstractCartBean implements Cart {
+public abstract class CartBean implements CartModifier {
+
+	@EJB
+	protected Payment cashier;
+
+	@Override
+	public String validate(Customer c) throws PaymentException {
+		return cashier.payOrder(c, contents(c));
+	}
 
 	@Override
 	public final boolean remove(Customer c, Item item) {
@@ -17,7 +27,7 @@ public abstract class AbstractCartBean implements Cart {
 	}
 
 	/**
-	 * Protected method to update the cart of a given customer, shared by both statefull and stateless beans
+	 * Protected method to update the cart of a given customer, shared by both stateful and stateless beans
 	 */
 	protected Set<Item> updateCart(Customer c, Item item) {
 		Set<Item> items = contents(c);

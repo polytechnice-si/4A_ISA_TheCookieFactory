@@ -1,6 +1,6 @@
 package fr.unice.polytech.isa.tcf.components;
 
-import fr.unice.polytech.isa.tcf.CookieCatalogue;
+import fr.unice.polytech.isa.tcf.CatalogueExploration;
 import fr.unice.polytech.isa.tcf.entities.Cookies;
 
 import javax.ejb.Stateless;
@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Stateless
-public class CookieCatalogueBean implements CookieCatalogue {
+public class CatalogueBean implements CatalogueExploration {
 
 
 	@Override

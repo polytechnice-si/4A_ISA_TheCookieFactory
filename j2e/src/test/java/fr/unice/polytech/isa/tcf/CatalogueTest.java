@@ -11,10 +11,10 @@ import static org.junit.Assert.*;
 
 
 @RunWith(Arquillian.class)
-public class CookieCatalogueTest extends AbstractTCFTest {
+public class CatalogueTest extends AbstractTCFTest {
 
 	@EJB
-	CookieCatalogue catalogue;
+	CatalogueExploration catalogue;
 
 	@Test
 	public void preMadeRecipesAreAVailable() {

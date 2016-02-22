@@ -1,7 +1,6 @@
 package fr.unice.polytech.isa.tcf;
 
 // business imports
-import fr.unice.polytech.isa.tcf.components.CartStateFullBean;
 import fr.unice.polytech.isa.tcf.entities.Cookies;
 import fr.unice.polytech.isa.tcf.entities.Customer;
 import fr.unice.polytech.isa.tcf.entities.Item;
@@ -10,11 +9,7 @@ import java.util.*;
 // component test framework import
 import fr.unice.polytech.isa.tcf.utils.Database;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
 // java annotations
-import org.jboss.arquillian.container.test.api.Deployment;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,8 +21,9 @@ import static org.junit.Assert.*;
 public class CartTest extends AbstractTCFTest {
 
 	@EJB private Database memory;
-	@EJB(name = "cart-stateless") private Cart cart;
-	@EJB CustomerRegistry registry;
+	@EJB(name = "cart-stateless") private CartModifier cart;
+	@EJB CustomerRegistration registry;
+	@EJB CustomerFinder finder;
 
 	private Customer john;
 
@@ -35,7 +31,7 @@ public class CartTest extends AbstractTCFTest {
 	public void setUpContext() throws Exception {
 		memory.flush();
 		registry.register("John", "credit card number");
-		john = registry.findByName("John").get();
+		john = finder.findByName("John").get();
 	}
 
 	@Test
