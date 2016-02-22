@@ -15,14 +15,8 @@ import static org.junit.Assert.*;
 @RunWith(Arquillian.class)
 public class CustomerRegistryTest extends AbstractTCFTest {
 
-	@EJB
-	private Database memory;
-
-	@EJB
-	CustomerRegistration registry;
-
-	@EJB
-	CustomerFinder finder;
+	@EJB private CustomerRegistration registry;
+	@EJB private CustomerFinder finder;
 
 	@Before
 	public void setUpContext() throws Exception { memory.flush(); }

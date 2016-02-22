@@ -8,8 +8,8 @@ import javax.ejb.Stateful;
 import java.util.*;
 
 
-@Stateful(name = "cart-statefull")
-public class CartStateFullBean extends CartBean {
+@Stateful(name = "cart-stateful")
+public class CartStatefulBean extends CartBean {
 
 	private Map<Customer, Set<Item>> carts = new HashMap<>();
 

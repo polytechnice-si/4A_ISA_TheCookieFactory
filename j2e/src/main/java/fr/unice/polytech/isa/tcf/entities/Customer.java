@@ -1,13 +1,14 @@
 package fr.unice.polytech.isa.tcf.entities;
 
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class Customer {
 
 	private String name;
 	private String creditCard;
-	private Set<Order> orders;
+	private Set<Order> orders = new HashSet<>();
 
 	public Customer() {}
 	public Customer(String n, String c) { this.name = n; this.creditCard = c; }
@@ -22,6 +23,7 @@ public class Customer {
 	public String getCreditCard() { return creditCard; }
 	public void setCreditCard(String creditCard) { this.creditCard = creditCard; }
 
+	public void add(Order o) { this.orders.add(o); }
 
 	@Override
 	public boolean equals(Object o) {

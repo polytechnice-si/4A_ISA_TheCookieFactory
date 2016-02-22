@@ -20,7 +20,6 @@ import static org.junit.Assert.*;
 @RunWith(Arquillian.class)
 public class CartTest extends AbstractTCFTest {
 
-	@EJB private Database memory;
 	@EJB(name = "cart-stateless") private CartModifier cart;
 	@EJB CustomerRegistration registry;
 	@EJB CustomerFinder finder;

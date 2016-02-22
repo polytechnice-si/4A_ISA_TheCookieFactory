@@ -8,9 +8,6 @@ import javax.ejb.Local;
 @Local
 public interface OrderProcessing {
 
-	String process(Order order);
-
-	void moveForward(Order c);
-
+	void process(Order order);
 
 }

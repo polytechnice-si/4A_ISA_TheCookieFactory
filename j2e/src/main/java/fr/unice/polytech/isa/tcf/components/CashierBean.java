@@ -6,6 +6,7 @@ import fr.unice.polytech.isa.tcf.entities.Customer;
 import fr.unice.polytech.isa.tcf.entities.Item;
 import fr.unice.polytech.isa.tcf.entities.Order;
 import fr.unice.polytech.isa.tcf.exceptions.PaymentException;
+import fr.unice.polytech.isa.tcf.utils.Database;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -17,7 +18,10 @@ import java.util.UUID;
 public class CashierBean implements Payment {
 
 	@EJB
-	OrderProcessing kitchen;
+	private OrderProcessing kitchen;
+
+	@EJB
+	private Database memory;
 
 	@Override
 	public String payOrder(Customer customer, Set<Item> items) throws PaymentException {
@@ -27,6 +31,9 @@ public class CashierBean implements Payment {
 		  throw new PaymentException(customer.getName(), price);
 
 		Order order = new Order(customer, items, price);
+		customer.add(order);
+
+		memory.getOrders().put(order.getId(),order);
 		kitchen.process(order);
 
 		return order.getId();

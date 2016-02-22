@@ -10,15 +10,13 @@ import javax.ejb.Stateless;
 @Stateless
 public class KitchenBean implements OrderProcessing, Tracker {
 
-
 	@Override
-	public String process(Order order) {
-		return null;
-	}
-
-	@Override
-	public void moveForward(Order c) {
-
+	public void process(Order order) {
+		if (order.getCustomer().getName().contains("p")) {
+			order.setStatus(OrderStatus.IN_PROGRESS);
+		} else if (order.getCustomer().getName().contains("p")) {
+			order.setStatus(OrderStatus.READY);
+		}
 	}
 
 	@Override
