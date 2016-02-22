@@ -50,5 +50,4 @@ public class CustomerRegistryTest extends AbstractTCFTest {
 		registry.register(name, creditCard);
 	}
 
-
 }

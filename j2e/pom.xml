@@ -1,6 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
   <modelVersion>4.0.0</modelVersion>
   <groupId>fr.unice.polytech.isa</groupId>
   <artifactId>tcf-backend</artifactId>
@@ -11,10 +12,12 @@
   <properties>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
       <versions.tomee.embedded>1.7.3</versions.tomee.embedded>
+
       <!-- Stable versions -->
       <versions.javaee>6.0-6</versions.javaee>
       <versions.openejb>4.7.3</versions.openejb>
       <versions.tomee>1.7.3</versions.tomee>
+
       <!-- Latest (snapshot) versions. TODO: use a profile instead of comments -->
       <!--
       <versions.javaee>7.0-SNAPSHOT</versions.javaee>
@@ -50,7 +53,7 @@
       <dependency>
           <groupId>org.apache.openejb</groupId>
           <artifactId>tomee-embedded</artifactId>
-          <version>1.7.3</version>
+          <version>${versions.tomee}</version>
           <scope>test</scope>
       </dependency>
       <!-- Dependencies for the testing frameworks (Junit & Arquillian) -->

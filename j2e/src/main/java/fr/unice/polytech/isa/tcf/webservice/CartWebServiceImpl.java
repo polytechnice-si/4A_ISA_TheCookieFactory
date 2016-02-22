@@ -12,7 +12,7 @@ import javax.jws.WebService;
 import java.util.Optional;
 import java.util.Set;
 
-@WebService(targetNamespace = "http://www.polytech.unice.fr/si/4a/isa/tcf")
+@WebService(targetNamespace = "http://www.polytech.unice.fr/si/4a/isa/tcf/cart")
 @Stateless(name = "CartWS")
 public class CartWebServiceImpl implements CartWebService {
 
