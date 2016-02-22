@@ -11,8 +11,6 @@ import fr.unice.polytech.isa.tcf.utils.Database;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import java.util.Set;
-import java.util.UUID;
-
 
 @Stateless
 public class CashierBean implements Payment {
@@ -25,14 +23,15 @@ public class CashierBean implements Payment {
 
 	@Override
 	public String payOrder(Customer customer, Set<Item> items) throws PaymentException {
-		double price = computePrice(items);
+
+		Order order = new Order(customer, items);
+		double price = order.getPrice();
 
 		if (!performPayment(customer, price))
 		  throw new PaymentException(customer.getName(), price);
 
-		Order order = new Order(customer, items, price);
-		customer.add(order);
 
+		customer.add(order);
 		memory.getOrders().put(order.getId(),order);
 		kitchen.process(order);
 
@@ -42,14 +41,6 @@ public class CashierBean implements Payment {
 
 	private boolean performPayment(Customer customer, double value) {
 		return customer.getCreditCard().contains("896983"); // ASCII code for "YES"
-	}
-
-	private double computePrice(Set<Item> items) {
-		double result = 0.0;
-		for(Item item: items) {
-			result += (item.getQuantity() * item.getCookie().getPrice());
-		}
-		return result;
 	}
 
 }

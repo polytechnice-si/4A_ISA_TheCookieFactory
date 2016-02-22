@@ -8,13 +8,11 @@ public class Order {
 	private String id;
 	private Customer customer;
 	private Set<Item> items;
-	private double price;
 	private OrderStatus status;
 
-	public Order(Customer customer, Set<Item> items, double price) {
+	public Order(Customer customer, Set<Item> items) {
 		this.customer = customer;
 		this.items = items;
-		this.price = price;
 		this.status = OrderStatus.VALIDATED;
 		this.id = UUID.randomUUID().toString();
 	}
@@ -24,6 +22,13 @@ public class Order {
 	public String getId() { return id; }
 	public Customer getCustomer() { return customer; }
 	public Set<Item> getItems() { return items; }
-	public double getPrice() { return price; }
+
+	public double getPrice() {
+		double result = 0.0;
+		for(Item item: items) {
+			result += (item.getQuantity() * item.getCookie().getPrice());
+		}
+		return result;
+	}
 
 }
