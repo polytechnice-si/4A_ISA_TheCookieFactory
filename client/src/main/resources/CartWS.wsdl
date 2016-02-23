@@ -1,5 +1,6 @@
-<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.polytech.unice.fr/si/4a/isa/tcf/cart" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:ns1="http://webservice.tcf.isa.polytech.unice.fr/" name="CartWebServiceImplService" targetNamespace="http://www.polytech.unice.fr/si/4a/isa/tcf/cart">
-    <wsdl:import location="http://localhost:8080/tcf-backend/webservices/CartWS?wsdl=CartWebService.wsdl" namespace="http://webservice.tcf.isa.polytech.unice.fr/">
+<?xml version='1.0' encoding='UTF-8'?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.polytech.unice.fr/si/4a/isa/tcf/cart" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:ns1="http://webservice.tcf.isa.polytech.unice.fr/" name="CartWebServiceImplService" targetNamespace="http://www.polytech.unice.fr/si/4a/isa/tcf/cart">
+    <wsdl:import location="CartWSType.wsdl" namespace="http://webservice.tcf.isa.polytech.unice.fr/">
     </wsdl:import>
     <wsdl:binding name="CartWebServiceImplServiceSoapBinding" type="ns1:CartWebService">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
@@ -15,6 +16,18 @@
                 <soap:fault name="UnknownCustomerException" use="literal"/>
             </wsdl:fault>
         </wsdl:operation>
+        <wsdl:operation name="removeItemToCustomerCart">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="removeItemToCustomerCart">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="removeItemToCustomerCartResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="UnknownCustomerException">
+                <soap:fault name="UnknownCustomerException" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
         <wsdl:operation name="addItemToCustomerCart">
             <soap:operation soapAction="" style="document"/>
             <wsdl:input name="addItemToCustomerCart">
@@ -23,6 +36,21 @@
             <wsdl:output name="addItemToCustomerCartResponse">
                 <soap:body use="literal"/>
             </wsdl:output>
+            <wsdl:fault name="UnknownCustomerException">
+                <soap:fault name="UnknownCustomerException" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="validate">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="validate">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="validateResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="PaymentException">
+                <soap:fault name="PaymentException" use="literal"/>
+            </wsdl:fault>
             <wsdl:fault name="UnknownCustomerException">
                 <soap:fault name="UnknownCustomerException" use="literal"/>
             </wsdl:fault>

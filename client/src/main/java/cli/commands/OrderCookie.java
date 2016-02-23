@@ -2,8 +2,8 @@ package cli.commands;
 
 import api.TCFPublicAPI;
 import cli.framework.Command;
-import stubs.cart.Item;
 import stubs.cart.Cookies;
+import stubs.cart.Item;
 
 import java.util.List;
 

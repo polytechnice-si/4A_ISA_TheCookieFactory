@@ -1,8 +1,10 @@
 
 package stubs.customerCare;
 
+import java.util.List;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
+import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.ws.RequestWrapper;
@@ -21,6 +23,34 @@ import javax.xml.ws.ResponseWrapper;
 })
 public interface CustomerCareService {
 
+
+    /**
+     * 
+     * @param orderId
+     * @return
+     *     returns stubs.customerCare.OrderStatus
+     * @throws UnknownOrderId_Exception
+     */
+    @WebMethod
+    @WebResult(name = "status", targetNamespace = "")
+    @RequestWrapper(localName = "track", targetNamespace = "http://webservice.tcf.isa.polytech.unice.fr/", className = "stubs.customerCare.Track")
+    @ResponseWrapper(localName = "trackResponse", targetNamespace = "http://webservice.tcf.isa.polytech.unice.fr/", className = "stubs.customerCare.TrackResponse")
+    public OrderStatus track(
+        @WebParam(name = "order_id", targetNamespace = "")
+        String orderId)
+        throws UnknownOrderId_Exception
+    ;
+
+    /**
+     * 
+     * @return
+     *     returns java.util.List<stubs.customerCare.Cookies>
+     */
+    @WebMethod
+    @WebResult(name = "recipes", targetNamespace = "")
+    @RequestWrapper(localName = "listAllRecipes", targetNamespace = "http://webservice.tcf.isa.polytech.unice.fr/", className = "stubs.customerCare.ListAllRecipes")
+    @ResponseWrapper(localName = "listAllRecipesResponse", targetNamespace = "http://webservice.tcf.isa.polytech.unice.fr/", className = "stubs.customerCare.ListAllRecipesResponse")
+    public List<Cookies> listAllRecipes();
 
     /**
      * 

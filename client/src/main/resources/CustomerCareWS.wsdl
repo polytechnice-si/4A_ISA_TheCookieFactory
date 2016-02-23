@@ -4,6 +4,27 @@
     </wsdl:import>
     <wsdl:binding name="CustomerCareServiceImplServiceSoapBinding" type="ns1:CustomerCareService">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="track">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="track">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="trackResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="UnknownOrderId">
+                <soap:fault name="UnknownOrderId" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="listAllRecipes">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="listAllRecipes">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="listAllRecipesResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
         <wsdl:operation name="register">
             <soap:operation soapAction="" style="document"/>
             <wsdl:input name="register">

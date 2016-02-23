@@ -12,7 +12,8 @@ import java.util.Optional;
 
 
 @Stateless
-public class CustomerRegistryBean implements CustomerRegistration, CustomerFinder {
+public class CustomerRegistryBean
+		implements CustomerRegistration, CustomerFinder {
 
 	@EJB
 	private Database memory;
@@ -22,7 +23,8 @@ public class CustomerRegistryBean implements CustomerRegistration, CustomerFinde
 	 ******************************************/
 
 	@Override
-	public void register(String name, String creditCard) throws AlreadyExistingCustomerException {
+	public void register(String name, String creditCard)
+			throws AlreadyExistingCustomerException {
 	 	if(findByName(name).isPresent())
 			throw new AlreadyExistingCustomerException(name);
 		memory.getCustomers().put(name, new Customer(name, creditCard));
@@ -42,3 +44,4 @@ public class CustomerRegistryBean implements CustomerRegistration, CustomerFinde
 	}
 
 }
+

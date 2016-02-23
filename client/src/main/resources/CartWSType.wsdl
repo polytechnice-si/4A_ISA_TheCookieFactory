@@ -6,6 +6,10 @@
             <xs:element name="addItemToCustomerCartResponse" type="tns:addItemToCustomerCartResponse"/>
             <xs:element name="getCustomerCartContents" type="tns:getCustomerCartContents"/>
             <xs:element name="getCustomerCartContentsResponse" type="tns:getCustomerCartContentsResponse"/>
+            <xs:element name="removeItemToCustomerCart" type="tns:removeItemToCustomerCart"/>
+            <xs:element name="removeItemToCustomerCartResponse" type="tns:removeItemToCustomerCartResponse"/>
+            <xs:element name="validate" type="tns:validate"/>
+            <xs:element name="validateResponse" type="tns:validateResponse"/>
             <xs:complexType name="getCustomerCartContents">
                 <xs:sequence>
                     <xs:element minOccurs="0" name="customer_name" type="xs:string"/>
@@ -22,6 +26,15 @@
                     <xs:element name="quantity" type="xs:int"/>
                 </xs:sequence>
             </xs:complexType>
+            <xs:complexType name="removeItemToCustomerCart">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="customer_name" type="xs:string"/>
+                    <xs:element minOccurs="0" name="item" type="tns:item"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="removeItemToCustomerCartResponse">
+                <xs:sequence/>
+            </xs:complexType>
             <xs:complexType name="addItemToCustomerCart">
                 <xs:sequence>
                     <xs:element minOccurs="0" name="customer_name" type="xs:string"/>
@@ -30,6 +43,16 @@
             </xs:complexType>
             <xs:complexType name="addItemToCustomerCartResponse">
                 <xs:sequence/>
+            </xs:complexType>
+            <xs:complexType name="validate">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="customer_name" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="validateResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="order_id" type="xs:string"/>
+                </xs:sequence>
             </xs:complexType>
             <xs:simpleType name="cookies">
                 <xs:restriction base="xs:string">
@@ -44,10 +67,24 @@
                     <xs:element minOccurs="0" name="message" type="xs:string"/>
                 </xs:sequence>
             </xs:complexType>
+            <xs:element name="PaymentException" type="tns:PaymentException"/>
+            <xs:complexType name="PaymentException">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="message" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
         </xs:schema>
     </wsdl:types>
+    <wsdl:message name="removeItemToCustomerCartResponse">
+        <wsdl:part element="ns1:removeItemToCustomerCartResponse" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
     <wsdl:message name="getCustomerCartContentsResponse">
         <wsdl:part element="ns1:getCustomerCartContentsResponse" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="validate">
+        <wsdl:part element="ns1:validate" name="parameters">
         </wsdl:part>
     </wsdl:message>
     <wsdl:message name="addItemToCustomerCartResponse">
@@ -58,12 +95,24 @@
         <wsdl:part element="ns1:UnknownCustomerException" name="UnknownCustomerException">
         </wsdl:part>
     </wsdl:message>
+    <wsdl:message name="PaymentException">
+        <wsdl:part element="ns1:PaymentException" name="PaymentException">
+        </wsdl:part>
+    </wsdl:message>
     <wsdl:message name="getCustomerCartContents">
         <wsdl:part element="ns1:getCustomerCartContents" name="parameters">
         </wsdl:part>
     </wsdl:message>
+    <wsdl:message name="removeItemToCustomerCart">
+        <wsdl:part element="ns1:removeItemToCustomerCart" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
     <wsdl:message name="addItemToCustomerCart">
         <wsdl:part element="ns1:addItemToCustomerCart" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="validateResponse">
+        <wsdl:part element="ns1:validateResponse" name="parameters">
         </wsdl:part>
     </wsdl:message>
     <wsdl:portType name="CartWebService">
@@ -75,11 +124,29 @@
             <wsdl:fault message="ns1:UnknownCustomerException" name="UnknownCustomerException">
             </wsdl:fault>
         </wsdl:operation>
+        <wsdl:operation name="removeItemToCustomerCart">
+            <wsdl:input message="ns1:removeItemToCustomerCart" name="removeItemToCustomerCart">
+            </wsdl:input>
+            <wsdl:output message="ns1:removeItemToCustomerCartResponse" name="removeItemToCustomerCartResponse">
+            </wsdl:output>
+            <wsdl:fault message="ns1:UnknownCustomerException" name="UnknownCustomerException">
+            </wsdl:fault>
+        </wsdl:operation>
         <wsdl:operation name="addItemToCustomerCart">
             <wsdl:input message="ns1:addItemToCustomerCart" name="addItemToCustomerCart">
             </wsdl:input>
             <wsdl:output message="ns1:addItemToCustomerCartResponse" name="addItemToCustomerCartResponse">
             </wsdl:output>
+            <wsdl:fault message="ns1:UnknownCustomerException" name="UnknownCustomerException">
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="validate">
+            <wsdl:input message="ns1:validate" name="validate">
+            </wsdl:input>
+            <wsdl:output message="ns1:validateResponse" name="validateResponse">
+            </wsdl:output>
+            <wsdl:fault message="ns1:PaymentException" name="PaymentException">
+            </wsdl:fault>
             <wsdl:fault message="ns1:UnknownCustomerException" name="UnknownCustomerException">
             </wsdl:fault>
         </wsdl:operation>

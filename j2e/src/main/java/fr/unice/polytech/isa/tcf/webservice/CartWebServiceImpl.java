@@ -4,6 +4,7 @@ import fr.unice.polytech.isa.tcf.CartModifier;
 import fr.unice.polytech.isa.tcf.CustomerFinder;
 import fr.unice.polytech.isa.tcf.entities.Customer;
 import fr.unice.polytech.isa.tcf.entities.Item;
+import fr.unice.polytech.isa.tcf.exceptions.PaymentException;
 import fr.unice.polytech.isa.tcf.exceptions.UnknownCustomerException;
 
 import javax.ejb.EJB;
@@ -16,25 +17,39 @@ import java.util.Set;
 @Stateless(name = "CartWS")
 public class CartWebServiceImpl implements CartWebService {
 
-	@EJB(name="stateless-cart")
-	CartModifier cart;
-
-	@EJB
-	CustomerFinder finder;
+	@EJB(name="stateless-cart") private CartModifier cart;
+	@EJB private CustomerFinder finder;
 
 	@Override
-	public void addItemToCustomerCart(String customerName, Item it) throws UnknownCustomerException {
-		Optional<Customer> c = finder.findByName(customerName);
-		if(!c.isPresent())
-			throw new UnknownCustomerException(customerName);
-		cart.add(c.get(), it);
+	public void addItemToCustomerCart(String customerName, Item it)
+			throws UnknownCustomerException {
+		cart.add(readCustomer(customerName), it);
 	}
 
 	@Override
-	public Set<Item> getCustomerCartContents(String customerName) throws UnknownCustomerException {
+	public void removeItemToCustomerCart(String customerName, Item it)
+			throws UnknownCustomerException {
+		cart.remove(readCustomer(customerName), it);
+	}
+
+	@Override
+	public Set<Item> getCustomerCartContents(String customerName)
+			throws UnknownCustomerException {
+		return cart.contents(readCustomer(customerName));
+	}
+
+	@Override
+	public String validate(String customerName)
+			throws PaymentException, UnknownCustomerException {
+		return cart.validate(readCustomer(customerName));
+	}
+
+	private Customer readCustomer(String customerName)
+			throws UnknownCustomerException {
 		Optional<Customer> c = finder.findByName(customerName);
 		if(!c.isPresent())
 			throw new UnknownCustomerException(customerName);
-		return cart.contents(c.get());
+		return c.get();
 	}
+
 }
