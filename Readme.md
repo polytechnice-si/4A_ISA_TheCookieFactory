@@ -434,9 +434,13 @@ private static CartWebService initialize(String host, String port) {
 
 ## External partner
 
-### Implementing a .Net web service using Mono
+### Implementing a .Net REST service using Mono
 
-### Invoking a web service within a J2E component
+### Invoking a REST service 
+
+```json
+{ "CreditCard": "pouet", "Amount": 12.09 }
+```
 
 ## Complete TCF Architecture with Mocked data
 

@@ -12,5 +12,5 @@ cd ..
 
 ## Building the .Net system
 cd dotNet
-echo "Nothing to do yet"
+mcs src/*.cs -pkg:wcf -out:server.exe
 cd ..
