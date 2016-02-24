@@ -20,9 +20,9 @@ To run the demonstration, first start the two servers in two different terminals
     mosser@azrael $ cd j2e
     mosser@azrael j2e$ mvn tomee:run
   
-    # .Net terminal						(^C to stop)
+    # .Net terminal						(return to stop)
     mosser@azrael $ cd dotNet
-    mosser@azrael dotNet$ XXX
+    mosser@azrael dotNet$ mono server.exe
     
     # Remote Client						(bye to stop)
     mosser@azrael $ cd client
@@ -432,9 +432,41 @@ private static CartWebService initialize(String host, String port) {
 }
 ```
 
-## External partner
+## External Partner
+
+The bank used by TCF to support payments in CoD implements its payment service as a REST one. This service exposes the following resources:
+
+  * `request`, a singleton resource that accept `POST` requests used to post `PaymentRequest`s to the Bank;
+  * `payments`, a list of all payment identifiers available in the system;
+  * `payments/{id}`, the description of a given payment;
 
 ### Implementing a .Net REST service using Mono
+
+The Web Service is implemented in the `dotNet/src` directory. The compilation script generates a self-hosted server (in a file named `server.exe`) that starts a web server and binds the requested URIs to the defined operations.
+
+The description of the service interface is straightforward:
+
+```csharp
+[ServiceContract]
+public interface IPaymentService
+{
+  [OperationContract]
+  [WebInvoke( Method = "POST", UriTemplate = "request", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+  int ReceiveRequest(PaymentRequest request);
+
+  [OperationContract]
+  [WebInvoke( Method = "GET", UriTemplate = "payments/{identifier}", ResponseFormat = WebMessageFormat.Json)]
+  Payment FindPaymentById(int identifier);
+
+  [OperationContract]
+  [WebInvoke( Method = "GET", UriTemplate = "payments", ResponseFormat = WebMessageFormat.Json)]
+  List<int> GetAllPaymentIds();
+}
+```
+
+The implementation is also trivial. We use a map instantiated as an instance variable to implement persistence. It makes the service stateful, which is an anti-pattern and only make sense as we are creating a Proof of Concept. 
+
+To start the service, simply run `mono server.exe`.
 
 ### Invoking a REST service 
 
