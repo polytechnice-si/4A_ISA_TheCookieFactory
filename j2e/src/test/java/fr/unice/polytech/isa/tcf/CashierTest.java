@@ -21,7 +21,6 @@ import static org.junit.Assert.*;
 public class CashierTest extends AbstractTCFTest {
 
 	@EJB private Payment cashier;
-
 	private Set<Item> items;
 
 	@Before
@@ -38,7 +37,7 @@ public class CashierTest extends AbstractTCFTest {
 		Customer john = new Customer("john", "1234-896983");  // ends with the secret YES Card number
 		String id = cashier.payOrder(john, items);
 
-		// memory contents
+		// memory contents from the Order point of view
 		Order order = memory.getOrders().get(id);
 		assertNotNull(order);
 		assertEquals(john, order.getCustomer());
@@ -53,5 +52,21 @@ public class CashierTest extends AbstractTCFTest {
 		Customer pat = new Customer("pat", "1234-567890");  // will be rejected by the payment service
 		String id = cashier.payOrder(pat, items);
 	}
+
+
+	@EJB private CustomerFinder finder;
+	@EJB private CustomerRegistration registration;
+
+	@Test
+	public void integrationBetweenCustomersAndOrders() throws Exception {
+		// memory contents from the Customer point of view
+		registration.register("john", "1234-896983");
+		Customer retrieved = finder.findByName("john").get();
+		assertTrue(retrieved.getOrders().isEmpty());
+		String id = cashier.payOrder(retrieved, items);
+		Order order = memory.getOrders().get(id);
+		assertTrue(retrieved.getOrders().contains(order));
+	}
+
 
 }

@@ -7,18 +7,18 @@ import stubs.cart.Item;
 
 import java.util.List;
 
-public class OrderCookie extends CartManagement {
+public class RemoveCookie extends CartManagement {
 
 	@Override
-	public String identifier() { return "order"; }
+	public String identifier() { return "remove"; }
 
 	@Override
 	public void execute() throws Exception {
-		system.carts.addItemToCustomerCart(customerName, item);
+		system.carts.removeItemToCustomerCart(customerName, item);
 	}
 
 	@Override
 	public String describe() {
-		return "Order some cookies for a given customer (order CUSTOMER QUANTITY RECIPE)";
+		return "Remove some cookies for a given customer (remove CUSTOMER QUANTITY RECIPE)";
 	}
 }

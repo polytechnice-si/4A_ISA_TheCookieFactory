@@ -1,9 +1,10 @@
 package fr.unice.polytech.isa.tcf.entities;
 
+import java.io.Serializable;
 import java.util.Set;
 import java.util.UUID;
 
-public class Order {
+public class Order implements Serializable {
 
 	private String id;
 	private Customer customer;
@@ -31,4 +32,25 @@ public class Order {
 		return result;
 	}
 
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Order)) return false;
+		Order order = (Order) o;
+		if (!getId().equals(order.getId())) return false;
+		if (!getCustomer().equals(order.getCustomer())) return false;
+		if (!getItems().equals(order.getItems())) return false;
+		return getStatus() == order.getStatus();
+
+	}
+
+	@Override
+	public int hashCode() {
+		int result = getId().hashCode();
+		result = 31 * result + getCustomer().hashCode();
+		result = 31 * result + getItems().hashCode();
+		result = 31 * result + getStatus().hashCode();
+		return result;
+	}
 }

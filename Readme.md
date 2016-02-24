@@ -36,13 +36,33 @@ _The Cookie Factory_ (TCF) is a major bakery brand in the USA. The _Cookie on De
 
 ### Components assembly
 
+The system is defined as layers:
+
+  * A remote client (green) , that will run on each customer's device;
+  * A J2E kernel (blue), implementing the business logic of the CoD system;
+  * An interoperability layer (grey) between the client and the kernel, implemented as SOAP-based web services;
+  * An external partner (orange, implemented in .Net), communicating with the CoD system through a Web Service.
+
 ![Architecture](https://raw.githubusercontent.com/polytechnice-si/4A_ISA_TheCookieFactory/master/docs/archi.png)
 
 ### Functional interfaces
 
+To deliver the expected features, the coD system defines the following interfaces:
+
+  * [`CartModifier`](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/master/j2e/src/main/java/fr/unice/polytech/isa/tcf/CartModifier.java): operations to handle a given customer's cart, like adding or removing cookies, retrieving the contents of the cart and validating the cart to process the associated order;
+  * [`CustomerFinder`](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/master/j2e/src/main/java/fr/unice/polytech/isa/tcf/CustomerFinder.java): a _finder_ interface to retrieve a customer based on her identifier (here simplified to her name);
+  * [`CustomerRegistration`](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/master/j2e/src/main/java/fr/unice/polytech/isa/tcf/CustomerRegistration.java): operations to handle customer's registration (users profile, ...)
+  * [`CatalogueExploration`](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/master/j2e/src/main/java/fr/unice/polytech/isa/tcf/CatalogueExploration.java): operations to retrieve recipes available for purchase in the CoD;
+  * [`OrderProcessing`](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/master/j2e/src/main/java/fr/unice/polytech/isa/tcf/OrderProcessing.java): process an order (kitchen order lifecycle management);
+  * [`Payment`](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/master/j2e/src/main/java/fr/unice/polytech/isa/tcf/Payment.java): operations related to the payment of a given cart's contents;
+  * [`Tracker`](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/master/j2e/src/main/java/fr/unice/polytech/isa/tcf/Tracker.java): order tracker to retrieve information about the current status of a given order.
+
+
 ![Interfaces](https://raw.githubusercontent.com/polytechnice-si/4A_ISA_TheCookieFactory/master/docs/interfaces.png)
 
 ### Business objects
+
+The business objects are simple: [`Cookies`](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/master/j2e/src/main/java/fr/unice/polytech/isa/tcf/entities/Cookies.java) are defined as an enumerate, binding a name to a price. An [`Item`](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/master/j2e/src/main/java/fr/unice/polytech/isa/tcf/entities/Item.java) models the elements stored inside a cart, _i.e._, a given cookie and the quantity to order. A [`Customer`](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/master/j2e/src/main/java/fr/unice/polytech/isa/tcf/entities/Customer.java) makes orders thanks to the CoD system, and an [`Order`](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/master/j2e/src/main/java/fr/unice/polytech/isa/tcf/entities/Order.java) stores the set of items effectively ordered by the associated customer (bidirectional association).
 
 ![Business Objects](https://raw.githubusercontent.com/polytechnice-si/4A_ISA_TheCookieFactory/master/docs/business.png)
 
@@ -201,7 +221,7 @@ public abstract class AbstractCartBean implements Cart {
 	}
 
 	/**
-	 * Protected method to update the cart of a given customer, shared by both statefull and stateless beans
+	 * Protected method to update the cart of a given customer, shared by both stateful and stateless beans
 	 */
 	protected Set<Item> updateCart(Customer c, Item item) {
 		Set<Item> items = contents(c);
@@ -383,7 +403,7 @@ public static void main() {
 
 The previously described code works well, but rely on a very string assumption: the service will always be located at the very same location (on localhost). Moreover, the client will load at runtime the WSDL contract, so if one moves the contract elsewhere, the client code does not work anymore. And it is anyway not reasonable to package a distributed application that will only run on localhost. We need to _clean_ our default implementation to be more _aware_ of the server location.
 
-First point, look at the WSDL contract. Even if stored locally as a resource, it refers to a remote file located at [localhost:8080/tcf-backend/webservices/CartWS?wsdl=CartWebService.wsdl](localhost:8080/tcf-backend/webservices/CartWS?wsdl=CartWebService.wsdl). We store this file as a local one, side by side with the initial contract, in a file named `CartWSType.wsdl` (as it basically defines the data types associated to our contract). Then, we edit the `CartWS.wsdl` file to point to this local file instead of the remote one. We should now edit the initialization code to refer to our local file instead of the remote one.
+First point, look at the WSDL contract. Even if stored locally as a resource, it refers to a remote file located at [http://localhost:8080/tcf-backend/webservices/CartWS?wsdl=CartWebService.wsdl](http://localhost:8080/tcf-backend/webservices/CartWS?wsdl=CartWebService.wsdl). We store this file as a local one, side by side with the initial contract, in a file named `CartWSType.wsdl` (as it basically defines the data types associated to our contract). Then, we edit the `CartWS.wsdl` file to point to this local file instead of the remote one (in the `wsdlLocation` attribute). We should now edit the initialization code to refer to our local file instead of the remote one.
 
 ```java
 private static CartWebService initialize() {
@@ -412,27 +432,37 @@ private static CartWebService initialize(String host, String port) {
 }
 ```
 
-## Complete TCF Architecture with Mocked data
-
-
-
-### Implementing the components
-
-### Web service exposition
-
-## Persistent entities
-
-### Scalar entities
-
-### Composite entities
-
-### Querying the persistent objects
-
 ## External partner
 
 ### Implementing a .Net web service using Mono
 
 ### Invoking a web service within a J2E component
+
+## Complete TCF Architecture with Mocked data
+
+__Note__: To checkout this version, be sure that you are browsing the code stored in the `volatile` branch.
+
+Interfaces are defined in the main package, as classical Java interfaces. Components are implemented in the `components` sub-package, in classes with `Bean` postfixed names. When a component refers to another one according to a _provides/requires_ association, the component implementation refers to the associated Interface instead of the concrete implementation to ensure decoupling.
+
+![Architecture Implementation](https://raw.githubusercontent.com/polytechnice-si/4A_ISA_TheCookieFactory/master/docs/archi_impl.png)
+
+The `Cart` component is implemented twice, first as a `Stateful` bean, and then as a `Stateless` one (in the `cart` sub-package). 
+
+![Architecture Implementation](https://raw.githubusercontent.com/polytechnice-si/4A_ISA_TheCookieFactory/master/docs/archi_cart.png) 
+
+As there is no persistent backend, we mocked the persistence layer using a `Singleton` bean named `Database`. It stores all the necessary data in static maps. We'll se in the next section how to remove this mock and use a real persistence layer thanks to EJB Entities.
+
+
+## Persistent entities
+
+### Scalar entities & Composite entities
+
+### Configuring a datasource
+
+### Transactions
+
+### Querying the persistent objects
+
 
 ## Interceptors
 
@@ -440,5 +470,15 @@ private static CartWebService initialize(String host, String port) {
 
 ### Counting the number of processed carts
 
+### Rejecting invalid add/remove invocation
+
 ## Summary
+
+This reference implementation demonstrates the following points with respect to the Introduction to Software Architecture course objectives:
+
+  - Modeling a component-based architecture focused on offered and required functional interfaces;
+  - Implementing such components using (stateless) EJB Sessions with J2E;
+  - Using SOAP-based Web Services as an interoperable layer to integrate heterogeneous technologies (remote client, J2E and .Net);
+  - Consuming web services from remote clients (B2C or B2B);
+  - Using EJB entities to support the implementation of a persistence layer.
   
