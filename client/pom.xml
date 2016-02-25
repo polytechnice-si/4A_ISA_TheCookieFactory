@@ -3,6 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>fr.unice.polytech.isa</groupId>
     <artifactId>tcf-client</artifactId>
+    <name>ISA :: The Cookie Factory :: Remote Client</name>
     <version>1.0-SNAPSHOT</version>
 
     <properties>

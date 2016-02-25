@@ -440,7 +440,7 @@ The bank used by TCF to support payments in CoD implements its payment service a
   * `payments`, a list of all payment identifiers available in the system;
   * `payments/{id}`, the description of a given payment;
 
-### Implementing a .Net REST service using Mono
+### Implementing a REST service using Mono (.Net)
 
 The Web Service is implemented in the `dotNet/src` directory. The compilation script generates a self-hosted server (in a file named `server.exe`) that starts a web server and binds the requested URIs to the defined operations.
 
@@ -451,7 +451,7 @@ The description of the service interface is straightforward:
 public interface IPaymentService
 {
   [OperationContract]
-  [WebInvoke( Method = "POST", UriTemplate = "request", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
+  [WebInvoke( Method = "POST", UriTemplate = "mailbox", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
   int ReceiveRequest(PaymentRequest request);
 
   [OperationContract]
@@ -466,15 +466,52 @@ public interface IPaymentService
 
 The implementation is also trivial. We use a map instantiated as an instance variable to implement persistence. It makes the service stateful, which is an anti-pattern and only make sense as we are creating a Proof of Concept. 
 
-To start the service, simply run `mono server.exe`.
+To start the service hosting server, simply run `mono server.exe`.
 
 ### Invoking a REST service 
 
-```json
-{ "CreditCard": "pouet", "Amount": 12.09 }
+As the system relies on simple HTTP requests, one can invoke the PaymentService using any HTTP client, just by specifying the right headers and body for a given request. For example using _cURL_, here are the different commands one can use:
+
+```
+azrael:~ mosser$ REQUEST='{ "CreditCard": "1234-896983", "Amount": 12.09 }'
+azrael:~ mosser$ BASE_URL="http://localhost:9090"
+azrael:~ mosser$ HEADERS='Content-Type: application/json'
+azrael:~ mosser$ curl -i -w "\n" -H "$HEADERS"  -X POST -d "$REQUEST" $BASE_URL/mailbox
+HTTP/1.1 200 
+Content-Type: application/json; charset=utf-8
+Server: Mono-HTTPAPI/1.0
+Date: Thu, 25 Feb 2016 09:24:41 GMT
+Content-Length: 1
+Keep-Alive: timeout=15,max=100
+
+1
+azrael:~ mosser$ curl -i -w "\n" -H "$HEADERS"  -X GET $BASE_URL/payments
+HTTP/1.1 200 
+Content-Type: application/json; charset=utf-8
+Server: Mono-HTTPAPI/1.0
+Date: Thu, 25 Feb 2016 13:24:15 GMT
+Content-Length: 7
+Keep-Alive: timeout=15,max=100
+
+[1,2,3]
+azrael:~ mosser$ curl -i -w "\n" -H "$HEADERS"  -X GET $BASE_URL/payments/1
+HTTP/1.1 200 
+Content-Type: application/json; charset=utf-8
+Server: Mono-HTTPAPI/1.0
+Date: Thu, 25 Feb 2016 13:24:29 GMT
+Content-Length: 100
+Keep-Alive: timeout=15,max=100
+
+{"Amount":12.09,"CreditCard":"1234-896983","Date":"25\/02\/2016 10:24:41","Identifier":0,"Status":0}
+azrael:~ mosser$
 ```
 
-## Complete TCF Architecture with Mocked data
+### Invoking a REST service from Java
+
+The J2E system consumes the Bank service. As a consequence, our EJBs will act as _clients_ of this service.
+
+
+## Complete TCF Architecture with Volatile data
 
 __Note__: To checkout this version, be sure that you are browsing the code stored in the `volatile` branch.
 
@@ -488,8 +525,7 @@ The `Cart` component is implemented twice, first as a `Stateful` bean, and then 
 
 As there is no persistent backend, we mocked the persistence layer using a `Singleton` bean named `Database`. It stores all the necessary data in static maps. We'll se in the next section how to remove this mock and use a real persistence layer thanks to EJB Entities.
 
-
-## Persistent entities
+## Implementing the persistence layer
 
 ### Scalar entities & Composite entities
 
@@ -514,7 +550,8 @@ This reference implementation demonstrates the following points with respect to 
 
   - Modeling a component-based architecture focused on offered and required functional interfaces;
   - Implementing such components using (stateless) EJB Sessions with J2E;
-  - Using SOAP-based Web Services as an interoperable layer to integrate heterogeneous technologies (remote client, J2E and .Net);
-  - Consuming web services from remote clients (B2C or B2B);
+  - Using SOAP-based Web Services as an interoperable layer to integrate heterogeneous technologies through _Remote Procedure Call_ (RPC): remote client <--> J2E;
+  - Using REST-based Web Services as an interoperable layer to integrate heterogeneous technologies through _Resource exposition_: J2E <--> .Net
+  - Consuming web services (SOAPfrom remote clients (B2C or B2B);
   - Using EJB entities to support the implementation of a persistence layer.
   

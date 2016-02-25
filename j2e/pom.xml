@@ -1,30 +1,41 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>fr.unice.polytech.isa</groupId>
-  <artifactId>tcf-backend</artifactId>
-  <packaging>war</packaging>
-  <version>1.0-SNAPSHOT</version>
-  <name>ISA :: The Cookie Factory :: Demonstration</name>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>fr.unice.polytech.isa</groupId>
+    <artifactId>tcf-backend</artifactId>
+    <packaging>war</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <name>ISA :: The Cookie Factory :: J2E Backend</name>
 
-  <properties>
-      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-      <versions.tomee.embedded>1.7.3</versions.tomee.embedded>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <versions.tomee.embedded>1.7.3</versions.tomee.embedded>
+    </properties>
 
-      <!-- Stable versions -->
-      <versions.javaee>6.0-6</versions.javaee>
-      <versions.openejb>4.7.3</versions.openejb>
-      <versions.tomee>1.7.3</versions.tomee>
-
-      <!-- Latest (snapshot) versions. TODO: use a profile instead of comments -->
-      <!--
-      <versions.javaee>7.0-SNAPSHOT</versions.javaee>
-      <versions.openejb>5.0.0-SNAPSHOT</versions.openejb>
-      <versions.tomee>2.0.0-SNAPSHOT</versions.tomee>
-      -->
-  </properties>
+    <profiles>
+        <profile>
+            <id>stable</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <versions.javaee>6.0-6</versions.javaee>
+                <versions.openejb>4.7.3</versions.openejb>
+                <versions.tomee>1.7.3</versions.tomee>
+            </properties>
+        </profile>
+        <profile>
+            <!-- Use mvn -P latest to activate these dependencies -->
+            <id>latest</id>
+            <properties>
+                <versions.javaee>7.0-SNAPSHOT</versions.javaee>
+                <versions.openejb>5.0.0-SNAPSHOT</versions.openejb>
+                <versions.tomee>2.0.0-SNAPSHOT</versions.tomee>
+            </properties>
+        </profile>
+    </profiles>
 
 
     <repositories>
@@ -36,55 +47,72 @@
         </repository>
     </repositories>
 
-  <dependencies>
-      <!-- Dependencies for the OpenEJB framework -->
-      <dependency>
-          <groupId>org.apache.openejb</groupId>
-          <artifactId>javaee-api</artifactId>
-          <version>${versions.javaee}</version>
-          <scope>provided</scope>
-      </dependency>
-      <dependency>
-          <groupId>org.apache.openejb</groupId>
-          <artifactId>openejb-core</artifactId>
-          <version>${versions.openejb}</version>
-          <scope>test</scope>
-      </dependency>
-      <dependency>
-          <groupId>org.apache.openejb</groupId>
-          <artifactId>tomee-embedded</artifactId>
-          <version>${versions.tomee}</version>
-          <scope>test</scope>
-      </dependency>
-      <!-- Dependencies for the testing frameworks (Junit & Arquillian) -->
-      <dependency>
-          <groupId>junit</groupId>
-          <artifactId>junit</artifactId>
-          <version>4.12</version>
-          <scope>test</scope>
-      </dependency>
-      <dependency>
-          <groupId>org.jboss.arquillian.junit</groupId>
-          <artifactId>arquillian-junit-container</artifactId>
-          <version>1.1.5.Final</version>
-          <scope>test</scope>
-      </dependency>
-      <dependency>
-          <groupId>org.jboss.shrinkwrap.resolver</groupId>
-          <artifactId>shrinkwrap-resolver-depchain</artifactId>
-          <version>2.1.1</version>
-          <type>pom</type>
-          <scope>test</scope>
-      </dependency>
-      <!-- Application server: Tomee -->
-      <dependency>
-          <groupId>org.apache.openejb</groupId>
-          <artifactId>arquillian-tomee-embedded</artifactId>
-          <version>${versions.tomee.embedded}</version>
-          <scope>test</scope>
-      </dependency>
+    <dependencies>
+        <!-- Dependencies for the OpenEJB framework -->
+        <dependency>
+            <groupId>org.apache.openejb</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>${versions.javaee}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.openejb</groupId>
+            <artifactId>openejb-core</artifactId>
+            <version>${versions.openejb}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.openejb</groupId>
+            <artifactId>tomee-embedded</artifactId>
+            <version>${versions.tomee}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- Dependency to integrate REST clients -->
+        <dependency>
+            <groupId>org.apache.openejb</groupId>
+            <artifactId>openejb-cxf-rs</artifactId>
+            <version>${versions.openejb}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20160212</version>
+        </dependency>
+        <!-- Dependencies for the testing frameworks (Junit, Mockito & Arquillian) -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>1.10.19</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.junit</groupId>
+            <artifactId>arquillian-junit-container</artifactId>
+            <version>1.1.5.Final</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.shrinkwrap.resolver</groupId>
+            <artifactId>shrinkwrap-resolver-depchain</artifactId>
+            <version>2.1.1</version>
+            <type>pom</type>
+            <scope>test</scope>
+        </dependency>
+        <!-- Application server: Tomee -->
+        <dependency>
+            <groupId>org.apache.openejb</groupId>
+            <artifactId>arquillian-tomee-embedded</artifactId>
+            <version>${versions.tomee.embedded}</version>
+            <scope>test</scope>
+        </dependency>
 
-  </dependencies>
+    </dependencies>
 
     <build>
         <finalName>tcf-backend</finalName>
@@ -97,7 +125,27 @@
                 <configuration>
                     <!-- otherwise openejb embedded and tomee embedded shares the same context and EJBContainer is broken -->
                     <reuseForks>false</reuseForks>
+                    <excludes>
+                        <exclude>**/*IntegrationTest.java</exclude>
+                    </excludes>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>integration-test</id>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <phase>integration-test</phase>
+                        <configuration>
+                            <excludes>
+                                <exclude>none</exclude>
+                            </excludes>
+                            <includes>
+                                <include>**/*IntegrationTest.java</include>
+                            </includes>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

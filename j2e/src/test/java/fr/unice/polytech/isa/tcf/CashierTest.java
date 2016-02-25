@@ -6,6 +6,7 @@ import fr.unice.polytech.isa.tcf.entities.Customer;
 import fr.unice.polytech.isa.tcf.entities.Item;
 import fr.unice.polytech.isa.tcf.entities.Order;
 import fr.unice.polytech.isa.tcf.exceptions.PaymentException;
+import fr.unice.polytech.isa.tcf.utils.BankAPI;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,12 +17,17 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 @RunWith(Arquillian.class)
 public class CashierTest extends AbstractTCFTest {
 
 	@EJB private Payment cashier;
+
+	// Test context
 	private Set<Item> items;
+	Customer john;
+	Customer pat;
 
 	@Before
 	public void setUpContext() {
@@ -29,13 +35,20 @@ public class CashierTest extends AbstractTCFTest {
 		items = new HashSet<>();
 		items.add(new Item(Cookies.CHOCOLALALA, 3));
 		items.add(new Item(Cookies.DARK_TEMPTATION, 2));
+		// Customers
+		john = new Customer("john", "1234-896983");  // ends with the secret YES Card number
+		pat  = new Customer("pat", "1234-567890");   // should be rejected by the payment service
+		// Mocking the external partner
+		BankAPI mocked = mock(BankAPI.class);
+		cashier.useBankReference(mocked);
+		when(mocked.performPayment(eq(john), anyDouble())).thenReturn(true);
+		when(mocked.performPayment(eq(pat),  anyDouble())).thenReturn(false);
 	}
 
 	@Test
 	public void processToPayment() throws Exception {
 		// paying order
-		Customer john = new Customer("john", "1234-896983");  // ends with the secret YES Card number
-		String id = cashier.payOrder(john, items);
+ 		String id = cashier.payOrder(john, items);
 
 		// memory contents from the Order point of view
 		Order order = memory.getOrders().get(id);
@@ -48,25 +61,7 @@ public class CashierTest extends AbstractTCFTest {
 
 	@Test(expected = PaymentException.class)
 	public void identifyPaymentError() throws Exception {
-		// paying order
-		Customer pat = new Customer("pat", "1234-567890");  // will be rejected by the payment service
-		String id = cashier.payOrder(pat, items);
+		cashier.payOrder(pat, items);
 	}
-
-
-	@EJB private CustomerFinder finder;
-	@EJB private CustomerRegistration registration;
-
-	@Test
-	public void integrationBetweenCustomersAndOrders() throws Exception {
-		// memory contents from the Customer point of view
-		registration.register("john", "1234-896983");
-		Customer retrieved = finder.findByName("john").get();
-		assertTrue(retrieved.getOrders().isEmpty());
-		String id = cashier.payOrder(retrieved, items);
-		Order order = memory.getOrders().get(id);
-		assertTrue(retrieved.getOrders().contains(order));
-	}
-
 
 }

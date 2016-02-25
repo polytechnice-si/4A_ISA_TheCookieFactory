@@ -11,7 +11,7 @@ namespace Partner.Service {
   public interface IPaymentService
   {
     [OperationContract]
-    [WebInvoke( Method = "POST", UriTemplate = "request",
+    [WebInvoke( Method = "POST", UriTemplate = "mailbox",
                 RequestFormat = WebMessageFormat.Json,
                 ResponseFormat = WebMessageFormat.Json)]
     int ReceiveRequest(PaymentRequest request);
@@ -26,7 +26,7 @@ namespace Partner.Service {
     [WebInvoke( Method = "GET", UriTemplate = "payments",
                 ResponseFormat = WebMessageFormat.Json)]
     List<int> GetAllPaymentIds();
-    
+
 }
 
 }
