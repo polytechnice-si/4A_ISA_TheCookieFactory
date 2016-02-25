@@ -440,6 +440,8 @@ The bank used by TCF to support payments in CoD implements its payment service a
   * `payments`, a list of all payment identifiers available in the system;
   * `payments/{id}`, the description of a given payment;
 
+__Remark__: Contrarily to the previous service that was _SOAP-based_, this one is _resource-oriented_. The difference between the two paradigm is essential: the previous one exposes __procedures__ (_aka Remote Procedure Call_, RPC), where this one exposes __resources__ (_i.e._, nouns instead of verbs). 
+
 ### Implementing a REST service using Mono (.Net)
 
 The Web Service is implemented in the `dotNet/src` directory. The compilation script generates a self-hosted server (in a file named `server.exe`) that starts a web server and binds the requested URIs to the defined operations.
@@ -466,7 +468,7 @@ public interface IPaymentService
 
 The implementation is also trivial. We use a map instantiated as an instance variable to implement persistence. It makes the service stateful, which is an anti-pattern and only make sense as we are creating a Proof of Concept. 
 
-To start the service hosting server, simply run `mono server.exe`.
+To start the service hosting server, simply run `mono server.exe`. Command line parameters can be used to configure the port number for example.
 
 ### Invoking a REST service 
 
@@ -508,7 +510,100 @@ azrael:~ mosser$
 
 ### Invoking a REST service from Java
 
-The J2E system consumes the Bank service. As a consequence, our EJBs will act as _clients_ of this service.
+The J2E system consumes the Bank service. As a consequence, our EJBs will act as _clients_ of this service. We rely on the _Apache CXF_ library to consume REST web services. We implement the methods that support the communication with the service in a utility class named `BankAPI`:
+
+```java
+private Integer pay(JSONObject body) {
+	String str = client().path("/mailbox")
+			.accept(MediaType.APPLICATION_JSON_TYPE)
+			.header("Content-Type", MediaType.APPLICATION_JSON)
+			.post(body.toString(), String.class);
+	return Integer.parseInt(str);
+}
+
+private JSONObject getPaymentStatus(Integer id) {
+	String response = client().path("/payments/" + id).get(String.class);
+	JSONObject payment = new JSONObject(response);
+	return payment;
+}
+
+private boolean isValid(JSONObject payment) {
+	return (payment.getInt("Status") == 0);
+}
+```
+
+### Configuring the Bank endpoint
+
+The `CashierBean` class uses an instance of the `BankAPI` class to interact with the remote bank service. The endpoint cannot be hardcoded in its source code. As a consequence, we define a `bank.properties` file in the `resources` directory, which will defined the hostname and port number to be used when interacting with the Bank. In the `CashierBean`, we use a `@PostConstruct` annotation to load these properties from the resource file after the bean initialization:
+
+```java
+@PostConstruct
+private void initializeRestPartnership() throws IOException {
+	Properties prop = new Properties();
+	prop.load(this.getClass().getResourceAsStream("/bank.properties"));
+	bank = new BankAPI(	prop.getProperty("bankHostName"),
+							prop.getProperty("bankPortNumber"));
+}
+```
+
+### Testing the system: Unit vs Integration tests
+
+We are now facing an important issue: the J2E kernel is strongly coupled to the .Net system. One need to start the .Net server to make the J2E system available for tests purpose. To isolate the two systems for tests purpose, we need to _mock_ the BankAPI instead of using the real one.
+
+```java
+@Before
+public void setUpContext() {
+	memory.flush();
+	items = new HashSet<>();
+	items.add(new Item(Cookies.CHOCOLALALA, 3));
+	items.add(new Item(Cookies.DARK_TEMPTATION, 2));
+	// Customers
+	john = new Customer("john", "1234-896983");  // ends with the secret YES Card number
+	pat  = new Customer("pat", "1234-567890");   // should be rejected by the payment service
+	// Mocking the external partner
+	BankAPI mocked = mock(BankAPI.class);
+	cashier.useBankReference(mocked);
+	when(mocked.performPayment(eq(john), anyDouble())).thenReturn(true);
+	when(mocked.performPayment(eq(pat),  anyDouble())).thenReturn(false);
+}
+```
+But we also need to implement _Integration Tests_, that will ensure the end to end connection between our two systems. We rely on Maven to implement such a behavior: 
+
+  - classical Unit tests are always run (_e.g., when invoking `mvn package`)
+  - Integration tests will be run during the `integration-test` phase.
+
+We will differentiate classical tests and integration ones using a file name prefix: integration tests will match `*IntegrationTest`. In the `pom.xml` file we rely on the following configuration to implement these specifications:
+
+```xml
+<plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-surefire-plugin</artifactId>
+	<version>2.17</version>
+	<configuration>
+		<reuseForks>false</reuseForks>
+		<excludes>
+			<exclude>**/*IntegrationTest.java</exclude>
+		</excludes>
+	</configuration>
+	<executions>
+		<execution>
+			<id>integration-test</id>
+			<goals>
+				<goal>test</goal>
+			</goals>
+			<phase>integration-test</phase>
+			<configuration>
+				<excludes>
+					<exclude>**/*Test.java</exclude>
+				</excludes>
+				<includes>
+					<include>**/*IntegrationTest.java</include>
+				</includes>
+			</configuration>
+		</execution>
+	</executions>
+</plugin>
+``` 
 
 
 ## Complete TCF Architecture with Volatile data
@@ -544,14 +639,26 @@ As there is no persistent backend, we mocked the persistence layer using a `Sing
 
 ### Rejecting invalid add/remove invocation
 
-## Summary
+## Conclusions
+
+### Summary
 
 This reference implementation demonstrates the following points with respect to the Introduction to Software Architecture course objectives:
 
   - Modeling a component-based architecture focused on offered and required functional interfaces;
   - Implementing such components using (stateless) EJB Sessions with J2E;
-  - Using SOAP-based Web Services as an interoperable layer to integrate heterogeneous technologies through _Remote Procedure Call_ (RPC): remote client <--> J2E;
-  - Using REST-based Web Services as an interoperable layer to integrate heterogeneous technologies through _Resource exposition_: J2E <--> .Net
-  - Consuming web services (SOAPfrom remote clients (B2C or B2B);
-  - Using EJB entities to support the implementation of a persistence layer.
+  - Using SOAP-based Web Services as an interoperable layer to integrate heterogeneous technologies through _Remote Procedure Call_ (RPC): `remote client <--> J2E`;
+  - Using REST-based Web Services as an interoperable layer to integrate heterogeneous technologies through _Resource exposition_: `J2E <--> .Net`;
+  - Consuming web services (SOAP & Rest) from remote clients (B2C or B2B);
+  - Using EJB entities to support the implementation of a persistence layer;
+  - Using interceptors to work at the message level;
+  - Differentiating Unit tests and Integration tests using Maven.
   
+### Perspectives
+
+  - Use "real" application servers to support TCF deployment (Tomcat, IIS)
+    - See the DevOps course contents
+  - Use a "real" database server (_e.g._ postgres, MySQL)
+    - See the DevOps course contents 
+  - Use an _Enterprise Service Bus_ (ESB) to decouple the J2E system from the .Net one
+    - Consider to attend the _Service Integration_ course next year (id: SOA-1). 
