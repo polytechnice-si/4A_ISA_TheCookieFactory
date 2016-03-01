@@ -11,4 +11,14 @@ public class UnknownOrderId extends Exception implements Serializable {
 	}
 
 
+	public UnknownOrderId() {
+	}
+
+	public String getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
+	}
 }

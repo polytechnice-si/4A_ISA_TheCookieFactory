@@ -16,6 +16,7 @@
 
     <profiles>
         <profile>
+            <!-- Use 'mvn -P stable' to activate stable dependencies (by default) -->
             <id>stable</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -27,7 +28,7 @@
             </properties>
         </profile>
         <profile>
-            <!-- Use mvn -P latest to activate these dependencies -->
+            <!-- Use 'mvn -P latest' to activate these dependencies -->
             <id>latest</id>
             <properties>
                 <versions.javaee>7.0-SNAPSHOT</versions.javaee>
@@ -67,7 +68,12 @@
             <version>${versions.tomee}</version>
             <scope>test</scope>
         </dependency>
-        <!-- Dependency to integrate REST clients -->
+        <!-- Dependency to integrate REST clients (order matters for CXF) -->
+        <dependency>
+            <groupId>org.apache.openejb</groupId>
+            <artifactId>openejb-cxf</artifactId>
+            <version>${versions.openejb}</version>
+        </dependency>
         <dependency>
             <groupId>org.apache.openejb</groupId>
             <artifactId>openejb-cxf-rs</artifactId>

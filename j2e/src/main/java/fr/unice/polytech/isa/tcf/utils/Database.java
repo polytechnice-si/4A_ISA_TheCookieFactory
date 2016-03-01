@@ -22,14 +22,19 @@ public class Database {
 	private Map<String, Order> orders;
 	public Map<String, Order> getOrders() { return orders; }
 
+	private int cartCounter = 0;
+	public void incrementCarts() { cartCounter++; }
+	public int howManyCarts() { return cartCounter; }
+
 	public Database() {
 		flush();
 	}
 
 	public void flush() {
-		carts = new HashMap<>();
-		customers = new HashMap<>();
-		orders = new HashMap<>();
+		carts       = new HashMap<>();
+		customers   = new HashMap<>();
+		orders      = new HashMap<>();
+		cartCounter = 0;
 	}
 
 }

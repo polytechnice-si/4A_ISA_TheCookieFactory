@@ -1,6 +1,7 @@
 package fr.unice.polytech.isa.tcf;
 
 
+import arquillian.AbstractTCFTest;
 import fr.unice.polytech.isa.tcf.entities.Cookies;
 import fr.unice.polytech.isa.tcf.entities.Customer;
 import fr.unice.polytech.isa.tcf.entities.Item;
@@ -30,7 +31,7 @@ public class CashierTest extends AbstractTCFTest {
 	Customer pat;
 
 	@Before
-	public void setUpContext() {
+	public void setUpContext() throws Exception {
 		memory.flush();
 		items = new HashSet<>();
 		items.add(new Item(Cookies.CHOCOLALALA, 3));

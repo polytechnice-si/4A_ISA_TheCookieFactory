@@ -12,5 +12,5 @@ cd ..
 
 ## Building the .Net system
 cd dotNet
-mcs src/*.cs -pkg:wcf -out:server.exe
+./compile.sh
 cd ..

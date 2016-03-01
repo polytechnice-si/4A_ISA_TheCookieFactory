@@ -6,8 +6,11 @@ import fr.unice.polytech.isa.tcf.Payment;
 import fr.unice.polytech.isa.tcf.entities.Customer;
 import fr.unice.polytech.isa.tcf.entities.Item;
 import fr.unice.polytech.isa.tcf.exceptions.PaymentException;
+import fr.unice.polytech.isa.tcf.interceptors.CartCounter;
+import fr.unice.polytech.isa.tcf.interceptors.Logger;
 
 import javax.ejb.EJB;
+import javax.interceptor.Interceptors;
 import java.util.Optional;
 import java.util.Set;
 
@@ -17,6 +20,7 @@ public abstract class CartBean implements CartModifier {
 	protected Payment cashier;
 
 	@Override
+	@Interceptors({CartCounter.class})
 	public String validate(Customer c) throws PaymentException {
 		return cashier.payOrder(c, contents(c));
 	}

@@ -5,6 +5,7 @@ import fr.unice.polytech.isa.tcf.Payment;
 import fr.unice.polytech.isa.tcf.entities.Customer;
 import fr.unice.polytech.isa.tcf.entities.Item;
 import fr.unice.polytech.isa.tcf.entities.Order;
+import fr.unice.polytech.isa.tcf.exceptions.ExternalPartnerException;
 import fr.unice.polytech.isa.tcf.exceptions.PaymentException;
 import fr.unice.polytech.isa.tcf.utils.BankAPI;
 import fr.unice.polytech.isa.tcf.utils.Database;
@@ -19,11 +20,8 @@ import java.util.Set;
 @Stateless
 public class CashierBean implements Payment {
 
-	@EJB
-	private OrderProcessing kitchen;
-
-	@EJB
-	private Database memory;
+	@EJB private OrderProcessing kitchen;
+	@EJB private Database memory;
 
 	private BankAPI bank;
 	public void useBankReference(BankAPI bank) { this.bank = bank; }
@@ -34,9 +32,15 @@ public class CashierBean implements Payment {
 		Order order = new Order(customer, items);
 		double price = order.getPrice();
 
-		if (! bank.performPayment(customer, price))
-		  throw new PaymentException(customer.getName(), price);
+		boolean status = false;
+		try { status = bank.performPayment(customer, price); }
+		catch (ExternalPartnerException e) {
+			throw new PaymentException(customer.getName(), price);
+		}
 
+		if (!status) {
+			throw new PaymentException(customer.getName(), price);
+		}
 
 		customer.add(order);
 		memory.getOrders().put(order.getId(),order);

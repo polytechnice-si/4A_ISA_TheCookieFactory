@@ -12,4 +12,14 @@ public class AlreadyExistingCustomerException extends Exception implements Seria
 	}
 
 
+	public AlreadyExistingCustomerException() {
+	}
+
+	public String getConflictingName() {
+		return conflictingName;
+	}
+
+	public void setConflictingName(String conflictingName) {
+		this.conflictingName = conflictingName;
+	}
 }

@@ -1,19 +1,15 @@
-package fr.unice.polytech.isa.tcf;
+package integration;
 
 
-import fr.unice.polytech.isa.tcf.components.CartBean;
-import fr.unice.polytech.isa.tcf.components.carts.CartStatefulBean;
+import arquillian.AbstractTCFTest;
+import fr.unice.polytech.isa.tcf.CustomerFinder;
+import fr.unice.polytech.isa.tcf.CustomerRegistration;
+import fr.unice.polytech.isa.tcf.Payment;
 import fr.unice.polytech.isa.tcf.entities.Cookies;
 import fr.unice.polytech.isa.tcf.entities.Customer;
 import fr.unice.polytech.isa.tcf.entities.Item;
 import fr.unice.polytech.isa.tcf.entities.Order;
-import fr.unice.polytech.isa.tcf.exceptions.AlreadyExistingCustomerException;
-import fr.unice.polytech.isa.tcf.utils.Database;
-import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

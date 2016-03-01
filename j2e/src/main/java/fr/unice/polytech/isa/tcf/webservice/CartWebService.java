@@ -3,7 +3,9 @@ package fr.unice.polytech.isa.tcf.webservice;
 import fr.unice.polytech.isa.tcf.entities.Item;
 import fr.unice.polytech.isa.tcf.exceptions.PaymentException;
 import fr.unice.polytech.isa.tcf.exceptions.UnknownCustomerException;
+import fr.unice.polytech.isa.tcf.interceptors.ItemVerifier;
 
+import javax.interceptor.Interceptors;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
@@ -14,11 +16,13 @@ import java.util.Set;
 public interface CartWebService {
 
 	@WebMethod
+	@Interceptors({ItemVerifier.class})
 	void addItemToCustomerCart(@WebParam(name = "customer_name") String customerName,
 							   @WebParam(name = "item") Item it)
 			throws UnknownCustomerException;
 
 	@WebMethod
+	@Interceptors({ItemVerifier.class})
 	void removeItemToCustomerCart(@WebParam(name = "customer_name") String customerName,
 								  @WebParam(name = "item") Item it)
 			throws UnknownCustomerException;

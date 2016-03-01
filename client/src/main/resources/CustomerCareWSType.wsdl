@@ -52,12 +52,14 @@
             <xs:element name="UnknownOrderId" type="tns:UnknownOrderId"/>
             <xs:complexType name="UnknownOrderId">
                 <xs:sequence>
+                    <xs:element minOccurs="0" name="orderId" type="xs:string"/>
                     <xs:element minOccurs="0" name="message" type="xs:string"/>
                 </xs:sequence>
             </xs:complexType>
             <xs:element name="AlreadyExistingCustomerException" type="tns:AlreadyExistingCustomerException"/>
             <xs:complexType name="AlreadyExistingCustomerException">
                 <xs:sequence>
+                    <xs:element minOccurs="0" name="conflictingName" type="xs:string"/>
                     <xs:element minOccurs="0" name="message" type="xs:string"/>
                 </xs:sequence>
             </xs:complexType>

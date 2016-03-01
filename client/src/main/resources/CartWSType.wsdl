@@ -64,12 +64,15 @@
             <xs:element name="UnknownCustomerException" type="tns:UnknownCustomerException"/>
             <xs:complexType name="UnknownCustomerException">
                 <xs:sequence>
+                    <xs:element minOccurs="0" name="name" type="xs:string"/>
                     <xs:element minOccurs="0" name="message" type="xs:string"/>
                 </xs:sequence>
             </xs:complexType>
             <xs:element name="PaymentException" type="tns:PaymentException"/>
             <xs:complexType name="PaymentException">
                 <xs:sequence>
+                    <xs:element minOccurs="0" name="amount" type="xs:double"/>
+                    <xs:element minOccurs="0" name="name" type="xs:string"/>
                     <xs:element minOccurs="0" name="message" type="xs:string"/>
                 </xs:sequence>
             </xs:complexType>

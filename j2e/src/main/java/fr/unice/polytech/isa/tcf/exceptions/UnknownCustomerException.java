@@ -12,4 +12,14 @@ public class UnknownCustomerException extends Exception implements Serializable 
 	}
 
 
+	public UnknownCustomerException() {
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 }
