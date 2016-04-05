@@ -17,15 +17,15 @@ _The Cookie Factory_ (TCF) is a major bakery brand in the USA. The _Cookie on De
 
 ## Chapters
 
-  1. Architecture
-  2. Business components with EJB Sessions
-  3. Exposing components as Web Services (SOAP)
-  4. Consuming external Web Services (REST)
-  5. Unit testing _versus_ Integration testing
-  6. Complete architecture overview
-  7. Message interceptors to support the NTUI (_Never Trust User Input_) golden rule 
-  8. Making things persistent
-  9. Conclusions
+  1. [Architecture](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/chapters/Architecture.md)
+  2. [Business components with EJB Sessions](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/chapters/BusinessComponents.md)
+  3. [Exposing components as Web Services (SOAP)](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/chapters/Exposing_SOAP.md)
+  4. [Consuming external Web Services (REST)](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/chapters/Consuming_REST.md)
+  5. [Unit testing _versus_ Integration testing](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/chapters/IntegrationTesting.md)
+  6. [Complete architecture overview](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/chapters/VolatileOverview.md)
+  7. [Message interceptors to support the NTUI (_Never Trust User Input_) golden rule](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/chapters/Interceptors.md)
+  8. [Making things persistent](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/chapters/Persistence.md)
+  9. [Conclusions](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/chapters/Conclusions.md)
 
 __Important remark__: one can notice that the persistence layer (_aka_ the database) is the last step of this document. This is done on purpose. Databases are part of a given architecture, but must not be considered as the its essence. The essence of an architecture is the set of supported features, at the business level. Databases are in this context only a way (among others) to store data.
 
@@ -34,7 +34,7 @@ __Important remark__: one can notice that the persistence layer (_aka_ the datab
   * The `develop` branch (the default one) represents the system under development. 
     * The [`releases/1.0`](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/tree/release/v1.0) branch contains the code that implements the system without persistence
     * The [`releases/2.0`](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/tree/release/v2.0) branch contains the code that implements the system with a real persistence layer
-  * Issues can be submitted using the GitHub ticketing system
+  * Issues can be submitted using the [GitHub ticketing system](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/issues)
 
 ### Compilation & Execution
 
