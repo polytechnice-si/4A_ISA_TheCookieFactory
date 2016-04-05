@@ -38,12 +38,12 @@ public class KitchenTest extends AbstractTCFTest {
 		Customer pat = new Customer("pat", "1234-567890");
 		Order inProgress = new Order(pat, items);
 		processor.process(inProgress);
-		assertEquals(OrderStatus.IN_PROGRESS, tracker.status(inProgress.getId()));
+		assertEquals(OrderStatus.IN_PROGRESS, tracker.status(""+inProgress.getId()));
 
 		Customer ron = new Customer("ron", "1234-567890");
 		Order ready = new Order(ron, items);
 		processor.process(ready);
-		assertEquals(OrderStatus.READY, tracker.status(ready.getId()));
+		assertEquals(OrderStatus.READY, tracker.status(""+ready.getId()));
 	}
 
 

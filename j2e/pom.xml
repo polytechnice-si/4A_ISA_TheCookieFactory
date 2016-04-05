@@ -36,8 +36,34 @@
                 <versions.tomee>2.0.0-SNAPSHOT</versions.tomee>
             </properties>
         </profile>
+        <profile>
+            <!-- Use 'mvn -P static-enhance' to trigger static enhancement by OpenJPA at compile time -->
+            <id>static-enhance</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.openjpa</groupId>
+                        <artifactId>openjpa-maven-plugin</artifactId>
+                        <version>2.4.1</version>
+                        <configuration>
+                            <includes>**/entities/*.class</includes>
+                            <addDefaultConstructor>true</addDefaultConstructor>
+                            <enforcePropertyRestrictions>true</enforcePropertyRestrictions>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>enhancer</id>
+                                <phase>process-classes</phase>
+                                <goals>
+                                    <goal>enhance</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
-
 
     <repositories>
         <!-- Snapshot repository to access to the latest version of the OpenEJB framework -->

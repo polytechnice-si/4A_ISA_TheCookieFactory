@@ -8,6 +8,13 @@ import fr.unice.polytech.isa.tcf.utils.Database;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.Optional;
 
 
@@ -15,8 +22,11 @@ import java.util.Optional;
 public class CustomerRegistryBean
 		implements CustomerRegistration, CustomerFinder {
 
-	@EJB
-	private Database memory;
+	//@EJB
+	//private Database memory;
+
+	@PersistenceContext
+	private EntityManager manager;
 
 	/******************************************
 	 ** Customer Registration implementation **
@@ -25,9 +35,16 @@ public class CustomerRegistryBean
 	@Override
 	public void register(String name, String creditCard)
 			throws AlreadyExistingCustomerException {
-	 	if(findByName(name).isPresent())
+
+		if(findByName(name).isPresent())
 			throw new AlreadyExistingCustomerException(name);
-		memory.getCustomers().put(name, new Customer(name, creditCard));
+
+		Customer c = new Customer();
+		c.setName(name);
+		c.setCreditCard(creditCard);
+
+		manager.persist(c);
+
 	}
 
 
@@ -37,10 +54,18 @@ public class CustomerRegistryBean
 
 	@Override
 	public Optional<Customer> findByName(String name) {
-		if (memory.getCustomers().containsKey(name))
-			return Optional.of(memory.getCustomers().get(name));
-		else
-			return Optional.empty();
+
+		CriteriaBuilder builder = manager.getCriteriaBuilder();
+		CriteriaQuery<Customer> criteria = builder.createQuery(Customer.class);
+		Root<Customer> root =  criteria.from(Customer.class);
+		criteria.select(root).where(builder.equal(root.get("name"), name));
+		TypedQuery<Customer> query = manager.createQuery(criteria);
+		try {
+			return Optional.of(query.getSingleResult());
+		} catch (NoResultException nre){
+			 return Optional.empty();
+		}
+
 	}
 
 }

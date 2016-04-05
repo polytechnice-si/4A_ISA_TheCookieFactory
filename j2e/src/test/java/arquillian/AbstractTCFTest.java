@@ -9,6 +9,7 @@ import fr.unice.polytech.isa.tcf.interceptors.Logger;
 import fr.unice.polytech.isa.tcf.utils.Database;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.ClassLoaderAsset;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 
@@ -38,7 +39,9 @@ public abstract class AbstractTCFTest {
 				// Exceptions
 				.addPackage(AlreadyExistingCustomerException.class.getPackage())
 				// Components implementations
-				.addPackage(CartBean.class.getPackage());
+				.addPackage(CartBean.class.getPackage())
+				// Persistence file
+				.addAsManifestResource(new ClassLoaderAsset("META-INF/persistence.xml"), "persistence.xml");
 	}
 
 }

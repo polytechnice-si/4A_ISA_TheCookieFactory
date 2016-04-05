@@ -10,27 +10,50 @@ import java.util.*;
 // component test framework import
 import org.jboss.arquillian.junit.Arquillian;
 // java annotations
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import javax.annotation.Resource;
 import javax.ejb.EJB;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.UserTransaction;
 // static import to lighten test writing
 import static org.junit.Assert.*;
 
 @RunWith(Arquillian.class)
 public class CartTest extends AbstractTCFTest {
 
+
 	@EJB(name = "cart-stateless") private CartModifier cart;
 	@EJB CustomerRegistration registry;
 	@EJB CustomerFinder finder;
 
+	@PersistenceContext
+	private EntityManager entityManager;
+
+	@Resource
+	private UserTransaction transaction;
+
+	private static final String NAME = "John";
 	private Customer john;
 
 	@Before
 	public void setUpContext() throws Exception {
 		memory.flush();
-		registry.register("John", "credit card number");
-		john = finder.findByName("John").get();
+		registry.register(NAME, "1234567890");
+		john = finder.findByName(NAME).get();
+	}
+
+	@After
+	public void cleaningUp() throws Exception {
+		// cannot be annotated with @Transactional, as it is not a test method
+		transaction.begin();
+	    	john = entityManager.merge(finder.findByName(NAME).get());
+			entityManager.remove(john);
+		transaction.commit();
 	}
 
 	@Test

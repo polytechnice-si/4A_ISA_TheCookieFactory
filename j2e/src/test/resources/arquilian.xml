@@ -9,6 +9,14 @@
             <property name="openejbVersion">${tomee.version}</property>
             <property name="dir">target/apache-tomee-remote</property>
             <property name="appWorkingDir">target/arquillian-test-working-dir</property>
+            <property name="properties">
+                my-datasource = new://Resource?type=DataSource
+                my-datasource.JdbcUrl = jdbc:hsqldb:mem:TCFDB;shutdown=true
+                my-datasource.UserName = sa
+                my-datasource.Password =
+                my-datasource.JtaManaged = true
+                my-datasource.LogSql = true
+            </property>
         </configuration>
     </container>
 </arquillian>

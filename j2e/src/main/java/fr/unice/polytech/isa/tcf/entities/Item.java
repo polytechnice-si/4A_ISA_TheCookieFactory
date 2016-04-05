@@ -1,10 +1,18 @@
 package fr.unice.polytech.isa.tcf.entities;
 
+import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
+@Embeddable
 public class Item implements Serializable {
 
+	@Enumerated(EnumType.STRING)
 	private Cookies cookie;
+
+	@NotNull
 	private int quantity;
 
 	public Item() {}

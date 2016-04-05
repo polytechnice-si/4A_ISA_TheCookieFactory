@@ -22,7 +22,7 @@ public class KitchenBean implements OrderProcessing, Tracker {
 		} else if (order.getCustomer().getName().contains("r")) {
 			order.setStatus(OrderStatus.READY);
 		}
-		memory.getOrders().put(order.getId(), order);
+		memory.getOrders().put(""+order.getId(), order);
 	}
 
 	@Override

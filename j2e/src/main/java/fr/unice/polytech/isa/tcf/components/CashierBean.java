@@ -43,10 +43,10 @@ public class CashierBean implements Payment {
 		}
 
 		customer.add(order);
-		memory.getOrders().put(order.getId(),order);
+		memory.getOrders().put(""+order.getId(),order);
 		kitchen.process(order);
 
-		return order.getId();
+		return ""+order.getId();
 	}
 
 	@PostConstruct
