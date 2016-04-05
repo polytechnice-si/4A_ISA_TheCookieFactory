@@ -51,8 +51,10 @@ public class CartTest extends AbstractTCFTest {
 	public void cleaningUp() throws Exception {
 		// cannot be annotated with @Transactional, as it is not a test method
 		transaction.begin();
-	    	john = entityManager.merge(finder.findByName(NAME).get());
-			entityManager.remove(john);
+			Customer detached = finder.findByName(NAME).get();
+	    	Customer attached = entityManager.merge(detached);
+			entityManager.remove(attached);
+			john = null;
 		transaction.commit();
 	}
 

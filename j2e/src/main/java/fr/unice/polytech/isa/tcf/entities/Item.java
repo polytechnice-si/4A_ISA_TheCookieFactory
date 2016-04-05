@@ -10,6 +10,7 @@ import java.io.Serializable;
 public class Item implements Serializable {
 
 	@Enumerated(EnumType.STRING)
+	@NotNull
 	private Cookies cookie;
 
 	@NotNull

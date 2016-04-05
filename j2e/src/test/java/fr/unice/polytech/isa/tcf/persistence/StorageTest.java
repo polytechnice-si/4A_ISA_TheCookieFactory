@@ -33,9 +33,10 @@ public class StorageTest extends AbstractTCFTest {
 		Customer c = new Customer();
 		c.setCreditCard("1234567890");
 		c.setName("John Doe");
+		assertEquals(0,c.getId());
 		entityManager.persist(c);
 		int id = c.getId();
-		assertNotNull(id);
+		assertNotEquals(0,id);
 		Customer stored = (Customer) entityManager.find(Customer.class, id);
 		assertEquals(c, stored);
 	}

@@ -13,9 +13,11 @@ This reference implementation demonstrates the following points with respect to 
   - Using SOAP-based Web Services as an interoperable layer to integrate heterogeneous technologies through _Remote Procedure Call_ (RPC): `remote client <--> J2E`;
   - Using REST-based Web Services as an interoperable layer to integrate heterogeneous technologies through _Resource exposition_: `J2E <--> .Net`;
   - Consuming web services (SOAP & Rest) from remote clients (B2C or B2B);
-  - Using EJB entities to support the implementation of a persistence layer;
   - Using interceptors to work at the message (_invocation context_) level;
-  - Differentiating Unit tests and Integration tests using Maven.
+  - Differentiating Unit tests and Integration tests using Maven;
+  - Using EJB entities to support the implementation of a persistence layer;
+  - Define relationships between entities to support complex object composition;
+  - Express validation rules at the persistence level to ensure data consistency.
   
 ## Perspectives
 
