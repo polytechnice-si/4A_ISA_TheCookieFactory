@@ -55,3 +55,24 @@ To run the demonstration, first start the two servers in two different terminals
     # Remote Client						(bye to stop)
     mosser@azrael $ cd client
     mosser@azrael client$ mvn exec:java
+    
+    ## Code information
+    ```
+    azrael:4A_ISA_TheCookieFactory mosser$ cloc .
+     347 text files.
+     347 unique files.                                          
+      22 files ignored.
+
+http://cloc.sourceforge.net v 1.64  T=1.06 s (306.6 files/s, 9366.4 lines/s)
+-------------------------------------------------------------------------------
+Language                     files          blank        comment           code
+-------------------------------------------------------------------------------
+XML                            230             12              0           4888
+Java                            89            853           1248           2559
+Maven                            1              7              9            181
+C#                               4             37             13            132
+Bourne Shell                     2              4              3             12
+-------------------------------------------------------------------------------
+SUM:                           326            913           1273           7772
+-------------------------------------------------------------------------------
+```
