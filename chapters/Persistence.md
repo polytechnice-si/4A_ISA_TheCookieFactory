@@ -1,4 +1,4 @@
-# Introducing a real Persistence Layer [TCF case study]
+# Real Persistence Layer [TCF case study]
 
   * Author: Sébastien Mosser [mosser@i3s.unice.fr](mosser@i3s.unice.fr)
   * Reviewer: Anne-Marie Déry [pinna@polytech.unice.fr](pinna@polytech.unice.fr)
@@ -68,7 +68,7 @@ The CoD system needs two data sources: _(i)_ a volatile database to be used for 
 
 ### Declaring the test data source
 
-As Arquilian is used for testing purpose, it is quite logical that an Arquilian configuration is required for his very purpose. In the `arquilian.xml` configuration file, the following properties will configure the database to be used for test purposes. 
+As Arquilian is used for testing purpose, it is quite logical that an Arquilian configuration is required for tshis very purpose. In the `arquilian.xml` configuration file, the following properties will configure the database to be used for test purposes. 
 
   * The `JdbcUrl` we used asks for an _in-memory_ database with the `mem` keyword;
     * The `shutdown=true` option will shutdown the database after the last connection; 
@@ -103,13 +103,13 @@ From the application server point of view, a data source is simply a kind of ava
 </resources>
 ```
 
-The syntax is different as it is not loaded using the same mechanism than the one used by Arquilian, but the content is the very same. Excepting from the URL, which here refers to a local resource called `proddb` (actually not a single file but a bunch of related ones). This file will be handled by TomEE at runtime and will survive the termination of the TomEE process. __According to our local setup, the file will be stored in the `target/apache-tomee` directory. Which obviously means that calling `mvn clean` will destroy the database contents.__
+The syntax is different as it is not loaded using the same mechanism than the one used by Arquilian, but the content is the very same. Excepting from the URL, which here refers to a local resource called `proddb` (actually not a single file but a bunch of related ones). This file will be handled by TomEE at runtime and will survive the termination of the TomEE process. __According to our local setup, the files will be stored in the `target/apache-tomee` directory. Which obviously means that calling `mvn clean` will destroy the database contents.__
 
 ### Configuring an IDE to explore the database
 
 Your favorite IDE can be used to access to the contents of the persistent database. It simply needs to configure a _local_ HSQLDB source, with default login (_sa_). But be very careful, the file-based database cannot be accessed by two different applications at the very same time. As a consequence, the database is locked during the execution of the application that consumes it. If you forgot to disconnect your IDE from the file, you'll be able to start the application server but attempting to access to the storage layer will result in a timeout exception. __Use with caution__, and rely on tests instead of attempts. the first one are reproducible and ensure that you are not regressing, while the second ones ... does not worth a lot from a software engineering point of view. 
 
-__If you really want to proceed__, be sure to use the full path to reach your local file. Here is an example of cofiguration using IntelliJ 16 Ultimate Edition.
+__If you really want to proceed__, be sure to use the full path to reach your local file. Here is an example of configuration using IntelliJ 16 Ultimate Edition.
 
 ![IntelliJ config](https://raw.githubusercontent.com/polytechnice-si/4A_ISA_TheCookieFactory/master/docs/ide_datasource.png)
 
@@ -130,7 +130,7 @@ Let's take an example. You have a customer in your database, named "sebastien", 
 
 ### Persisting Items
 
-An Item does not exists by itself: it is part of a given cart, or a given order. As a consequence, it is an `Embeddable` entity. Its associated cookie is based on an enumeration, and thus declared as an `Enumerated` property. For clarity and log purposes, we prefer to use string literals (the cookie's name) instead of ordinal (the cookie's index in the enum) at the persistence level. The quantity cannot be null, so we simply add a validation constraint that will prevent to persist an entity with a null quantity of cookies. The cookie cannot be null too, so we use the same kind of constraints.
+An Item does not exists by itself: it is part of a given cart, or a given order. As a consequence, it is an `Embeddable` entity. Its associated cookie is based on an enumeration, and thus declared as an `Enumerated` property. For clarity and log purposes, we prefer to use string literals (the cookie's name) instead of ordinals (the cookie's index in the enum) at the persistence level. The quantity cannot be null, so we simply add a validation constraint that will prevent to persist an entity with a null quantity of cookies. The cookie cannot be null too, so we use the same kind of constraints.
 
 ```java
 @Embeddable
@@ -210,6 +210,31 @@ public class Customer implements Serializable {
 	// ...
 }
 ```  
+
+
+### Hashcode, Equals & Cyclic references
+
+When writing or when using the generated ones, be careful that your equals and hashcode methods do not introduce cyclic calls (symptom: StackOverflowError). For example, by default the generated hashcode methods for the Customer & Order classes looks like the following:
+
+```java
+	// Customer
+	public int hashCode() {
+		int result = getName() != null ? getName().hashCode() : 0;
+		result = 31 * result + (getCreditCard() != null ? getCreditCard().hashCode() : 0);
+		result = 31 * result + (getOrders() != null ? getOrders().hashCode() : 0);
+		return result;
+	}
+	
+	// Order
+	public int hashCode() {
+		int result = getCustomer() != null ? getCustomer().hashCode() : 0;
+		result = 31 * result + (getItems() != null ? getItems().hashCode() : 0);
+		result = 31 * result + (getStatus() != null ? getStatus().hashCode() : 0);
+		return result;
+	}
+```
+The previous code obviously triggers an infinite loops (this is the very same situation for the equals method). Be very careful when designing these methods, as the semantics of the operation must remain consistent while avoiding cyclic references. In this case, we simply break the cycle by calling `getCustomer().getName().hashcode()` instead of `getCustomer().hashCode()`.
+
 
 ## Testing the persistence layer
 
@@ -312,7 +337,7 @@ __Remark__: one can argue that this is way too complex with respect to a simple 
 
 Let's consider tests built using a given customer, _John_. John must be the very same one for each tests, as the test framework does not ensure any execution order inside a test suite. To handle this issue, the easiest way is _(i)_ to declare John as a private instance of the test suite, _(ii)_ initialize him using an `@Before` method and finally _(iii)_ destroy him using an `@After` method.
 
-For the `@Before` method, one can simply rely on the registry to create a persistent version of John, and to the associated finder to retrieve it from the persistence layer. But as there is no way to delete a customer using the business operations, we need to use directly the entity manager to achieve this task. First, we use the finder to retrieve the persistent john from the database (in case of volatile changes made by the test we are cleaning up for). This version of John is _detached_, as it was retrieved in another transaction than ours: it was actually retrieved inside the boundary of the `Finder`. Returning the result make the object crossing the boundary of the component, and as a consequence detached it from its initial transaction. We need to _attach_ it to our local persistence context before being allowed to remove it definitively: one cannot remove something that is not synchronized with the persistence layer, it might trigger consistency issues. Thus, we _merge_ it, obtaining as a result an _attached_ version of John. This version can be safely removed using the entity manager. 
+For the `@Before` method, one can simply rely on the registry to create a persistent version of John, and to the associated finder to retrieve it from the persistence layer. But as there is no way to delete a customer using the business operations, we need to use directly the entity manager to achieve this task. First, we use the finder to retrieve the persistent john from the database (in case of volatile changes made by the test we are cleaning up for). This version of John is _detached_, as it was retrieved in another transaction than ours: it was actually retrieved inside the boundary of the `Finder`. Returning the result make the object crossing the boundary of the component, and as a consequence detached it from its initial transaction. We need to _attach_ it to our local persistence context before being allowed to remove it definitively: one cannot remove something that is not synchronized with the persistence layer, it might trigger consistency issues. Thus, we _refresh_ it, obtaining as a result an _attached_ version of John. This version can be safely removed using the entity manager. 
 
 ```java
 private static final String NAME = "John";
@@ -328,11 +353,112 @@ public void setUpContext() throws Exception {
 // cannot be annotated with @Transactional, as it is not a test method
 public void cleaningUp() throws Exception {
 	transaction.begin();
-		Customer detached = finder.findByName(NAME).get();
-    	Customer attached = entityManager.merge(detached);
-		entityManager.remove(attached);
+		Customer customer = finder.findByName(NAME).get();
+	   	entityManager.refresh(customer);
+		entityManager.remove(customer);
 		john = null;
 	transaction.commit();
 }
 ```	
 
+## Cascading Operation through Relations
+
+There is a containment relationship between Customers and Orders. As a consequence, deleting a Customer should delete the associated Orders transitively. If not, one can put the system into an inconsistent state by keeping Orders that are not related to a customer that exists. We consider here a customer `john` that contains a given `order`. The following specification must hold:
+
+```java
+assertNotNull(entityManager.find(Customer.class, john.getId()));
+assertNotNull(entityManager.find(Order.class, order.getId()));
+
+entityManager.remove(john);
+
+assertNull(entityManager.find(Customer.class, john.getId()));
+assertNull(entityManager.find(Order.class, order.getId()));
+```
+
+To asks JPA to transitively apply an operation through a given relation, we will rely on the _cascading_ mechanism: the `remove` operation must be cascaded from Customer to Order. We simply have to declare it at the relation level:
+
+```java
+public class Customer {
+
+	// ...
+	
+	@OneToMany(cascade = {CascadeType.REMOVE}, mappedBy = "customer")
+	private Set<Order> orders = new HashSet<>();
+	
+	// ...
+}
+```
+
+__Warning__: be very careful when cascading operations, especially the `REMOVE` one. Deleting an Order should not delete the associated customer... 
+
+## Removing contained elements
+
+The cascading relationship is used to propagate a persistence operation through relations. It does not automatically support the update of an object. If one wants to remove an order from a given customer, the order must be _removed_ from the persistence layer, and also from the customer:
+
+```java
+@Test
+@Transactional(TransactionMode.COMMIT)
+public void removingOrderInCustomer() throws Exception {
+	Customer john = new Customer("John Doe", "1234567890");
+	entityManager.persist(john);
+	
+	Order o1 = new Order(john);
+	o1.setStatus(OrderStatus.IN_PROGRESS);
+	o1.addItem(new Item(Cookies.CHOCOLALALA, 3));
+	entityManager.persist(o1);
+	john.add(o1);
+
+	Order o2 = new Order(john);
+	o2.setStatus(OrderStatus.IN_PROGRESS);
+	o2.addItem(new Item(Cookies.DARK_TEMPTATION, 3));
+	entityManager.persist(o2);
+	john.add(o2);
+
+	int io1 = o1.getId();
+	john.getOrders().remove(o1);
+	entityManager.remove(o1);
+
+	assertNull(entityManager.find(Order.class, io1));
+	assertNotNull(entityManager.find(Order.class, o2.getId()));
+	assertEquals(1, john.getOrders().size());
+	assertEquals(o2, john.getOrders().toArray()[0]);
+	assertEquals(john, entityManager.find(Customer.class, john.getId()));
+}
+```
+
+## Lazy-loading
+
+When multiple relations are involved for a given persistent class, it might does not have any sense to load all the contents of the object if not necessary: large database query, big object, ... One can annotate a relation as _lazy_, and then the related element will only be loaded if accessed. For example, to _lazy load_ the orders associated to a given customer:
+
+```java
+@OneToMany(cascade = {CascadeType.REMOVE}, fetch = FetchType.LAZY, mappedBy = "customer")
+private Set<Order> orders = new HashSet<>();
+```
+
+Be careful, the laziness of a relationship is only automated within a given transaction. For example, in the following code, the first time we load the persistent entity we are in a given transaction, meaning that the system can access automatically to the orders, when needed. The second time, we are not in a transaction, and as a consequence the orders are null. 
+
+```java
+private Customer loadCustomer(int id) {
+	return entityManager.find(Customer.class, id);
+}
+
+@Test
+public void lazyloadingDemo() throws Exception {
+	manual.begin();
+		Customer john = new Customer("John Doe", "1234567890");
+		entityManager.persist(john);
+		Order o1 = new Order(john, Cookies.CHOCOLALALA, 3); entityManager.persist(o1); john.add(o1);
+		Order o2 = new Order(john, Cookies.DARK_TEMPTATION, 1); entityManager.persist(o2); john.add(o2);
+		Order o3 = new Order(john, Cookies.SOO_CHOCOLATE, 2); entityManager.persist(o3); john.add(o3);
+		Customer sameTransaction = loadCustomer(john.getId()) ;
+		assertEquals(john, sameTransaction);
+		assertEquals(3, john.getOrders().size());
+	manual.commit();
+
+	Customer detached = loadCustomer(john.getId()) ;
+	assertNotEquals(john, detached);
+	assertNull(detached.getOrders());
+}
+```
+
+__Remark__: Within EJB sessions, a transaction is created each time a method is called. Objects are detached (cutting lazy-loading capabilities to _null_) each time a persistent object crosses the boundary of a transaction.

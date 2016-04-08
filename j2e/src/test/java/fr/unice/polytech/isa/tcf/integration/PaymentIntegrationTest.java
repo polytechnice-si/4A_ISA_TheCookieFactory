@@ -1,4 +1,4 @@
-package integration;
+package fr.unice.polytech.isa.tcf.integration;
 
 
 import arquillian.AbstractTCFTest;

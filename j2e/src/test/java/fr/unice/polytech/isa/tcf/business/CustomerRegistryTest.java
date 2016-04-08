@@ -1,6 +1,8 @@
-package fr.unice.polytech.isa.tcf;
+package fr.unice.polytech.isa.tcf.business;
 
 import arquillian.AbstractTCFTest;
+import fr.unice.polytech.isa.tcf.CustomerFinder;
+import fr.unice.polytech.isa.tcf.CustomerRegistration;
 import fr.unice.polytech.isa.tcf.entities.Customer;
 import fr.unice.polytech.isa.tcf.exceptions.AlreadyExistingCustomerException;
 import org.jboss.arquillian.junit.Arquillian;

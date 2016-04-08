@@ -1,7 +1,9 @@
-package fr.unice.polytech.isa.tcf;
+package fr.unice.polytech.isa.tcf.business;
 
 
 import arquillian.AbstractTCFTest;
+import fr.unice.polytech.isa.tcf.OrderProcessing;
+import fr.unice.polytech.isa.tcf.Tracker;
 import fr.unice.polytech.isa.tcf.entities.*;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Before;

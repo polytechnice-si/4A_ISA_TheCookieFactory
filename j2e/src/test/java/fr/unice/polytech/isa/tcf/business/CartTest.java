@@ -1,7 +1,10 @@
-package fr.unice.polytech.isa.tcf;
+package fr.unice.polytech.isa.tcf.business;
 
 // business imports
 import arquillian.AbstractTCFTest;
+import fr.unice.polytech.isa.tcf.CartModifier;
+import fr.unice.polytech.isa.tcf.CustomerFinder;
+import fr.unice.polytech.isa.tcf.CustomerRegistration;
 import fr.unice.polytech.isa.tcf.entities.Cookies;
 import fr.unice.polytech.isa.tcf.entities.Customer;
 import fr.unice.polytech.isa.tcf.entities.Item;
@@ -28,8 +31,10 @@ public class CartTest extends AbstractTCFTest {
 
 
 	@EJB(name = "cart-stateless") private CartModifier cart;
-	@EJB CustomerRegistration registry;
-	@EJB CustomerFinder finder;
+	@EJB
+	CustomerRegistration registry;
+	@EJB
+	CustomerFinder finder;
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -51,9 +56,9 @@ public class CartTest extends AbstractTCFTest {
 	public void cleaningUp() throws Exception {
 		// cannot be annotated with @Transactional, as it is not a test method
 		transaction.begin();
-			Customer detached = finder.findByName(NAME).get();
-	    	Customer attached = entityManager.merge(detached);
-			entityManager.remove(attached);
+			Customer customer = finder.findByName(NAME).get();
+	    	entityManager.refresh(customer);
+			entityManager.remove(customer);
 			john = null;
 		transaction.commit();
 	}
