@@ -40,7 +40,7 @@ public class Order implements Serializable {
 	public Order(Customer customer, Set<Item> items) {
 		this.customer = customer;
 		this.items = items;
-		this.status = OrderStatus.VALIDATED;
+		this.setStatus(OrderStatus.IN_PROGRESS);
 	}
 
 	public OrderStatus getStatus() { return status; }

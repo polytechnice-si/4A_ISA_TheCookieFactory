@@ -25,8 +25,14 @@ public class Customer implements Serializable {
 	@OneToMany(cascade = {CascadeType.REMOVE}, fetch = FetchType.LAZY, mappedBy = "customer")
 	private Set<Order> orders = new HashSet<>();
 
+	@ElementCollection
+	private Set<Item> cart = new HashSet<>();
+
 	public Customer() {}
-	public Customer(String n, String c) { this.name = n; this.creditCard = c; }
+	public Customer(String n, String c) {
+		this.name = n;
+		this.creditCard = c;
+	}
 
 	public int getId() {
 		return id;
@@ -45,6 +51,19 @@ public class Customer implements Serializable {
 	public void add(Order o) { this.orders.add(o); }
 	public Set<Order> getOrders() { return orders; }
 
+	public void setCart(Set<Item> c) { this.cart = c; }
+	public Set<Item> getCart() { return cart; }
+
+
+
+	@Override
+	public int hashCode() {
+		int result = getName() != null ? getName().hashCode() : 0;
+		result = 31 * result + (getCreditCard() != null ? getCreditCard().hashCode() : 0);
+		result = 31 * result + (getOrders() != null ? getOrders().hashCode() : 0);
+		return result;
+	}
+
 
 	@Override
 	public boolean equals(Object o) {
@@ -58,13 +77,5 @@ public class Customer implements Serializable {
 			return false;
 		return getOrders() != null ? getOrders().equals(customer.getOrders()) : customer.getOrders() == null;
 
-	}
-
-	@Override
-	public int hashCode() {
-		int result = getName() != null ? getName().hashCode() : 0;
-		result = 31 * result + (getCreditCard() != null ? getCreditCard().hashCode() : 0);
-		result = 31 * result + (getOrders() != null ? getOrders().hashCode() : 0);
-		return result;
 	}
 }

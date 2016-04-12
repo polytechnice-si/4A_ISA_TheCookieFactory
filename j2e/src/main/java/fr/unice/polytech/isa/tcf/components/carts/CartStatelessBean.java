@@ -7,24 +7,28 @@ import fr.unice.polytech.isa.tcf.utils.Database;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.*;
 
 
 @Stateless(name = "cart-stateless")
 public class CartStatelessBean extends CartBean {
 
-	@EJB
-	private Database memory;
+	@PersistenceContext
+	private EntityManager entityManager;
 
 	@Override
 	public boolean add(Customer c, Item item) {
-		memory.getCarts().put(c, updateCart(c, item));
+		c = entityManager.merge(c);
+		c.setCart(updateCart(c, item));
 		return true;
 	}
 
 	@Override
 	public Set<Item> contents(Customer c) {
-		return memory.getCarts().getOrDefault(c, new HashSet<Item>());
+		c = entityManager.merge(c);
+		return c.getCart();
 	}
 
 }

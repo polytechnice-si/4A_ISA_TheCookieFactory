@@ -15,15 +15,13 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.util.HashSet;
 import java.util.Optional;
 
 
 @Stateless
 public class CustomerRegistryBean
 		implements CustomerRegistration, CustomerFinder {
-
-	//@EJB
-	//private Database memory;
 
 	@PersistenceContext
 	private EntityManager manager;
@@ -42,6 +40,7 @@ public class CustomerRegistryBean
 		Customer c = new Customer();
 		c.setName(name);
 		c.setCreditCard(creditCard);
+		c.setCart(new HashSet<>());
 
 		manager.persist(c);
 

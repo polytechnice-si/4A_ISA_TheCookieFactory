@@ -6,6 +6,8 @@ import fr.unice.polytech.isa.tcf.CustomerRegistration;
 import fr.unice.polytech.isa.tcf.entities.Customer;
 import fr.unice.polytech.isa.tcf.exceptions.AlreadyExistingCustomerException;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.transaction.api.annotation.TransactionMode;
+import org.jboss.arquillian.transaction.api.annotation.Transactional;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,6 +23,7 @@ import java.util.Optional;
 import static org.junit.Assert.*;
 
 @RunWith(Arquillian.class)
+@Transactional(TransactionMode.COMMIT)
 public class CustomerRegistryTest extends AbstractTCFTest {
 
 	@EJB private CustomerRegistration registry;
@@ -28,44 +31,42 @@ public class CustomerRegistryTest extends AbstractTCFTest {
 
 
 	@PersistenceContext private EntityManager entityManager;
-	@Resource private UserTransaction transaction;
+
+	private Customer john;
 
 	@Before
 	public void setUpContext() throws Exception {
-		memory.flush();
+		john = new Customer("John", "0987654321");
 	}
 
 	@After
 	public void cleaningUp() throws Exception {
-	 	transaction.begin();
-			entityManager.createQuery("DELETE FROM Customer").executeUpdate();
-		transaction.commit();
+		Optional<Customer> toDispose = finder.findByName(john.getName());
+		if(toDispose.isPresent()) {
+			Customer c = entityManager.merge(toDispose.get());
+			entityManager.remove(c);
+		}
 	}
 
 	@Test
 	public void unknownCustomer() {
-		assertFalse(finder.findByName("John").isPresent());
+		assertFalse(finder.findByName("Bob").isPresent());
 	}
 
 	@Test
 	public void registerCustomer() throws Exception {
-		String name = "John";
-		String creditCard = "0987654321";
-		registry.register(name, creditCard);
-		Optional<Customer> customer = finder.findByName(name);
+		registry.register(john.getName(), john.getCreditCard());
+		Optional<Customer> customer = finder.findByName(john.getName());
 		assertTrue(customer.isPresent());
-		Customer john = customer.get();
-		assertEquals(name, john.getName());
-		assertEquals(creditCard, john.getCreditCard());
+		Customer retrieved = customer.get();
+		assertEquals(john.getName(), retrieved.getName());
+		assertEquals(john.getCreditCard(), retrieved.getCreditCard());
 	}
-
 
 	@Test(expected = AlreadyExistingCustomerException.class)
 	public void cannotRegisterTwice() throws Exception {
-		String name = "John";
-		String creditCard = "0987654321";
-		registry.register(name, creditCard);
-		registry.register(name, creditCard);
+		registry.register(john.getName(), john.getCreditCard());
+		registry.register(john.getName(), john.getCreditCard());
 	}
 
 }
