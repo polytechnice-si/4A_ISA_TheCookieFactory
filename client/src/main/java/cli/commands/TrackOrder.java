@@ -16,7 +16,7 @@ public class TrackOrder extends Command<TCFPublicAPI> {
 
 	@Override
 	public void execute() throws Exception {
-		OrderStatus status = system.ccs.track(orderId);
+		OrderStatus status = shell.system.ccs.track(orderId);
 		System.out.println("  Status: " + status);
 	}
 

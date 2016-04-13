@@ -13,7 +13,7 @@ public class ListCatalogueContents extends Command<TCFPublicAPI> {
 
 	@Override
 	public void execute() {
-		List<Cookies> recipes = system.ccs.listAllRecipes();
+		List<Cookies> recipes = shell.system.ccs.listAllRecipes();
 		if (recipes.isEmpty()) {
 			System.out.println("  No recipes available");
 		} else {

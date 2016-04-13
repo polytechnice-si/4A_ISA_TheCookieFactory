@@ -1,0 +1,7 @@
+register seb 1234896983
+cart seb
+order seb 4 CHOCOLALALA
+order seb 3 DARK_TEMPTATION
+cart seb
+remove seb 2 DARK_TEMPTATION
+process seb

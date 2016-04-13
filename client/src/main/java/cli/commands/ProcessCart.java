@@ -15,7 +15,7 @@ public class ProcessCart extends Command<TCFPublicAPI> {
 
 	@Override
 	public void execute() throws Exception {
-		String id = system.carts.validate(customerName);
+		String id = shell.system.carts.validate(customerName);
 		System.out.println("  orderId: " + id);
 	}
 
