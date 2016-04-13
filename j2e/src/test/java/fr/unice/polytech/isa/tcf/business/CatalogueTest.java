@@ -15,8 +15,7 @@ import static org.junit.Assert.*;
 @RunWith(Arquillian.class)
 public class CatalogueTest extends AbstractTCFTest {
 
-	@EJB
-	CatalogueExploration catalogue;
+	@EJB private CatalogueExploration catalogue;
 
 	@Test
 	public void preMadeRecipesAreAVailable() {

@@ -1,0 +1,17 @@
+
+# Registering a given customer
+register seb 1234896983
+cart seb
+
+# Ordering some cookies
+order seb 4 CHOCOLALALA
+order seb 3 DARK_TEMPTATION
+cart seb
+
+# Removing some cookies
+remove seb 2 DARK_TEMPTATION
+cart seb
+
+# Processing the cart
+process seb
+cart seb

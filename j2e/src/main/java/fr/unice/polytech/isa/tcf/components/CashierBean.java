@@ -13,6 +13,8 @@ import fr.unice.polytech.isa.tcf.utils.Database;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.Set;
@@ -21,13 +23,15 @@ import java.util.Set;
 public class CashierBean implements Payment {
 
 	@EJB private OrderProcessing kitchen;
-	@EJB private Database memory;
+	@PersistenceContext private EntityManager entityManager;
 
 	private BankAPI bank;
 	public void useBankReference(BankAPI bank) { this.bank = bank; }
 
 	@Override
 	public String payOrder(Customer customer, Set<Item> items) throws PaymentException {
+
+		customer = entityManager.merge(customer);
 
 		Order order = new Order(customer, items);
 		double price = order.getPrice();
@@ -43,7 +47,8 @@ public class CashierBean implements Payment {
 		}
 
 		customer.add(order);
-		memory.getOrders().put(""+order.getId(),order);
+		entityManager.persist(order);
+
 		kitchen.process(order);
 
 		return ""+order.getId();

@@ -24,7 +24,9 @@ public class Main extends Shell<TCFPublicAPI> {
 				// Cart management
 				ShowCart.class, OrderCookie.class, RemoveCookie.class, ProcessCart.class,
 				// Order tracking
-				TrackOrder.class
+				TrackOrder.class,
+				// Play capability
+				Play.class
 		);
 	}
 
