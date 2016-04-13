@@ -44,7 +44,7 @@ public class Shell<T> {
 				help();
 			} else {
 				try {
-					if (keyword.startsWith("#"))
+					if (keyword.startsWith("#") || keyword.equals(""))
 						shouldContinue = true;
 					else
 						shouldContinue = processCommand(keyword, args);
