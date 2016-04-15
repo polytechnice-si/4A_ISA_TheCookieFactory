@@ -20,20 +20,16 @@ import javax.validation.ConstraintViolationException;
 import static org.junit.Assert.*;
 
 @RunWith(Arquillian.class)
+@Transactional(TransactionMode.COMMIT)
 public class StorageTest extends AbstractTCFTest {
 
-	@PersistenceContext
-	private EntityManager entityManager;
-
-	@Resource
-	private UserTransaction manual;
+	@PersistenceContext private EntityManager entityManager;
 
 	/*******************************
 	 ** Regular persistence cases **
 	 *******************************/
 
 	@Test
-	@Transactional(TransactionMode.COMMIT)
 	public void storingCustomer() throws Exception {
 		Customer c = new Customer("John Doe", "1234567890");
 		assertEquals(0,c.getId());
@@ -47,7 +43,6 @@ public class StorageTest extends AbstractTCFTest {
 	}
 
 	@Test
-	@Transactional(TransactionMode.COMMIT)
 	public void storingOrder() throws Exception {
 		Customer c = new Customer("John Doe", "1234567890");
 		entityManager.persist(c);
@@ -69,7 +64,6 @@ public class StorageTest extends AbstractTCFTest {
 	}
 
 	@Test
-	@Transactional(TransactionMode.COMMIT)
 	public void updatingCustomer() throws Exception {
 		Customer john = new Customer("John Doe", "1234567890");
 		entityManager.persist(john);
@@ -95,7 +89,6 @@ public class StorageTest extends AbstractTCFTest {
 	}
 
 	@Test
-	@Transactional(TransactionMode.COMMIT)
 	public void removingCustomer() throws Exception {
 		Customer john = new Customer("John Doe", "1234567890");
 		entityManager.persist(john);
@@ -117,7 +110,6 @@ public class StorageTest extends AbstractTCFTest {
 	}
 
 	@Test
-	@Transactional(TransactionMode.COMMIT)
 	public void removingOrderInCustomer() throws Exception {
 		Customer john = new Customer("John Doe", "1234567890");
 		entityManager.persist(john);
@@ -142,88 +134,6 @@ public class StorageTest extends AbstractTCFTest {
 		assertEquals(1, john.getOrders().size());
 		assertEquals(o2, john.getOrders().toArray()[0]);
 		assertEquals(john, entityManager.find(Customer.class, john.getId()));
-	}
-
-	/********************************
-	 ** Lazy loading demonstration **
-	 ********************************/
-
-	private Customer loadCustomer(int id) {
-		return entityManager.find(Customer.class, id);
-	}
-
-	@Test
-	public void lazyloadingDemo() throws Exception {
-		manual.begin();
-			Customer john = new Customer("John Doe", "1234567890");
-			entityManager.persist(john);
-			Order o1 = new Order(john, Cookies.CHOCOLALALA, 3); entityManager.persist(o1); john.add(o1);
-			Order o2 = new Order(john, Cookies.DARK_TEMPTATION, 1); entityManager.persist(o2); john.add(o2);
-			Order o3 = new Order(john, Cookies.SOO_CHOCOLATE, 2); entityManager.persist(o3); john.add(o3);
-			Customer sameTransaction = loadCustomer(john.getId()) ;
-			assertEquals(john, sameTransaction);
-			assertEquals(3, john.getOrders().size());
-		manual.commit();
-
-		Customer detached = loadCustomer(john.getId()) ;
-		assertNotEquals(john, detached);
-		assertNull(detached.getOrders());
-	}
-
-
-
-	/****************************
-	 * Cascading-related cases **
-	 ****************************/
-
-	@Test(expected = RollbackException.class)
-	public void cannotStoreOrderWithTransientCustomer() throws Exception {
-		Order order = new Order(new Customer("John Doe", "1234567890"));
-		order.setStatus(OrderStatus.IN_PROGRESS);
-		order.addItem(new Item(Cookies.CHOCOLALALA, 3));
-		manual.begin();
-			entityManager.persist(order); // the customer is not persistent => the order cannot persist by itself
-		manual.commit();
-	}
-
-	/********************************
-	 ** Constraint Violation cases **
-	 ********************************/
-
-
-	@Test(expected = ConstraintViolationException.class)
-	public void cannotStoreCustomerWithBadCreditCard() throws Exception {
-		Customer c = new Customer();
-		c.setName("Foo Bar");
-		c.setCreditCard("1234567890xxxx");
-		persistWithinTransaction(c);
-	}
-
-	@Test(expected = ConstraintViolationException.class)
-	public void cannotStoreOrderWithNoCustomer() throws Exception {
-		Order order = new Order();
-		order.setStatus(OrderStatus.IN_PROGRESS);
-		persistWithinTransaction(order);
-	}
-
-	/*********************
-	 ** Private Helpers **
-	 *********************/
-
-	/**
-	 * Asks the entity manager to persist a given object, within a manually handled transaction. Used to catch the
-	 * real reason of a transactional error and avoid to hide it inside a RollbackException. Useful to assess that
-	 * the root cause of an expected error is the right one.
-	 */
-	private void persistWithinTransaction(Object obj) throws Exception {
-		manual.begin();
-		try {
-			entityManager.persist(obj);
-			manual.commit();
-		} catch(Exception e) {
-			manual.rollback();
-			throw e;
-		}
 	}
 
 }
