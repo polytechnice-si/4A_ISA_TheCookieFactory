@@ -80,8 +80,9 @@ public interface CartWebService {
      * @param customerName
      * @return
      *     returns java.lang.String
-     * @throws UnknownCustomerException_Exception
+     * @throws EmptyCartException_Exception
      * @throws PaymentException_Exception
+     * @throws UnknownCustomerException_Exception
      */
     @WebMethod
     @WebResult(name = "order_id", targetNamespace = "")
@@ -90,7 +91,7 @@ public interface CartWebService {
     public String validate(
         @WebParam(name = "customer_name", targetNamespace = "")
         String customerName)
-        throws PaymentException_Exception, UnknownCustomerException_Exception
+        throws EmptyCartException_Exception, PaymentException_Exception, UnknownCustomerException_Exception
     ;
 
 }

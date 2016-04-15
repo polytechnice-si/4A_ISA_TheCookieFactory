@@ -68,6 +68,13 @@
                     <xs:element minOccurs="0" name="message" type="xs:string"/>
                 </xs:sequence>
             </xs:complexType>
+            <xs:element name="EmptyCartException" type="tns:EmptyCartException"/>
+            <xs:complexType name="EmptyCartException">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="name" type="xs:string"/>
+                    <xs:element minOccurs="0" name="message" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
             <xs:element name="PaymentException" type="tns:PaymentException"/>
             <xs:complexType name="PaymentException">
                 <xs:sequence>
@@ -92,6 +99,10 @@
     </wsdl:message>
     <wsdl:message name="addItemToCustomerCartResponse">
         <wsdl:part element="ns1:addItemToCustomerCartResponse" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="EmptyCartException">
+        <wsdl:part element="ns1:EmptyCartException" name="EmptyCartException">
         </wsdl:part>
     </wsdl:message>
     <wsdl:message name="UnknownCustomerException">
@@ -148,6 +159,8 @@
             </wsdl:input>
             <wsdl:output message="ns1:validateResponse" name="validateResponse">
             </wsdl:output>
+            <wsdl:fault message="ns1:EmptyCartException" name="EmptyCartException">
+            </wsdl:fault>
             <wsdl:fault message="ns1:PaymentException" name="PaymentException">
             </wsdl:fault>
             <wsdl:fault message="ns1:UnknownCustomerException" name="UnknownCustomerException">

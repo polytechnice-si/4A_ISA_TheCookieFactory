@@ -17,7 +17,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "CartWebServiceImplService", targetNamespace = "http://www.polytech.unice.fr/si/4a/isa/tcf/cart", wsdlLocation = "file:///Users/mosser/work/polytech/4A_ISA_TheCookieFactory/client/src/main/resources/CartWS.wsdl")
+@WebServiceClient(name = "CartWebServiceImplService", targetNamespace = "http://www.polytech.unice.fr/si/4a/isa/tcf/cart", wsdlLocation = "file:/Users/mosser/work/polytech/4A_ISA_TheCookieFactory/client/src/main/resources/CartWS.wsdl")
 public class CartWebServiceImplService
     extends Service
 {
@@ -30,7 +30,7 @@ public class CartWebServiceImplService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("file:///Users/mosser/work/polytech/4A_ISA_TheCookieFactory/client/src/main/resources/CartWS.wsdl");
+            url = new URL("file:/Users/mosser/work/polytech/4A_ISA_TheCookieFactory/client/src/main/resources/CartWS.wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

@@ -28,6 +28,7 @@ public class ObjectFactory {
     private final static QName _GetCustomerCartContentsResponse_QNAME = new QName("http://webservice.tcf.isa.polytech.unice.fr/", "getCustomerCartContentsResponse");
     private final static QName _Validate_QNAME = new QName("http://webservice.tcf.isa.polytech.unice.fr/", "validate");
     private final static QName _AddItemToCustomerCartResponse_QNAME = new QName("http://webservice.tcf.isa.polytech.unice.fr/", "addItemToCustomerCartResponse");
+    private final static QName _EmptyCartException_QNAME = new QName("http://webservice.tcf.isa.polytech.unice.fr/", "EmptyCartException");
     private final static QName _UnknownCustomerException_QNAME = new QName("http://webservice.tcf.isa.polytech.unice.fr/", "UnknownCustomerException");
     private final static QName _PaymentException_QNAME = new QName("http://webservice.tcf.isa.polytech.unice.fr/", "PaymentException");
     private final static QName _GetCustomerCartContents_QNAME = new QName("http://webservice.tcf.isa.polytech.unice.fr/", "getCustomerCartContents");
@@ -40,6 +41,14 @@ public class ObjectFactory {
      * 
      */
     public ObjectFactory() {
+    }
+
+    /**
+     * Create an instance of {@link EmptyCartException }
+     * 
+     */
+    public EmptyCartException createEmptyCartException() {
+        return new EmptyCartException();
     }
 
     /**
@@ -164,6 +173,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://webservice.tcf.isa.polytech.unice.fr/", name = "addItemToCustomerCartResponse")
     public JAXBElement<AddItemToCustomerCartResponse> createAddItemToCustomerCartResponse(AddItemToCustomerCartResponse value) {
         return new JAXBElement<AddItemToCustomerCartResponse>(_AddItemToCustomerCartResponse_QNAME, AddItemToCustomerCartResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link EmptyCartException }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://webservice.tcf.isa.polytech.unice.fr/", name = "EmptyCartException")
+    public JAXBElement<EmptyCartException> createEmptyCartException(EmptyCartException value) {
+        return new JAXBElement<EmptyCartException>(_EmptyCartException_QNAME, EmptyCartException.class, null, value);
     }
 
     /**
