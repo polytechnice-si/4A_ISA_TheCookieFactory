@@ -1,9 +1,11 @@
-# Business Components [TCF case study]
+# Business Components
 
   * Author: Sébastien Mosser [mosser@i3s.unice.fr](mosser@i3s.unice.fr)
   * Reviewer: Anne-Marie Déry [pinna@polytech.unice.fr](pinna@polytech.unice.fr)
   * Version: 02.2016
+  * [Back to The Cookie Factory Home Page](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/Readme.md)
 
+  * Prev.: [Architecture](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/chapters/Architecture.md)
 
 We focus here on the implementation of our first component, dedicated to handle customer's carts. The component is very basic, as it only exposes 3 operations: (i) adding an Item to a given customer's cart, (ii) removing an item in such a cart and (iii) retrieving the contents of a given cart. The definition of this component is modeled as a classical Java interface, annotated as `@Local` as we are implementing a local component.
 
@@ -213,3 +215,6 @@ The test suite must be updated to refer to these changes. First, we have to expl
 ```
 
 __Warning__: When a component implements an interface, it is supposed to properly implement the contract. Thus, if the container does not find a bean with the given name, it will chose one randomly among the available one, as it should be semantically equivalent.
+
+
+  * Next: [Exposing components as Web Services (SOAP)](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/chapters/Exposing_SOAP.md)

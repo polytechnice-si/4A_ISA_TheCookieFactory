@@ -1,8 +1,11 @@
-# Component-based Web UI [TCF case study]
+# Component-based Web UI 
 
   * Author: Sébastien Mosser [mosser@i3s.unice.fr](mosser@i3s.unice.fr)
   * Reviewer: Anne-Marie Déry [pinna@polytech.unice.fr](pinna@polytech.unice.fr)
   * Version: 02.2016
+  * [Back to The Cookie Factory Home Page](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/Readme.md)
+
+  * Prev.: [Making things persistent](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/chapters/Persistence.md)
 
 
 
@@ -104,5 +107,6 @@ We now want to support cookie ordering using a web interface. The application is
   * the second page allows one to access to the customer carts, modify it by adding/removing cookies and processing the cart into an order;
   * the third page is the order tracker, using order references to track the status if a given order.
 
+  * Next: [Conclusions](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/chapters/Conclusions.md)
 
 

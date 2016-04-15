@@ -1,10 +1,17 @@
-# Conclusions [TCF case study]
+# Conclusions 
 
   * Author: Sébastien Mosser [mosser@i3s.unice.fr](mosser@i3s.unice.fr)
   * Reviewer: Anne-Marie Déry [pinna@polytech.unice.fr](pinna@polytech.unice.fr)
   * Version: 02.2016
+  * [Back to The Cookie Factory Home Page](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/Readme.md)
+
+  * Prev.: [Web user interface using JSF](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/chapters/UI_JSF.md) 
 
 ## Summary
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/polytechnice-si/4A_ISA_TheCookieFactory/develop/docs/big_pict.png"/>
+</p>
 
 This reference implementation demonstrates the following points with respect to the Introduction to Software Architecture course objectives:
 
@@ -18,7 +25,7 @@ This reference implementation demonstrates the following points with respect to 
   - Using EJB entities to support the implementation of a persistence layer;
   - Define relationships between entities to support complex object composition;
   - Express validation rules at the persistence level to ensure data consistency.
-  
+
 ## Perspectives
 
   - Use "real" application servers to support TCF deployment (Tomcat, IIS)

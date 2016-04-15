@@ -1,8 +1,11 @@
-# Consuming REST Services [TCF case study]
+# Consuming REST Services
 
   * Author: Sébastien Mosser [mosser@i3s.unice.fr](mosser@i3s.unice.fr)
   * Reviewer: Anne-Marie Déry [pinna@polytech.unice.fr](pinna@polytech.unice.fr)
   * Version: 02.2016
+  * [Back to The Cookie Factory Home Page](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/Readme.md)
+
+  * Prev.: [Exposing components as Web Services (SOAP)](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/chapters/Exposing_SOAP.md)
 
 ## External Partner
 
@@ -117,3 +120,6 @@ private void initializeRestPartnership() throws IOException {
 							prop.getProperty("bankPortNumber"));
 }
 ```
+
+
+  * Next: [Unit testing _versus_ Integration testing](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/chapters/IntegrationTesting.md)

@@ -1,8 +1,9 @@
-# Architecture [TCF case study]
+# Architecture
 
   * Author: Sébastien Mosser [mosser@i3s.unice.fr](mosser@i3s.unice.fr)
   * Reviewer: Anne-Marie Déry [pinna@polytech.unice.fr](pinna@polytech.unice.fr)
   * Version: 02.2016
+  * [Back to The Cookie Factory Home Page](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/Readme.md)
 
 ## Components assembly
 
@@ -13,7 +14,10 @@ The system is defined as layers:
   * An interoperability layer (grey) between the client and the kernel, implemented as SOAP-based web services;
   * An external partner (orange, implemented in .Net), communicating with the CoD system through a Web Service.
 
-![Architecture](https://raw.githubusercontent.com/polytechnice-si/4A_ISA_TheCookieFactory/develop/docs/archi.png)
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/polytechnice-si/4A_ISA_TheCookieFactory/develop/docs/archi.png"/>
+</p>
 
 ## Functional interfaces
 
@@ -27,14 +31,17 @@ To deliver the expected features, the coD system defines the following interface
   * [`Payment`](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/j2e/src/main/java/fr/unice/polytech/isa/tcf/Payment.java): operations related to the payment of a given cart's contents;
   * [`Tracker`](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/j2e/src/main/java/fr/unice/polytech/isa/tcf/Tracker.java): order tracker to retrieve information about the current status of a given order.
 
-
-![Interfaces](https://raw.githubusercontent.com/polytechnice-si/4A_ISA_TheCookieFactory/develop/docs/interfaces.png)
+<p align="center">
+  <img src="https://raw.githubusercontent.com/polytechnice-si/4A_ISA_TheCookieFactory/develop/docs/interfaces.png"/>
+</p>
 
 ## Business objects
 
 The business objects are simple: [`Cookies`](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/j2e/src/main/java/fr/unice/polytech/isa/tcf/entities/Cookies.java) are defined as an enumerate, binding a name to a price. An [`Item`](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/j2e/src/main/java/fr/unice/polytech/isa/tcf/entities/Item.java) models the elements stored inside a cart, _i.e._, a given cookie and the quantity to order. A [`Customer`](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/j2e/src/main/java/fr/unice/polytech/isa/tcf/entities/Customer.java) makes orders thanks to the CoD system, and an [`Order`](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/j2e/src/main/java/fr/unice/polytech/isa/tcf/entities/Order.java) stores the set of items effectively ordered by the associated customer (bidirectional association).
 
-![Business Objects](https://raw.githubusercontent.com/polytechnice-si/4A_ISA_TheCookieFactory/develop/docs/business.png)
+<p align="center">
+  <img src="https://raw.githubusercontent.com/polytechnice-si/4A_ISA_TheCookieFactory/develop/docs/business.png"/>
+</p>
 
 ## Technological Choices
 
@@ -53,3 +60,5 @@ __Warning__: Starting the backend with `mvn tomee:run` will not trigger a compil
 ### Client 
 
 The client acts as an interactive command-line. We store the WSDL contracts as java resources (`src/main/resources`). The package `cli.framework` defines a very simple interactive shell, and the package `cli.commands` implements the different commands available in the shell for the customer. 
+
+  * Next: [Business components with EJB sessions](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/chapters/BusinessComponents.md) 

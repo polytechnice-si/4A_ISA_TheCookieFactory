@@ -1,9 +1,11 @@
-# Real Persistence Layer [TCF case study]
+# Real Persistence Layer
 
   * Author: Sébastien Mosser [mosser@i3s.unice.fr](mosser@i3s.unice.fr)
   * Reviewer: Anne-Marie Déry [pinna@polytech.unice.fr](pinna@polytech.unice.fr)
   * Version: 02.2016
+  * [Back to The Cookie Factory Home Page](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/Readme.md)
 
+  * Prev.: [Message interceptors to support the NTUI (_Never Trust User Input_) golden rule](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/chapters/Interceptors.md)
   
 ## Setting up the persistence layer
 
@@ -462,3 +464,5 @@ public void lazyloadingDemo() throws Exception {
 ```
 
 __Remark__: Within EJB sessions, a transaction is created each time a method is called. Objects are detached (cutting lazy-loading capabilities to _null_) each time a persistent object crosses the boundary of a transaction.
+
+  * Next: [Web user interface using JSF](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/chapters/UI_JSF.md) 

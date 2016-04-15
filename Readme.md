@@ -15,6 +15,12 @@ This case study is used to illustrate the different technologies involved in the
 
 _The Cookie Factory_ (TCF) is a major bakery brand in the USA. The _Cookie on Demand_ (CoD) system is an innovative service offered by TCF to its customer. They can order cookies online thanks to an application, and select when they'll pick-up their order in a given shop. The CoD system ensures to TCF's happy customers that they'll always retrieve their pre-paid warm cookies on time.
 
+The software architecture to be developed in this document will rely on the following stack:
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/polytechnice-si/4A_ISA_TheCookieFactory/develop/docs/big_pict.png"/>
+</p>
+
 ## Chapters
 
   1. [Architecture](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/chapters/Architecture.md)
@@ -61,20 +67,23 @@ To run the demonstration, first start the two servers in two different terminals
  
 ```bash
 azrael:4A_ISA_TheCookieFactory mosser$ cloc .
-347 text files.
-347 unique files.                                          
-22 files ignored.
+     476 text files.
+     445 unique files.                                          
+      99 files ignored.
 
-http://cloc.sourceforge.net v 1.64  T=1.06 s (306.6 files/s, 9366.4 lines/s)
+http://cloc.sourceforge.net v 1.64  T=2.65 s (144.3 files/s, 5999.5 lines/s)
 -------------------------------------------------------------------------------
 Language                     files          blank        comment           code
 -------------------------------------------------------------------------------
-XML                            230             12              0           4888
-Java                            89            853           1248           2559
-Maven                            1              7              9            181
+XML                            247             92            608           6205
+Java                           100            970           1349           2911
+Bourne Shell                    13            194            523           1314
+DOS Batch                       12            149            389            638
+Maven                            1              7             10            188
 C#                               4             37             13            132
-Bourne Shell                     2              4              3             12
+JavaServer Faces                 4             32              0            115
+JSP                              1              0              0              4
 -------------------------------------------------------------------------------
-SUM:                           326            913           1273           7772
+SUM:                           382           1481           2892          11507
 -------------------------------------------------------------------------------
 ```

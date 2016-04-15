@@ -1,11 +1,12 @@
-# Interceptors [TCF case study]
+# Interceptors 
 
   * Author: Sébastien Mosser [mosser@i3s.unice.fr](mosser@i3s.unice.fr)
   * Reviewer: Anne-Marie Déry [pinna@polytech.unice.fr](pinna@polytech.unice.fr)
   * Version: 02.2016
+  * [Back to The Cookie Factory Home Page](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/Readme.md)
 
+  * Prev.: [Complete architecture overview](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/chapters/VolatileOverview.md)
   
-
 Interceptors are used inside the application server to process the messages exchanged between the different components. But the EJB framework also allows one to develop business-oriented interceptors as a support for cross-cutting features that does not fit easily inside components (e.g., code duplication).
 
 ## Counting the number of processed carts
@@ -111,3 +112,5 @@ It does not make any sense to manually annotate all the operations designed insi
     </assembly-descriptor>
 </ejb-jar>
 ```
+
+  * Next: [Making things persistent](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/chapters/Persistence.md) 
