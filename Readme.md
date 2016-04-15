@@ -67,23 +67,22 @@ To run the demonstration, first start the two servers in two different terminals
  
 ```bash
 azrael:4A_ISA_TheCookieFactory mosser$ cloc .
-     476 text files.
-     445 unique files.                                          
-      99 files ignored.
+     368 text files.
+     368 unique files.                                          
+      25 files ignored.
 
-http://cloc.sourceforge.net v 1.64  T=2.86 s (133.4 files/s, 5577.5 lines/s)
+http://cloc.sourceforge.net v 1.64  T=1.05 s (326.3 files/s, 10124.5 lines/s)
 -------------------------------------------------------------------------------
 Language                     files          blank        comment           code
 -------------------------------------------------------------------------------
-XML                            247             92            608           6298
+XML                            232             19              0           4867
 Java                           100            970           1349           2911
-Bourne Shell                    13            194            523           1314
-DOS Batch                       12            149            389            638
 Maven                            1              7             10            188
 C#                               4             37             13            132
 JavaServer Faces                 4             32              0            115
+Bourne Shell                     2              4              3             12
 JSP                              1              0              0              4
 -------------------------------------------------------------------------------
-SUM:                           382           1481           2892          11600
+SUM:                           344           1069           1375           8229
 -------------------------------------------------------------------------------
 ```
