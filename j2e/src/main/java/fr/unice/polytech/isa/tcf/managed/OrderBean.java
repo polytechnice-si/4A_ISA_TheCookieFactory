@@ -90,7 +90,7 @@ public class OrderBean implements Serializable {
 			return "PAYMENT_ERROR";
 		} catch (EmptyCartException ece) {
 			FacesContext.getCurrentInstance().addMessage("order-error", new FacesMessage("Cannot validate an empty cart!"));
-			return "EMTPY_CART";
+			return "EMPTY_CART";
 		}
 	}
 
