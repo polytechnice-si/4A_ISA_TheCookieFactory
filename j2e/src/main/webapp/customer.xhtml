@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <h:head>
+        <title>.:: The Cookie Factory :: Cookie On Demand ::.</title>
+    </h:head>
+
+    <h:body>
+
+        <h1>Cookie On Demand Web Interface</h1>
+
+        <h:messages id="form-error" style="color: red"/>
+
+        <h2>Pick an existing customer</h2>
+        <f:view>
+            <h:form id="select-form">
+                <h:panelGrid columns="2">
+                    <h:outputText value='Customer name:'/>
+                    <h:inputText value='#{customerBean.name}'/>
+                    <h:commandButton id="select-customer" action="#{customerBean.select}" value="Select">
+                        <!-- <f:param name="custName" value="#{customerBean.name}" />  -->
+                    </h:commandButton>
+                </h:panelGrid>
+            </h:form>
+        </f:view>
+
+        <h2>Create a new customer</h2>
+        <f:view>
+            <h:form id="register-form">
+                <h:panelGrid columns="2">
+                    <h:outputText value='Customer name'/>
+                    <h:inputText value='#{customerBean.name}'/>
+                    <h:outputText value='Credit card number'/>
+                    <h:inputText value='#{customerBean.creditCard}'/>
+                    <h:commandButton action="#{customerBean.register}" value="Register"/>
+                </h:panelGrid>
+            </h:form>
+        </f:view>
+
+    </h:body>
+
+</html>
