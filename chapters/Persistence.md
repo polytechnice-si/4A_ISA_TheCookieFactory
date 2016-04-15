@@ -113,8 +113,9 @@ Your favorite IDE can be used to access to the contents of the persistent databa
 
 __If you really want to proceed__, be sure to use the full path to reach your local file. Here is an example of configuration using IntelliJ 16 Ultimate Edition.
 
-![IntelliJ config](https://raw.githubusercontent.com/polytechnice-si/4A_ISA_TheCookieFactory/develop/docs/ide_datasource.png)
-
+<p align="center">
+  <img src="https://raw.githubusercontent.com/polytechnice-si/4A_ISA_TheCookieFactory/develop/docs/ide_datasource.png" />
+</p>
 
 ## Annotating Classes to create Entities
 
