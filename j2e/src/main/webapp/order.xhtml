@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+    <title>.:: The Cookie Factory :: Cookie On Demand ::.</title>
+</h:head>
+
+<h:body>
+
+    <h1>Ordering cookies for #{orderBean.customerName}</h1>
+
+    <h:messages id="order-error" style="color: red"/>
+
+    <h2>Ordering form</h2>
+
+    <f:view>
+        <h:form id="order-form">
+            <h:panelGrid columns="2">
+                <h:outputText value='Cookie:'/>
+                <h:selectOneMenu value="#{orderBean.cookie}">
+                    <!-- Warning: f:selectItems requires a List instead of a Set -->
+                    <f:selectItems value="#{orderBean.recipes}" var="cookie"
+                                   itemLabel="#{cookie.name}" itemValue="#{cookie.name}" />
+                </h:selectOneMenu>
+            </h:panelGrid>
+            <h:panelGrid columns="4">
+                <h:outputText value='Quantity:'/>
+                <h:inputText value='#{orderBean.quantity}' validatorMessage="Quantity must be greater than 0">
+                    <f:validateLongRange minimum="1" />
+                </h:inputText>
+                <h:commandButton action="#{orderBean.add}" value="+" />
+                <h:commandButton action="#{orderBean.remove}" value="-" />
+            </h:panelGrid>
+        </h:form>
+    </f:view>
+
+    <h2>Cart contents</h2>
+
+    <ul>
+        <!-- Warning: ui:repeat requires a List instead of a Set -->
+        <ui:repeat var="i" value="#{orderBean.cart}">
+            <li><h:outputText value="#{i.cookie}" /> (x<h:outputText value="#{i.quantity}" />) </li>
+        </ui:repeat>
+    </ul>
+
+    <f:view>
+        <h:form id="process-form">
+            <h:commandButton action="#{orderBean.process}" value="Order!" />
+        </h:form>
+    </f:view>
+
+
+
+</h:body>
+
+</html>

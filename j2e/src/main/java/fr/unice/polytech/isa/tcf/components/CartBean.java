@@ -5,6 +5,7 @@ import fr.unice.polytech.isa.tcf.CartModifier;
 import fr.unice.polytech.isa.tcf.Payment;
 import fr.unice.polytech.isa.tcf.entities.Customer;
 import fr.unice.polytech.isa.tcf.entities.Item;
+import fr.unice.polytech.isa.tcf.exceptions.EmptyCartException;
 import fr.unice.polytech.isa.tcf.exceptions.PaymentException;
 import fr.unice.polytech.isa.tcf.interceptors.CartCounter;
 import fr.unice.polytech.isa.tcf.interceptors.Logger;
@@ -21,7 +22,9 @@ public abstract class CartBean implements CartModifier {
 
 	@Override
 	@Interceptors({CartCounter.class})
-	public String validate(Customer c) throws PaymentException {
+	public String validate(Customer c) throws PaymentException, EmptyCartException {
+		if(contents(c).isEmpty())
+			throw new EmptyCartException(c.getName());
 		return cashier.payOrder(c, contents(c));
 	}
 

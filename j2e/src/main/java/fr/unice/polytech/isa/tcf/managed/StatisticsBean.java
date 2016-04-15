@@ -1,9 +1,19 @@
 package fr.unice.polytech.isa.tcf.managed;
 
-/**
- * This file is part of the 4A_ISA_TheCookieFactory project
- *
- * @author mosser (13/04/2016, 12:57)
- **/
-public class StatisticsBean {
+import fr.unice.polytech.isa.tcf.utils.Database;
+
+import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
+
+import java.io.Serializable;
+
+@ManagedBean
+public class StatisticsBean implements Serializable {
+
+	@EJB private Database memory;
+
+	public int getProcessed() {
+		return memory.howManyCarts();
+	}
+
 }

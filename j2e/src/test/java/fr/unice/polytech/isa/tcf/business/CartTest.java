@@ -11,6 +11,7 @@ import fr.unice.polytech.isa.tcf.entities.Item;
 
 import java.util.*;
 // component test framework import
+import fr.unice.polytech.isa.tcf.exceptions.EmptyCartException;
 import org.jboss.arquillian.junit.Arquillian;
 // java annotations
 import org.jboss.arquillian.transaction.api.annotation.TransactionMode;
@@ -83,6 +84,12 @@ public class CartTest extends AbstractTCFTest {
 		cart.add(john, new Item(Cookies.CHOCOLALALA, 3));
 		Item[] oracle = new Item[] {new Item(Cookies.CHOCOLALALA, 5), new Item(Cookies.DARK_TEMPTATION, 3)  };
 		assertEquals(new HashSet<>(Arrays.asList(oracle)), cart.contents(john));
+	}
+
+	@Test(expected = EmptyCartException.class)
+	public void cannotProcessEmptyCart() throws Exception {
+		assertArrayEquals(new Item[] {}, cart.contents(john).toArray());
+		cart.validate(john);
 	}
 
 }

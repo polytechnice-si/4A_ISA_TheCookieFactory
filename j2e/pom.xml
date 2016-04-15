@@ -13,6 +13,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <versions.tomee.embedded>1.7.3</versions.tomee.embedded>
         <versions.openjpa>2.4.1</versions.openjpa>
+        <versions.myface>2.2.10</versions.myface>
     </properties>
 
     <profiles>
@@ -83,6 +84,13 @@
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>20160212</version>
+        </dependency>
+        <!-- Dependencies for the JSF framework -->
+        <dependency>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-api</artifactId>
+            <version>${versions.myface}</version>
+            <scope>provided</scope>
         </dependency>
         <!-- Dependencies for the testing frameworks (Junit, Mockito & Arquillian) -->
         <dependency>

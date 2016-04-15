@@ -1,0 +1,33 @@
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                                  http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+              version="2.0">
+
+    <navigation-rule>
+        <from-view-id>/customer.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>SELECTED</from-outcome>
+            <to-view-id>/order.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ADDED</from-outcome>
+            <to-view-id>/order.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/order.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>ORDERED</from-outcome>
+            <to-view-id>/tracker.xhtml</to-view-id>
+            <redirect>
+                <view-param>
+                    <name>orderId</name>
+                    <value>#{orderBean.orderId}</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+    </navigation-rule>
+
+</faces-config>

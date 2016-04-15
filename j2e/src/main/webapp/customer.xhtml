@@ -19,10 +19,8 @@
             <h:form id="select-form">
                 <h:panelGrid columns="2">
                     <h:outputText value='Customer name:'/>
-                    <h:inputText value='#{customerBean.name}'/>
-                    <h:commandButton id="select-customer" action="#{customerBean.select}" value="Select">
-                        <!-- <f:param name="custName" value="#{customerBean.name}" />  -->
-                    </h:commandButton>
+                    <h:inputText value='#{customerBean.name}' required="true"/>
+                    <h:commandButton action="#{customerBean.select}" value="Select"/>
                 </h:panelGrid>
             </h:form>
         </f:view>
@@ -32,14 +30,16 @@
             <h:form id="register-form">
                 <h:panelGrid columns="2">
                     <h:outputText value='Customer name'/>
-                    <h:inputText value='#{customerBean.name}'/>
+                    <h:inputText value='#{customerBean.name}' required="true" />
                     <h:outputText value='Credit card number'/>
-                    <h:inputText value='#{customerBean.creditCard}'/>
+                    <h:inputText value='#{customerBean.creditCard}' required="true"
+                                 validatorMessage="Credit card number must be 10 digits">
+                        <f:validateRegex pattern="\\d{10}+" />
+                    </h:inputText>
                     <h:commandButton action="#{customerBean.register}" value="Register"/>
                 </h:panelGrid>
             </h:form>
         </f:view>
 
     </h:body>
-
 </html>
