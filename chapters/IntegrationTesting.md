@@ -33,8 +33,8 @@ public void setUpContext() {
 
 But we also need to implement _Integration Tests_, that will ensure the end to end connection between our two systems. We rely on Maven to implement such a behavior: 
 
-  - classical Unit tests are always run (_e.g., when invoking `mvn package`)
-  - Integration tests will be run during the `integration-test` phase.
+  - classical Unit tests are always run (_e.g._, when invoking `mvn package`)
+  - Integration tests will be run during the integration testing phase (_e.g._, when invoking `mvn integration-test`).
 
 We will differentiate classical tests and integration ones using a file name prefix: integration tests will match `*IntegrationTest`. In the `pom.xml` file we rely on the following configuration to implement these specifications:
 
