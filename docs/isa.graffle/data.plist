@@ -48,7 +48,7 @@
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2016-04-15 12:09:26 +0000</string>
+	<string>2016-04-16 11:41:23 +0000</string>
 	<key>Modifier</key>
 	<string>Sébastien Mosser</string>
 	<key>NotesVisible</key>
@@ -78,6 +78,11 @@
 		<array>
 			<string>coded</string>
 			<string>BAtzdHJlYW10eXBlZIHoA4QBQISEhAhOU051bWJlcgCEhAdOU1ZhbHVlAISECE5TT2JqZWN0AIWEASqEhAFxlwGG</string>
+		</array>
+		<key>NSPaperName</key>
+		<array>
+			<string>string</string>
+			<string>AA2E349E-EBAA-4309-95C7-64C4019D56D1</string>
 		</array>
 		<key>NSPaperSize</key>
 		<array>
@@ -140,7 +145,7 @@
 			<key>ColumnSpacing</key>
 			<real>36</real>
 			<key>DisplayScale</key>
-			<string>1 0/72 in = 1 0/72 in</string>
+			<string>1 0/72 in = 1.0000 in</string>
 			<key>GraphicsList</key>
 			<array>
 				<dict>
@@ -751,8 +756,9 @@
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
 
 \f0\b\fs24 \cf0 File-based\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
 
-\i\b0 (HSQLDB)}</string>
+\i\b0 \cf0 (HSQLDB)}</string>
 						<key>VerticalPad</key>
 						<integer>0</integer>
 					</dict>
@@ -801,8 +807,9 @@
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
 
 \f0\b\fs24 \cf0 in memory\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
 
-\i\b0 (HSQLDB)}</string>
+\i\b0 \cf0 (HSQLDB)}</string>
 						<key>VerticalPad</key>
 						<integer>0</integer>
 					</dict>
@@ -986,10 +993,10 @@
 						<key>Text</key>
 						<string>{\rtf1\ansi\ansicpg1252\cocoartf1265\cocoasubrtf210
 \cocoascreenfonts1{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;\red255\green255\blue255;}
+{\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
 
-\f0\i\fs24 \cf2 I\
+\f0\i\fs24 \cf1 I\
 N\
 T\
 E\
@@ -1081,8 +1088,9 @@ S}</string>
 
 \f0\b\fs24 \cf0 Third part System
 \b0  \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
 
-\i (.Net)}</string>
+\i \cf0 (.Net)}</string>
 						<key>VerticalPad</key>
 						<integer>0</integer>
 					</dict>
@@ -1499,10 +1507,10 @@ S}</string>
 						<key>Text</key>
 						<string>{\rtf1\ansi\ansicpg1252\cocoartf1265\cocoasubrtf210
 \cocoascreenfonts1{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;\red255\green255\blue255;}
+{\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
 
-\f0\b\fs24 \cf2 T\
+\f0\b\fs24 \cf1 T\
 E\
 S\
 T\
@@ -1564,8 +1572,9 @@ S}</string>
 
 \f0\b\fs24 \cf0 Web UI
 \b0  \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
 
-\i (JSF)}</string>
+\i \cf0 (JSF)}</string>
 					</dict>
 				</dict>
 				<dict>
@@ -1688,13 +1697,14 @@ S}</string>
 						<key>Text</key>
 						<string>{\rtf1\ansi\ansicpg1252\cocoartf1265\cocoasubrtf210
 \cocoascreenfonts1{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;\red255\green255\blue255;}
+{\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
 
-\f0\b\fs24 \cf2 Statefull Comp.
+\f0\b\fs24 \cf1 Statefull Comp.
 \b0  \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
 
-\i (EJB session)}</string>
+\i \cf1 (EJB session)}</string>
 					</dict>
 				</dict>
 				<dict>
@@ -1759,10 +1769,10 @@ S}</string>
 						<key>Text</key>
 						<string>{\rtf1\ansi\ansicpg1252\cocoartf1265\cocoasubrtf210
 \cocoascreenfonts1{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;\red255\green255\blue255;}
+{\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
 
-\f0\b\fs24 \cf2 Stateless Components
+\f0\b\fs24 \cf1 Stateless Components
 \b0  
 \i (EJB session)}</string>
 					</dict>
@@ -1870,10 +1880,11 @@ S}</string>
 						<key>Text</key>
 						<string>{\rtf1\ansi\ansicpg1252\cocoartf1265\cocoasubrtf210
 \cocoascreenfonts1{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;\red255\green255\blue255;}
+{\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
 
-\f0\b\fs24 \cf2 Prod\
+\f0\b\fs24 \cf1 Prod\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
 
 \b0 \cf0 \
 }</string>
@@ -1924,10 +1935,10 @@ S}</string>
 						<key>Text</key>
 						<string>{\rtf1\ansi\ansicpg1252\cocoartf1265\cocoasubrtf210
 \cocoascreenfonts1{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;\red255\green255\blue255;}
+{\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
 
-\f0\b\fs24 \cf2 Test}</string>
+\f0\b\fs24 \cf1 Test}</string>
 					</dict>
 				</dict>
 			</array>
@@ -2178,7 +2189,7 @@ S}</string>
 					<key>Points</key>
 					<array>
 						<string>{286.54767501815559, 160.94541369840124}</string>
-						<string>{323.41076478952846, 178.78198538055764}</string>
+						<string>{323.39297248151217, 178.78213686382472}</string>
 					</array>
 					<key>Style</key>
 					<dict>
@@ -2208,16 +2219,14 @@ S}</string>
 					<key>Head</key>
 					<dict>
 						<key>ID</key>
-						<integer>29</integer>
-						<key>Info</key>
-						<integer>4</integer>
+						<integer>53</integer>
 					</dict>
 					<key>ID</key>
 					<integer>57</integer>
 					<key>Points</key>
 					<array>
-						<string>{390.95336715038297, 178.89370750149689}</string>
-						<string>{473.45231681234685, 160.94541726445178}</string>
+						<string>{393.49989385520075, 190.00989378683138}</string>
+						<string>{427.50011690326096, 190.71064252944265}</string>
 					</array>
 					<key>Style</key>
 					<dict>
@@ -2433,13 +2442,20 @@ S}</string>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{124, 179}, {77, 14}}</string>
+					<string>{{124, 192.75}, {83, 14}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
 					<string>YES</string>
 					<key>Flow</key>
 					<string>Resize</string>
+					<key>FontInfo</key>
+					<dict>
+						<key>Font</key>
+						<string>Helvetica-Oblique</string>
+						<key>Size</key>
+						<real>12</real>
+					</dict>
 					<key>ID</key>
 					<integer>51</integer>
 					<key>Shape</key>
@@ -2472,7 +2488,7 @@ S}</string>
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
 
-\f0\i\fs24 \cf0 session scope}</string>
+\f0\i\b\fs24 \cf0 session scope}</string>
 						<key>VerticalPad</key>
 						<integer>0</integer>
 					</dict>
@@ -3435,6 +3451,56 @@ S}</string>
 						</dict>
 					</dict>
 				</dict>
+				<dict>
+					<key>Bounds</key>
+					<string>{{105, 44}, {527, 155}}</string>
+					<key>Class</key>
+					<string>ShapedGraphic</string>
+					<key>ID</key>
+					<integer>65</integer>
+					<key>Shape</key>
+					<string>Rectangle</string>
+					<key>Style</key>
+					<dict>
+						<key>fill</key>
+						<dict>
+							<key>Color</key>
+							<dict>
+								<key>b</key>
+								<string>0.901961</string>
+								<key>g</key>
+								<string>0.901961</string>
+								<key>r</key>
+								<string>0.901961</string>
+							</dict>
+						</dict>
+					</dict>
+				</dict>
+				<dict>
+					<key>Bounds</key>
+					<string>{{93, 33}, {527, 155}}</string>
+					<key>Class</key>
+					<string>ShapedGraphic</string>
+					<key>ID</key>
+					<integer>66</integer>
+					<key>Shape</key>
+					<string>Rectangle</string>
+					<key>Style</key>
+					<dict>
+						<key>fill</key>
+						<dict>
+							<key>Color</key>
+							<dict>
+								<key>b</key>
+								<string>0.901961</string>
+								<key>g</key>
+								<string>0.901961</string>
+								<key>r</key>
+								<string>0.901961</string>
+							</dict>
+						</dict>
+					</dict>
+				</dict>
 			</array>
 			<key>GridInfo</key>
 			<dict/>
@@ -3499,7 +3565,7 @@ S}</string>
 		<key>ExpandedCanvases</key>
 		<array/>
 		<key>Frame</key>
-		<string>{{838, 508}, {1150, 736}}</string>
+		<string>{{250, 142}, {1150, 736}}</string>
 		<key>ListView</key>
 		<true/>
 		<key>OutlineWidth</key>
