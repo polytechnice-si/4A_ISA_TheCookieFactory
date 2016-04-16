@@ -48,7 +48,7 @@
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2016-04-16 11:41:23 +0000</string>
+	<string>2016-04-16 16:43:08 +0000</string>
 	<key>Modifier</key>
 	<string>Sébastien Mosser</string>
 	<key>NotesVisible</key>
@@ -348,7 +348,8 @@
 {\colortbl;\red255\green255\blue255;}
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
 
-\f0\i\fs24 \cf0 REST \
+\f0\b\fs24 \cf0 REST
+\i\b0  \
 (HTTP)}</string>
 						<key>VerticalPad</key>
 						<integer>0</integer>
@@ -564,8 +565,8 @@
 					<integer>41</integer>
 					<key>Points</key>
 					<array>
-						<string>{491, 212.25}</string>
-						<string>{432.5, 179.75}</string>
+						<string>{491.0000059207282, 212.25}</string>
+						<string>{432.50000264543178, 179.75}</string>
 					</array>
 					<key>Style</key>
 					<dict>
@@ -585,6 +586,8 @@
 					<dict>
 						<key>ID</key>
 						<integer>13</integer>
+						<key>Info</key>
+						<integer>3</integer>
 					</dict>
 				</dict>
 				<dict>
@@ -824,14 +827,14 @@
 						<key>ID</key>
 						<integer>4</integer>
 						<key>Info</key>
-						<integer>7</integer>
+						<integer>8</integer>
 					</dict>
 					<key>ID</key>
 					<integer>34</integer>
 					<key>Points</key>
 					<array>
-						<string>{653, 369.25}</string>
-						<string>{524, 367.25}</string>
+						<string>{653, 369.2499577999115}</string>
+						<string>{524, 367.2500057220459}</string>
 					</array>
 					<key>Style</key>
 					<dict>
@@ -852,7 +855,7 @@
 						<key>ID</key>
 						<integer>31</integer>
 						<key>Info</key>
-						<integer>8</integer>
+						<integer>18</integer>
 					</dict>
 				</dict>
 				<dict>
@@ -863,14 +866,14 @@
 						<key>ID</key>
 						<integer>11</integer>
 						<key>Info</key>
-						<integer>5</integer>
+						<integer>10</integer>
 					</dict>
 					<key>ID</key>
 					<integer>33</integer>
 					<key>Points</key>
 					<array>
-						<string>{653, 369.25}</string>
-						<string>{375, 316.75}</string>
+						<string>{653, 369.2499577999115}</string>
+						<string>{523.50195216677355, 310.70989019083913}</string>
 					</array>
 					<key>Style</key>
 					<dict>
@@ -891,7 +894,7 @@
 						<key>ID</key>
 						<integer>31</integer>
 						<key>Info</key>
-						<integer>8</integer>
+						<integer>18</integer>
 					</dict>
 				</dict>
 				<dict>
@@ -906,8 +909,8 @@
 					<integer>32</integer>
 					<key>Points</key>
 					<array>
-						<string>{653, 369.25}</string>
-						<string>{588.5, 316.75}</string>
+						<string>{653, 369.2499577999115}</string>
+						<string>{605.6666656434536, 316.75}</string>
 					</array>
 					<key>Style</key>
 					<dict>
@@ -927,6 +930,8 @@
 					<dict>
 						<key>ID</key>
 						<integer>31</integer>
+						<key>Info</key>
+						<integer>18</integer>
 					</dict>
 				</dict>
 				<dict>
@@ -950,14 +955,26 @@
 					<integer>31</integer>
 					<key>Magnets</key>
 					<array>
-						<string>{1, 1}</string>
-						<string>{1, -1}</string>
-						<string>{-1, -1}</string>
-						<string>{-1, 1}</string>
-						<string>{0, 1}</string>
-						<string>{0, -1}</string>
-						<string>{1, 0}</string>
-						<string>{-1, 0}</string>
+						<string>{-0.7396002417658698, -1.1094003915786739}</string>
+						<string>{-0.42163697454145854, -1.2649110555648797}</string>
+						<string>{1.9868215517249155e-08, -1.3333333730697625}</string>
+						<string>{0.42163710648196329, -1.2649110555648797}</string>
+						<string>{0.73960031615696309, -1.1094003915786739}</string>
+						<string>{1.1094003915786743, -0.73960025003154639}</string>
+						<string>{1.2649110555648804, -0.42163684260095324}</string>
+						<string>{1.3333333730697632, 1.5894572413799324e-07}</string>
+						<string>{1.2649110555648804, 0.42163714417925036}</string>
+						<string>{1.1094003915786743, 0.73960034921967122}</string>
+						<string>{0.73960021696883871, 1.1094003915786743}</string>
+						<string>{0.42163699339010208, 1.2649110555648804}</string>
+						<string>{0, 1.3333333730697632}</string>
+						<string>{-0.42163733062650977, 1.2649109363555908}</string>
+						<string>{-0.73960021696883871, 1.1094003915786743}</string>
+						<string>{-1.1094003915786743, 0.73960034921967122}</string>
+						<string>{-1.2649110555648804, 0.42163676720637966}</string>
+						<string>{-1.3333333730697632, -6.3578289655197295e-07}</string>
+						<string>{-1.2649109363555908, -0.42163717983737514}</string>
+						<string>{-1.1094005107879639, -0.73960016419084651}</string>
 					</array>
 					<key>Shape</key>
 					<string>Rectangle</string>
@@ -1020,10 +1037,16 @@ S}</string>
 					</dict>
 					<key>ID</key>
 					<integer>30</integer>
+					<key>OrthogonalBarAutomatic</key>
+					<false/>
+					<key>OrthogonalBarPoint</key>
+					<string>{0, 0}</string>
+					<key>OrthogonalBarPosition</key>
+					<real>15</real>
 					<key>Points</key>
 					<array>
-						<string>{518.65591854469017, 316.51862230668138}</string>
-						<string>{568.56157058170947, 411.25}</string>
+						<string>{474.33332741260529, 316.75}</string>
+						<string>{587, 411.25}</string>
 					</array>
 					<key>Style</key>
 					<dict>
@@ -1033,6 +1056,8 @@ S}</string>
 							<string>FilledArrow</string>
 							<key>Legacy</key>
 							<true/>
+							<key>LineType</key>
+							<integer>2</integer>
 							<key>TailArrow</key>
 							<string>FilledArrow</string>
 						</dict>
@@ -1042,7 +1067,7 @@ S}</string>
 						<key>ID</key>
 						<integer>11</integer>
 						<key>Info</key>
-						<integer>1</integer>
+						<integer>11</integer>
 					</dict>
 				</dict>
 				<dict>
@@ -1106,6 +1131,11 @@ S}</string>
 					<integer>28</integer>
 					<key>ImageID</key>
 					<integer>5</integer>
+					<key>Magnets</key>
+					<array>
+						<string>{0, 1}</string>
+						<string>{0, -1}</string>
+					</array>
 					<key>Shape</key>
 					<string>Rectangle</string>
 					<key>Style</key>
@@ -1134,15 +1164,13 @@ S}</string>
 					<dict>
 						<key>ID</key>
 						<integer>11</integer>
-						<key>Info</key>
-						<integer>6</integer>
 					</dict>
 					<key>ID</key>
 					<integer>26</integer>
 					<key>Points</key>
 					<array>
 						<string>{277.5, 248.25}</string>
-						<string>{375, 280.75}</string>
+						<string>{325.33333851397038, 280.75}</string>
 					</array>
 					<key>Style</key>
 					<dict>
@@ -1161,44 +1189,7 @@ S}</string>
 						<key>ID</key>
 						<integer>14</integer>
 						<key>Info</key>
-						<integer>5</integer>
-					</dict>
-				</dict>
-				<dict>
-					<key>Class</key>
-					<string>LineGraphic</string>
-					<key>Head</key>
-					<dict>
-						<key>ID</key>
-						<integer>12</integer>
-						<key>Info</key>
-						<integer>6</integer>
-					</dict>
-					<key>ID</key>
-					<integer>24</integer>
-					<key>Points</key>
-					<array>
-						<string>{491, 248.25}</string>
-						<string>{588.5, 280.75}</string>
-					</array>
-					<key>Style</key>
-					<dict>
-						<key>stroke</key>
-						<dict>
-							<key>HeadArrow</key>
-							<string>FilledArrow</string>
-							<key>Legacy</key>
-							<true/>
-							<key>TailArrow</key>
-							<string>FilledArrow</string>
-						</dict>
-					</dict>
-					<key>Tail</key>
-					<dict>
-						<key>ID</key>
 						<integer>13</integer>
-						<key>Info</key>
-						<integer>5</integer>
 					</dict>
 				</dict>
 				<dict>
@@ -1208,15 +1199,13 @@ S}</string>
 					<dict>
 						<key>ID</key>
 						<integer>11</integer>
-						<key>Info</key>
-						<integer>6</integer>
 					</dict>
 					<key>ID</key>
 					<integer>22</integer>
 					<key>Points</key>
 					<array>
 						<string>{491, 248.25}</string>
-						<string>{375, 280.75}</string>
+						<string>{424.66667702794075, 280.75}</string>
 					</array>
 					<key>Style</key>
 					<dict>
@@ -1235,7 +1224,7 @@ S}</string>
 						<key>ID</key>
 						<integer>13</integer>
 						<key>Info</key>
-						<integer>5</integer>
+						<integer>13</integer>
 					</dict>
 				</dict>
 				<dict>
@@ -1279,8 +1268,6 @@ S}</string>
 					<dict>
 						<key>ID</key>
 						<integer>4</integer>
-						<key>Info</key>
-						<integer>5</integer>
 					</dict>
 				</dict>
 				<dict>
@@ -1290,15 +1277,13 @@ S}</string>
 					<dict>
 						<key>ID</key>
 						<integer>4</integer>
-						<key>Info</key>
-						<integer>6</integer>
 					</dict>
 					<key>ID</key>
 					<integer>20</integer>
 					<key>Points</key>
 					<array>
 						<string>{375, 316.75}</string>
-						<string>{375, 349.25}</string>
+						<string>{375.0000059207282, 349.25}</string>
 					</array>
 					<key>Style</key>
 					<dict>
@@ -1317,7 +1302,7 @@ S}</string>
 						<key>ID</key>
 						<integer>11</integer>
 						<key>Info</key>
-						<integer>5</integer>
+						<integer>13</integer>
 					</dict>
 				</dict>
 				<dict>
@@ -1328,14 +1313,14 @@ S}</string>
 						<key>ID</key>
 						<integer>4</integer>
 						<key>Info</key>
-						<integer>8</integer>
+						<integer>18</integer>
 					</dict>
 					<key>ID</key>
 					<integer>19</integer>
 					<key>Points</key>
 					<array>
-						<string>{213, 333}</string>
-						<string>{226, 367.25}</string>
+						<string>{213, 333.00001660982815}</string>
+						<string>{226.00000000000003, 367.2499914169311}</string>
 					</array>
 					<key>Style</key>
 					<dict>
@@ -1355,6 +1340,8 @@ S}</string>
 					<dict>
 						<key>ID</key>
 						<integer>15</integer>
+						<key>Info</key>
+						<integer>8</integer>
 					</dict>
 				</dict>
 				<dict>
@@ -1365,14 +1352,14 @@ S}</string>
 						<key>ID</key>
 						<integer>11</integer>
 						<key>Info</key>
-						<integer>8</integer>
+						<integer>18</integer>
 					</dict>
 					<key>ID</key>
 					<integer>18</integer>
 					<key>Points</key>
 					<array>
-						<string>{213, 333}</string>
-						<string>{226, 298.75}</string>
+						<string>{213, 315.58334060013294}</string>
+						<string>{226.00000000000003, 298.74999141693115}</string>
 					</array>
 					<key>Style</key>
 					<dict>
@@ -1392,8 +1379,6 @@ S}</string>
 					<dict>
 						<key>ID</key>
 						<integer>15</integer>
-						<key>Info</key>
-						<integer>7</integer>
 					</dict>
 				</dict>
 				<dict>
@@ -1416,7 +1401,7 @@ S}</string>
 					<real>-1</real>
 					<key>Points</key>
 					<array>
-						<string>{195, 385.25}</string>
+						<string>{194.99999999999991, 385.25}</string>
 						<string>{237, 446.25}</string>
 					</array>
 					<key>Style</key>
@@ -1424,7 +1409,7 @@ S}</string>
 						<key>stroke</key>
 						<dict>
 							<key>HeadArrow</key>
-							<string>FilledArrow</string>
+							<string>0</string>
 							<key>Legacy</key>
 							<true/>
 							<key>LineType</key>
@@ -1432,7 +1417,7 @@ S}</string>
 							<key>Pattern</key>
 							<integer>1</integer>
 							<key>TailArrow</key>
-							<string>FilledArrow</string>
+							<string>0</string>
 						</dict>
 					</dict>
 					<key>Tail</key>
@@ -1440,7 +1425,7 @@ S}</string>
 						<key>ID</key>
 						<integer>15</integer>
 						<key>Info</key>
-						<integer>5</integer>
+						<integer>13</integer>
 					</dict>
 				</dict>
 				<dict>
@@ -1464,14 +1449,26 @@ S}</string>
 					<integer>15</integer>
 					<key>Magnets</key>
 					<array>
-						<string>{1, 1}</string>
-						<string>{1, -1}</string>
-						<string>{-1, -1}</string>
-						<string>{-1, 1}</string>
-						<string>{0, 1}</string>
-						<string>{0, -1}</string>
-						<string>{1, 0}</string>
-						<string>{-1, 0}</string>
+						<string>{-0.7396002417658718, -1.1094003915786743}</string>
+						<string>{-0.42163697454146076, -1.2649110555648804}</string>
+						<string>{1.9868213148773298e-08, -1.3333333730697632}</string>
+						<string>{0.42163710648196107, -1.2649110555648804}</string>
+						<string>{0.73960031615696109, -1.1094003915786743}</string>
+						<string>{1.1094003915786723, -0.73960025003154684}</string>
+						<string>{1.2649110555648782, -0.4216368426009538}</string>
+						<string>{1.3333333730697607, 1.5894572413799324e-07}</string>
+						<string>{1.2649110555648782, 0.42163714417925036}</string>
+						<string>{1.1094003915786723, 0.73960034921967122}</string>
+						<string>{0.73960021696883671, 1.1094003915786743}</string>
+						<string>{0.42163699339009986, 1.2649110555648804}</string>
+						<string>{-2.3684758564530796e-15, 1.3333333730697632}</string>
+						<string>{-0.42163733062651199, 1.2649109363555908}</string>
+						<string>{-0.73960021696884071, 1.1094003915786743}</string>
+						<string>{-1.1094003915786763, 0.73960034921967122}</string>
+						<string>{-1.2649110555648826, 0.42163676720637966}</string>
+						<string>{-1.3333333730697656, -6.3578289655197295e-07}</string>
+						<string>{-1.264910936355593, -0.4216371798373757}</string>
+						<string>{-1.1094005107879659, -0.73960016419084695}</string>
 					</array>
 					<key>Shape</key>
 					<string>Rectangle</string>
@@ -1526,14 +1523,26 @@ S}</string>
 					<integer>14</integer>
 					<key>Magnets</key>
 					<array>
-						<string>{1, 1}</string>
-						<string>{1, -1}</string>
-						<string>{-1, -1}</string>
-						<string>{-1, 1}</string>
-						<string>{0, 1}</string>
-						<string>{0, -1}</string>
-						<string>{1, 0}</string>
-						<string>{-1, 0}</string>
+						<string>{-0.7396002417658698, -1.1094003915786743}</string>
+						<string>{-0.42163697454145854, -1.2649110555648804}</string>
+						<string>{1.9868215517249155e-08, -1.3333333730697632}</string>
+						<string>{0.42163710648196329, -1.2649110555648804}</string>
+						<string>{0.73960031615696309, -1.1094003915786743}</string>
+						<string>{1.1094003915786743, -0.73960025003154684}</string>
+						<string>{1.2649110555648804, -0.4216368426009538}</string>
+						<string>{1.3333333730697632, 1.5894572413799324e-07}</string>
+						<string>{1.2649110555648804, 0.42163714417925036}</string>
+						<string>{1.1094003915786743, 0.73960034921967122}</string>
+						<string>{0.73960021696883871, 1.1094003915786743}</string>
+						<string>{0.42163699339010208, 1.2649110555648804}</string>
+						<string>{0, 1.3333333730697632}</string>
+						<string>{-0.42163733062650977, 1.2649109363555908}</string>
+						<string>{-0.73960021696883871, 1.1094003915786743}</string>
+						<string>{-1.1094003915786743, 0.73960034921967122}</string>
+						<string>{-1.2649110555648804, 0.42163676720637966}</string>
+						<string>{-1.3333333730697632, -6.3578289655197295e-07}</string>
+						<string>{-1.2649109363555908, -0.4216371798373757}</string>
+						<string>{-1.1094005107879639, -0.73960016419084695}</string>
 					</array>
 					<key>Shape</key>
 					<string>Rectangle</string>
@@ -1586,14 +1595,26 @@ S}</string>
 					<integer>13</integer>
 					<key>Magnets</key>
 					<array>
-						<string>{1, 1}</string>
-						<string>{1, -1}</string>
-						<string>{-1, -1}</string>
-						<string>{-1, 1}</string>
-						<string>{0, 1}</string>
-						<string>{0, -1}</string>
-						<string>{1, 0}</string>
-						<string>{-1, 0}</string>
+						<string>{-0.7396002417658698, -1.1094003915786743}</string>
+						<string>{-0.42163697454145854, -1.2649110555648804}</string>
+						<string>{1.9868215517249155e-08, -1.3333333730697632}</string>
+						<string>{0.42163710648196329, -1.2649110555648804}</string>
+						<string>{0.73960031615696309, -1.1094003915786743}</string>
+						<string>{1.1094003915786743, -0.73960025003154684}</string>
+						<string>{1.2649110555648804, -0.4216368426009538}</string>
+						<string>{1.3333333730697632, 1.5894572413799324e-07}</string>
+						<string>{1.2649110555648804, 0.42163714417925036}</string>
+						<string>{1.1094003915786743, 0.73960034921967122}</string>
+						<string>{0.73960021696883871, 1.1094003915786743}</string>
+						<string>{0.42163699339010208, 1.2649110555648804}</string>
+						<string>{0, 1.3333333730697632}</string>
+						<string>{-0.42163733062650977, 1.2649109363555908}</string>
+						<string>{-0.73960021696883871, 1.1094003915786743}</string>
+						<string>{-1.1094003915786743, 0.73960034921967122}</string>
+						<string>{-1.2649110555648804, 0.42163676720637966}</string>
+						<string>{-1.3333333730697632, -6.3578289655197295e-07}</string>
+						<string>{-1.2649109363555908, -0.4216371798373757}</string>
+						<string>{-1.1094005107879639, -0.73960016419084695}</string>
 					</array>
 					<key>Shape</key>
 					<string>Rectangle</string>
@@ -1632,7 +1653,9 @@ S}</string>
 
 \f0\b\fs24 \cf0 Service Exposition
 \b0  
-\i (SOAP Web Services)}</string>
+\i (
+\b SOAP
+\b0  Web Services)}</string>
 					</dict>
 				</dict>
 				<dict>
@@ -1656,14 +1679,26 @@ S}</string>
 					<integer>12</integer>
 					<key>Magnets</key>
 					<array>
-						<string>{1, 1}</string>
-						<string>{1, -1}</string>
-						<string>{-1, -1}</string>
-						<string>{-1, 1}</string>
-						<string>{0, 1}</string>
-						<string>{0, -1}</string>
-						<string>{1, 0}</string>
-						<string>{-1, 0}</string>
+						<string>{-0.7396002417658698, -1.1094003915786743}</string>
+						<string>{-0.42163697454145854, -1.2649110555648804}</string>
+						<string>{1.9868215517249155e-08, -1.3333333730697632}</string>
+						<string>{0.42163710648196329, -1.2649110555648804}</string>
+						<string>{0.73960031615696309, -1.1094003915786743}</string>
+						<string>{1.1094003915786723, -0.73960025003154684}</string>
+						<string>{1.2649110555648782, -0.4216368426009538}</string>
+						<string>{1.3333333730697607, 1.5894572413799324e-07}</string>
+						<string>{1.2649110555648782, 0.42163714417925036}</string>
+						<string>{1.1094003915786723, 0.73960034921967122}</string>
+						<string>{0.73960021696883871, 1.1094003915786743}</string>
+						<string>{0.42163699339010208, 1.2649110555648804}</string>
+						<string>{0, 1.3333333730697632}</string>
+						<string>{-0.42163733062650977, 1.2649109363555908}</string>
+						<string>{-0.73960021696883871, 1.1094003915786743}</string>
+						<string>{-1.1094003915786743, 0.73960034921967122}</string>
+						<string>{-1.2649110555648804, 0.42163676720637966}</string>
+						<string>{-1.3333333730697632, -6.3578289655197295e-07}</string>
+						<string>{-1.2649109363555908, -0.4216371798373757}</string>
+						<string>{-1.1094005107879639, -0.73960016419084695}</string>
 					</array>
 					<key>Shape</key>
 					<string>Rectangle</string>
@@ -1728,14 +1763,26 @@ S}</string>
 					<integer>11</integer>
 					<key>Magnets</key>
 					<array>
-						<string>{1, 1}</string>
-						<string>{1, -1}</string>
-						<string>{-1, -1}</string>
-						<string>{-1, 1}</string>
-						<string>{0, 1}</string>
-						<string>{0, -1}</string>
-						<string>{1, 0}</string>
-						<string>{-1, 0}</string>
+						<string>{-0.73960024176586958, -1.1094003915786743}</string>
+						<string>{-0.42163697454145854, -1.2649110555648804}</string>
+						<string>{1.9868215517249155e-08, -1.3333333730697632}</string>
+						<string>{0.42163710648196329, -1.2649110555648804}</string>
+						<string>{0.73960031615696309, -1.1094003915786743}</string>
+						<string>{1.1094003915786743, -0.73960025003154684}</string>
+						<string>{1.2649110555648804, -0.4216368426009538}</string>
+						<string>{1.3333333730697632, 1.5894572413799324e-07}</string>
+						<string>{1.2649110555648804, 0.42163714417925036}</string>
+						<string>{1.1094003915786743, 0.73960034921967122}</string>
+						<string>{0.73960021696883871, 1.1094003915786743}</string>
+						<string>{0.42163699339010208, 1.2649110555648804}</string>
+						<string>{0, 1.3333333730697632}</string>
+						<string>{-0.42163733062650977, 1.2649109363555908}</string>
+						<string>{-0.73960021696883849, 1.1094003915786743}</string>
+						<string>{-1.1094003915786741, 0.73960034921967122}</string>
+						<string>{-1.2649110555648801, 0.42163676720637966}</string>
+						<string>{-1.333333373069763, -6.3578289655197295e-07}</string>
+						<string>{-1.2649109363555906, -0.4216371798373757}</string>
+						<string>{-1.1094005107879636, -0.73960016419084695}</string>
 					</array>
 					<key>Shape</key>
 					<string>Rectangle</string>
@@ -1786,14 +1833,26 @@ S}</string>
 					<integer>4</integer>
 					<key>Magnets</key>
 					<array>
-						<string>{1, 1}</string>
-						<string>{1, -1}</string>
-						<string>{-1, -1}</string>
-						<string>{-1, 1}</string>
-						<string>{0, 1}</string>
-						<string>{0, -1}</string>
-						<string>{1, 0}</string>
-						<string>{-1, 0}</string>
+						<string>{-0.73960024176586958, -1.1094003915786783}</string>
+						<string>{-0.42163697454145854, -1.2649110555648848}</string>
+						<string>{1.9868215517249155e-08, -1.3333333730697678}</string>
+						<string>{0.42163710648196329, -1.2649110555648848}</string>
+						<string>{0.73960031615696309, -1.1094003915786783}</string>
+						<string>{1.1094003915786743, -0.73960025003155083}</string>
+						<string>{1.2649110555648804, -0.42163684260095829}</string>
+						<string>{1.3333333730697632, 1.5894571940104153e-07}</string>
+						<string>{1.2649110555648804, 0.42163714417924586}</string>
+						<string>{1.1094003915786743, 0.73960034921966722}</string>
+						<string>{0.73960021696883871, 1.1094003915786703}</string>
+						<string>{0.42163699339010208, 1.2649110555648759}</string>
+						<string>{0, 1.3333333730697585}</string>
+						<string>{-0.42163733062650977, 1.2649109363555864}</string>
+						<string>{-0.73960021696883849, 1.1094003915786703}</string>
+						<string>{-1.1094003915786741, 0.73960034921966722}</string>
+						<string>{-1.2649110555648801, 0.42163676720637516}</string>
+						<string>{-1.333333373069763, -6.3578290128892467e-07}</string>
+						<string>{-1.2649109363555906, -0.42163717983738019}</string>
+						<string>{-1.1094005107879636, -0.73960016419085095}</string>
 					</array>
 					<key>Shape</key>
 					<string>Rectangle</string>
@@ -3561,11 +3620,11 @@ S}</string>
 	<key>WindowInfo</key>
 	<dict>
 		<key>CurrentSheet</key>
-		<integer>1</integer>
+		<integer>0</integer>
 		<key>ExpandedCanvases</key>
 		<array/>
 		<key>Frame</key>
-		<string>{{250, 142}, {1150, 736}}</string>
+		<string>{{16, 142}, {1150, 736}}</string>
 		<key>ListView</key>
 		<true/>
 		<key>OutlineWidth</key>
