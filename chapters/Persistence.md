@@ -13,7 +13,7 @@
 
 We will rely on the _Java Persistence API_ (JPA) to support relational database mappings. The version bundled in the OpenEJB stack is OpenJPA. JPA will enhance annotated classes to create _persistence-aware_ versions of these classes that will be used instead of the one we wrote. This step must be triggered during the compilation process. To introduce this step in the build chain, we simply ask Maven to do so, in the `pom.xml` file. With the following configuration, it will process all the classes in the `entities` package (see the `includes` tag):
 
-```
+```xml
 <plugin>
 	<groupId>org.apache.openjpa</groupId>
    <artifactId>openjpa-maven-plugin</artifactId>
