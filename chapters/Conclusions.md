@@ -30,6 +30,7 @@ This reference implementation demonstrates the following points with respect to 
     - [x] Implementing components using (stateless) EJB Sessions with J2E;
     - [x] Differentiating Unit tests and Integration tests using Maven;
     - [x] Using interceptors to work at the message (_invocation context_) level;
+    - [x] Using asynchronous communication when needed with JMS queues.
 
   - __Exposition Layer__
     - [x] Using Web services to support _business-to-business_ integration
@@ -44,4 +45,4 @@ This reference implementation demonstrates the following points with respect to 
   - [ ]  Use a "real" database server (_e.g._ postgres, MySQL)
     - [ ]  See the DevOps course contents 
   - [ ]  Use an _Enterprise Service Bus_ (ESB) to decouple the J2E system from the .Net one
-    - [ ]  Consider to attend the _Service Integration_ course next year (id: SOA- [x] 1). 
+    - [ ]  Consider to attend the _Service Integration_ course next year (id: SOA-1). 

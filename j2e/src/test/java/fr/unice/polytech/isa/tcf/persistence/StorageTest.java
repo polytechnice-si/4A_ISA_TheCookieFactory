@@ -17,6 +17,9 @@ import javax.transaction.RollbackException;
 import javax.transaction.UserTransaction;
 import javax.validation.ConstraintViolationException;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import static org.junit.Assert.*;
 
 @RunWith(Arquillian.class)
