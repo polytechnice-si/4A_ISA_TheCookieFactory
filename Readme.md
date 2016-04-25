@@ -33,7 +33,8 @@ The software architecture to be developed in this document will rely on the foll
   7. [Message interceptors to support the NTUI (_Never Trust User Input_) golden rule](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/chapters/Interceptors.md)
   8. [Making things persistent](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/chapters/Persistence.md)
   9. [Web user interface using JSF](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/chapters/UI_JSF.md) 
-  10. [Conclusions](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/chapters/Conclusions.md)
+  10. [Asynchronous Communication using Messages](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/chapters/MessageDrivenBeans.md) 
+  11. [Conclusions](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/chapters/Conclusions.md)
 
 __Important remark__: one can notice that the persistence layer (_aka_ the database) is almost the last step of this document. This is done on purpose. Databases are part of a given architecture, but must not be considered as the its essence. The essence of an architecture is the set of supported features, at the business level. Databases are in this context only a way (among others) to store data.
 
@@ -68,22 +69,22 @@ To run the demonstration, first start the two servers in two different terminals
  
 ```bash
 azrael:4A_ISA_TheCookieFactory mosser$ cloc .
-     139 text files.
-     139 unique files.                                          
-      21 files ignored.
+     145 text files.
+     145 unique files.                                          
+      25 files ignored.
 
-http://cloc.sourceforge.net v 1.64  T=0.53 s (225.2 files/s, 11248.6 lines/s)
+http://cloc.sourceforge.net v 1.64  T=0.60 s (200.2 files/s, 10117.1 lines/s)
 -------------------------------------------------------------------------------
 Language                     files          blank        comment           code
 -------------------------------------------------------------------------------
-Java                           100            970           1349           2911
+Java                           102            993           1370           3021
 Maven                            1              7             10            188
-XML                              7             19              0            138
+XML                              7             21              0            152
 C#                               4             37             13            132
 JavaServer Faces                 4             32              0            115
 Bourne Shell                     2              4              3             12
 JSP                              1              0              0              4
 -------------------------------------------------------------------------------
-SUM:                           119           1069           1375           3500
+SUM:                           121           1094           1396           3624
 -------------------------------------------------------------------------------
 ```
