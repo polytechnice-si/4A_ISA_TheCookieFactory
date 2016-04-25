@@ -1,6 +1,7 @@
 package arquillian;
 
 import fr.unice.polytech.isa.tcf.CartModifier;
+import fr.unice.polytech.isa.tcf.asynchronous.KitchenPrinter;
 import fr.unice.polytech.isa.tcf.components.CartBean;
 import fr.unice.polytech.isa.tcf.components.carts.CartStatefulBean;
 import fr.unice.polytech.isa.tcf.entities.Customer;
@@ -26,6 +27,8 @@ public abstract class AbstractTCFTest {
 		// Building a Web ARchive (WAR) containing the following elements:
 		return ShrinkWrap.create(WebArchive.class)
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
+				// Message-Driven beans
+				.addPackage(KitchenPrinter.class.getPackage())
 				// Utils
 				.addPackage(Database.class.getPackage())
 				// Entities

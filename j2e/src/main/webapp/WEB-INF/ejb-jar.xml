@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE ejb-jar PUBLIC '-//Sun Microsystems, Inc.//DTD Enterprise JavaBeans2.0//EN' 'http://java.sun.com/dtd/ejb-jar_2_0.dtd'>
-<ejb-jar>
+<ejb-jar xmlns = "http://java.sun.com/xml/ns/javaee"
+        version = "3.0" xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation = "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd">
+
+    <interceptors>
+        <interceptor>
+            <interceptor-class>fr.unice.polytech.isa.tcf.interceptors.CartCounter</interceptor-class>
+        </interceptor>
+        <interceptor>
+            <interceptor-class>fr.unice.polytech.isa.tcf.interceptors.Logger</interceptor-class>
+        </interceptor>
+        <interceptor>
+            <interceptor-class>fr.unice.polytech.isa.tcf.interceptors.ItemVerifier</interceptor-class>
+        </interceptor>
+    </interceptors>
+
     <assembly-descriptor>
         <interceptor-binding>
             <ejb-name>*</ejb-name>

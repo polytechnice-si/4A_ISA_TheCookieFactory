@@ -7,11 +7,12 @@
   
 The _Cookie on Demand_ system is implemented as a component-based system that relies on the J2E framework. It relies on the following technologies:
 
-  * _Enterprise Java Beans_ (EJBs) to implement components;
-  * _Java Server Faces_ (JSF) to implement web-based user interfaces;
-  * _Java Persistence API_ (JPA) to support object persistence;
+  * _Enterprise Java Beans_ (EJBs, OpenEJB) to implement components;
+  * _Java Server Faces_ (JSF, MyFaces) to implement web-based user interfaces;
+  * _Java Persistence API_ (JPA, OpenJPA) to support object persistence;
   * _HyperSQL Database_ (HSQLDB) to store data;
   * _Web Services_ (CXF) using SOAP and REST paradigms;
+  * _Java Message Service_ (JMS, ActiveMQ) for asynchronous communications;
   * _TomEE+_, a lightweight version of TomCat as J2E application container;
   * _Arquillian_, a state-of-the-art testing framework for J2E systems;
   * _Maven_ to put all these technologies together _"easily"_.
@@ -61,6 +62,7 @@ As a classical maven artefact, the project relies on the `pom.xml` file to model
     * a _Java Server Page_ (JSP) that redirects the incoming requests to the entry point of the JSF application;
   * The source code is defined inside the `fr.unice.polytech.isa.tcf` package:
     * All the component interfaces are available at the top level;
+    * The `asynchronous` package contains Message-driven Beans to support asynchronous communications;
     * The `components` package contains concrete implementation of the previously described interfaces;
     * The `entities` package contains the business object used inside the system;
     * The `exceptions` package contains all the business faults the system can fall in;

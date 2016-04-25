@@ -18,6 +18,7 @@ public class CascadingTest extends AbstractTCFTest {
 
 	@PersistenceContext private EntityManager entityManager;
 	@Resource private UserTransaction manual;
+
 	/****************************
 	 * Cascading-related cases **
 	 ****************************/

@@ -34,7 +34,7 @@
                     <h:outputText value='Credit card number'/>
                     <h:inputText value='#{customerBean.creditCard}' required="true"
                                  validatorMessage="Credit card number must be 10 digits">
-                        <f:validateRegex pattern="\\d{10}+" />
+                        <f:validateRegex pattern="\d{10}+" />
                     </h:inputText>
                     <h:commandButton action="#{customerBean.register}" value="Register"/>
                 </h:panelGrid>
