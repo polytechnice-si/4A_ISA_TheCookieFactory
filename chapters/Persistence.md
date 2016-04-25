@@ -238,6 +238,14 @@ When writing or when using the generated ones, be careful that your equals and h
 ```
 The previous code obviously triggers an infinite loops (this is the very same situation for the equals method). Be very careful when designing these methods, as the semantics of the operation must remain consistent while avoiding cyclic references. In this case, we simply break the cycle by calling `getCustomer().getName().hashcode()` instead of `getCustomer().hashCode()`.
 
+### Resulting database schema
+
+Based on these annotations, the JPA layer generates the following database schema.
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/polytechnice-si/4A_ISA_TheCookieFactory/develop/docs/database.png" />
+</p>
+
 
 ## Testing the persistence layer
 
