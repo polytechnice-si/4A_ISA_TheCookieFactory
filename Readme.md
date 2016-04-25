@@ -41,8 +41,9 @@ __Important remark__: one can notice that the persistence layer (_aka_ the datab
 ## How to use this repository
   
   * The `develop` branch (the default one) represents the system under development. 
-    * The [`releases/1.0`](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/tree/release/v1.0) branch contains the code that implements the system without persistence
-    * The [`releases/2.0`](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/tree/release/v2.0) branch contains the code that implements the system with a real persistence layer
+    * The [`releases/v1.0`](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/tree/release/v1.0) branch contains the code that implements the system without persistence;
+    * The [`releases/v2.0`](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/tree/release/v2.0) branch contains the code that implements the system with a real persistence layer;
+    * The [`releases/v2.1`](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/tree/release/v2.1) branch contains the code that implements asynchronous communications.
   * Issues can be submitted using the [GitHub ticketing system](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/issues)
 
 ### Compilation & Execution
