@@ -18,7 +18,7 @@ __Warning__: Implementing web services implies to respect a set of constraints:
 
   * Web services are stateless, according to the WS standard. As a consequence, any beans exposed to the outside world through a Web Service must be stateless. 
   * Business objects exposed through the public API must be serializable, and must define an empty constructor and get/set methods to be properly populated by the WE framework
-  * The TomEE container must 
+  * The TomEE container must include the software stack that implement Web Service. This is achieved by using the TomEE+ version of the server.
 
 Here, we decide to expose two operations in the public API:  adding a cookie to a cart and getting cart contents. We exposed the `Item` business object in these methods as it exactly models what we are using in these methods. But the `Customer` business class is purely internal, it does not make any sense to expose to the outside world our complete representation of a Customer. Thus, we use a plain String to identify the customer in the public API.
 
