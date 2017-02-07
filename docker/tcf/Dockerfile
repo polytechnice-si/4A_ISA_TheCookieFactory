@@ -14,10 +14,18 @@ COPY ./resources/tomcat-user.xml ./conf/tomcat-users.xml
 COPY ./resources/manager-context.xml ./webapps/manager/META-INF/context.xml
 
 # Configure the link to the external partners
-COPY ./resources/bank.properties ./WEB-INF/classes/bank.properties
-RUN ["jar", "uvf", "./webapps/tcf-backend.war", "./WEB-INF/classes/bank.properties"]
+ENV bank_host=localhost
+ENV bank_port=9090
 
+# Copy the startup script
+COPY ./resources/start-tcf.sh .
+RUN ["chmod", "u+x", "./start-tcf.sh"]
+
+# Creating an health check verification to check TomEE status
 HEALTHCHECK --interval=5s CMD curl --fail http://localhost:8080/ || exit 1
 
 # exposing the 8080 port to support external connections
 EXPOSE 8080
+
+# Starting the service
+ENTRYPOINT ["./start-tcf.sh"]

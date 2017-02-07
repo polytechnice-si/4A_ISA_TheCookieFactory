@@ -6,6 +6,9 @@ services:
   tcf_system:
     image: petitroll/tcf-int
     container_name: tcf_system
+    environment:
+      - bank_host=tcf_partners
+      - bank_port=9090
     expose:
       - "8080"
     ports:
@@ -32,6 +35,5 @@ services:
     depends_on:
       tcf_system:
         condition: service_healthy
-
     stdin_open: true
     tty: true
