@@ -3,10 +3,10 @@
 #Preparing environment
 cd ../../dotNet
 ./compile.sh
-cp ./server.exe ../docker/ext/.
+cp ./server.exe ../docker/partners/.
 
 # building the docker image
-cd ../docker/ext/
+cd ../docker/partners/
 docker build -t petitroll/tcf-ext .
 
 # cleaning up the environment

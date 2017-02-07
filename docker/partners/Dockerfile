@@ -8,4 +8,4 @@ COPY ./server.exe ./server.exe
 EXPOSE 9090
 
 # Running the .Net server as standalone
-CMD ["mono", "./server.exe", "/standalone"]
+CMD "mono ./server.exe /standalone > server.log 2> server.err"

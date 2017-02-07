@@ -1,0 +1,37 @@
+version: '2.1'
+
+services:
+
+  # The Cookie on Demand service, a J2E system
+  tcf_system:
+    image: petitroll/tcf-int
+    container_name: tcf_system
+    expose:
+      - "8080"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - external_partners
+
+  # The external partners, implemented as .Net services
+  external_partners:
+    image: petitroll/tcf-ext
+    container_name: tcf_partners
+    expose:
+        - "9090"
+    ports:
+      - "9090:9090"
+
+  # A simple java CLI
+  client:
+    image: petitroll/tcf-client
+    container_name: tcf_client
+    command: "tcf_system 8080"
+    volumes:
+      - .:/host
+    depends_on:
+      tcf_system:
+        condition: service_healthy
+
+    stdin_open: true
+    tty: true
