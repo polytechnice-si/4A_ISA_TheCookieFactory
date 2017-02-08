@@ -7,7 +7,7 @@
   
 ## Motivations
 
-We propose here a _naive_ container-based deployment environment associated to the cookie on demand system. A more complete version should rely on a real DBMS. However, the system is interesting enough to cover basic principles of the Docker system. In this tutorial, we will create 3 containers (the externat partners, the CoD system and the client), and build a composed environment that bind these three images together in a single app.
+We propose here a _naive_ container-based deployment environment associated to the cookie on demand system. A more complete version should rely on a real DBMS. However, the system is interesting enough to cover basic principles of the Docker system. In this tutorial, we will create 3 containers (the external partners, the CoD system and the client), and build a composed environment that bind these three images together in a single app.
 
   - Pre-requisites:
     - docker: 1.13
@@ -20,9 +20,9 @@ We propose here a _naive_ container-based deployment environment associated to t
 
 The external partner binary is a .Net executable file (`server.exe`), with the following assumptions:
 
-  - It relies on the `mono` environment;
-  - when started, it will expose the services on port 9090; 
-  - the entry point of the image is the `server.exe` binary;
+  - It relies on the `mono` environment,
+  - when started, it will expose the services on port 9090,
+  - the entry point of the image is the `server.exe` binary,
   - it must be run using the `/standalone` option to support daemon-like execution
 
 The [implementation](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/docker/partners/Dockerfile) is then straightforward
@@ -60,7 +60,7 @@ Step 6/6 : CMD /standalone
 Successfully built f92f96d58aa8
 ```
   
-To start the system as a daemon (in _detached_ mode), simply ask docker to do so (`-d`).  We must bind the port exposed by the container to one available on localhost. Here we'll use the very same one, _i.e._, 9090. The `--rm` option asks docker to remove the container after stopping it.
+To start the system as a daemon (in _detached_ mode), simply ask docker to do so (`-d` option).  We must bind the port exposed by the container to one available on localhost. Here we'll use the very same one, _i.e._, 9090. The `--rm` option asks docker to remove the container after stopping it.
 
 ```
 azrael:partners mosser$ docker run --rm -d -p 9090:9090 petitroll/tcf-ext
@@ -70,17 +70,17 @@ azrael:partners mosser$ docker run --rm -d -p 9090:9090 petitroll/tcf-ext
 
 The internal implementation of the CoD system will relies on the following assumptions:
 
-  - it will be deployed on TomEE+, with Java 8;
-  - we keep the default port for TomEE (8080);
-  - the web app used to monitor the application server will be activated;
-  - the external partner configuration must be declared when starting the container
-  - The system is considered _healthy_as soon as TomEE is up dans running
+  - it will be deployed on TomEE+, with Java 8,
+  - we keep the default port for TomEE (_i.e._ 8080),
+  - the web app used to monitor the application server will be activated,
+  - the external partner configuration must be declared when starting the container,
+  - The system is considered _healthy_ as soon as TomEE is up and running
 
 We start the [image](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/docker/tcf/Dockerfile) on top of the officiel TomEE+ image, configured with Java 8. We basically copy the `war` file inside the image, in the _webapp_ directory.
 
 To activate the monitoring web app, we need to overwrite two files in the default configuration: _(i)_ `tomcat-users.xml` and _(ii)_ `manager-context.xml`. With this configuration, one can access to the managing web app using the `tommy/eemot` identifier, from outside the container.
 
-The configuration that bind the container to the external partners cannot be set at build time. One must ne able to change it without rebuilding the image. This link is set in the system inside a file named `bank.properties`, embedded as a resource in the `war` file. To support this requirement, we declare 2 environment variable to store the `bank_host` and `bank_port` default value. At runtime, when the container will be started, we use a shell script ([`start-tcf.sh`](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/docker/tcf/resources/start-tcf.sh)) that create the needed `bank.properties` file, update the war contents, and then starts TomEE with the updated web app.
+The configuration that binds the container to the external partners cannot be set at build time. One must be able to change it without rebuilding the image. This link is set in the system inside a file named `bank.properties`, embedded as a resource in the `war` file. To support this requirement, we declare 2 environment variable to store the `bank_host` and `bank_port` default value. At runtime, when the container will be started, we use a shell script ([`start-tcf.sh`](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/docker/tcf/resources/start-tcf.sh)) that creates the needed `bank.properties` file, updates the war contents, and then starts TomEE with the updated web app.
 
 ```
 FROM tomee:8-jdk-7.0.1-plus
@@ -103,7 +103,7 @@ We use this docker file to create an image named `petitroll/tcf-int`:
 azrael:tcf mosser$ docker build -t petitroll/tcf-int .
 ```
 
-To start the image and oveeriding the default environment variable, one can use the `-e` option:
+To start the image and overriding the default environment variable, one can use the `-e` option:
 
 ```
 azrael:tcf mosser$ run --rm -d -p 8080:8080 \
@@ -113,9 +113,9 @@ azrael:tcf mosser$ run --rm -d -p 8080:8080 \
 
 ### The Client image (Java)
 
-The [image](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/docker/client/Dockerfile) relies on an OpenJDK implementation (Java 8), and execute the JAR client (a single assembly) with the right option.
+This [image](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/docker/client/Dockerfile) relies on an OpenJDK implementation (Java 8), and executes the JAR client (a single assembly) with the right option.
 
-The client can load a file on the local filesystem using the `play` command. Thus, we need to declare a `VOLUME` (here named `/host`) one can use to mount the local filesystem inside the container and share files.
+The client can load a file on the local filesystem using the `play` command. Thus, we need to declare a `VOLUME` (here named `/host`) one can use to mount the local filesystem inside the container and share files between the host and the container.
 
 ```
 FROM openjdk:8
@@ -157,7 +157,7 @@ We basically use the composition descriptor to expose the different ports (inter
 
 The client can start even if the J2E system is not up. However, for the sake of demonstration, we declare a precedence rule, stating that the client will only start after the J2E system is considered `healthy`.
 
-To run the system, one can asks docker-compose to start in detached mode:
+To run the system, one can ask`docker-compose` to start in detached mode:
 
 ```
 azrael:docker mosser$ docker-compose up -d
