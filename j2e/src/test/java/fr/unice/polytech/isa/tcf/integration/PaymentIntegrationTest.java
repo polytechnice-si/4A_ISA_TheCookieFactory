@@ -46,8 +46,8 @@ public class PaymentIntegrationTest extends AbstractTCFTest {
 
 	@Test
 	public void integrationBetweenCustomersAndOrders() throws Exception {
-		registration.register("john", "1234896983");
-		Customer retrieved = finder.findByName("john").get();
+		registration.register("john doe", "1234896983");
+		Customer retrieved = finder.findByName("john doe").get();
 		retrieved = entityManager.merge(retrieved);
 		assertTrue(retrieved.getOrders().isEmpty());
 		String id = cashier.payOrder(retrieved, items);

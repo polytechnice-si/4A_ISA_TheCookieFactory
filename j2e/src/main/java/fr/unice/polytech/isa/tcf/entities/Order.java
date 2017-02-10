@@ -14,7 +14,7 @@ public class Order implements Serializable {
 	@GeneratedValue
 	private int id;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@NotNull
 	private Customer customer;
 

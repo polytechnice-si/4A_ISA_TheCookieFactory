@@ -15,6 +15,7 @@
 
         <properties>
             <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true)"/>
+            <property name="openjpa.RuntimeUnenhancedClasses" value="unsupported" />
         </properties>
 
     </persistence-unit>

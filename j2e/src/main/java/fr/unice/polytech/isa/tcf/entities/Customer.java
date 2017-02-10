@@ -22,7 +22,7 @@ public class Customer implements Serializable {
 	@Pattern(regexp = "\\d{10}+", message = "Invalid creditCardNumber")
 	private String creditCard;
 
-	@OneToMany(cascade = {CascadeType.REMOVE}, fetch = FetchType.LAZY, mappedBy = "customer")
+	@OneToMany(cascade = {CascadeType.REMOVE, CascadeType.MERGE}, fetch = FetchType.LAZY, mappedBy = "customer")
 	private Set<Order> orders = new HashSet<>();
 
 	@ElementCollection

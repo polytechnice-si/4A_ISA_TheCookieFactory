@@ -25,7 +25,7 @@
             </activation>
             <properties>
                 <versions.javaee>6.0-6</versions.javaee>
-                <versions.openejb>4.7.3</versions.openejb>
+                <versions.openejb>4.7.4</versions.openejb>
                 <versions.tomee>1.7.3</versions.tomee>
             </properties>
         </profile>
@@ -50,7 +50,12 @@
     </repositories>
 
     <dependencies>
-        <!-- Dependencies for the OpenEJB framework -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20160810</version>
+        </dependency>
+        <!-- Dependencies for the OpenEJB framework (provided at runtime by the app server) -->
         <dependency>
             <groupId>org.apache.openejb</groupId>
             <artifactId>javaee-api</artifactId>
@@ -61,38 +66,35 @@
             <groupId>org.apache.openejb</groupId>
             <artifactId>openejb-core</artifactId>
             <version>${versions.openejb}</version>
-            <scope>test</scope>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.openejb</groupId>
             <artifactId>tomee-embedded</artifactId>
             <version>${versions.tomee}</version>
-            <scope>test</scope>
+            <scope>provided</scope>
         </dependency>
-        <!-- Dependency to integrate REST clients (order matters for CXF) -->
+        <!-- Dependency to integrate REST clients (order matters for CXF) (provided) -->
         <dependency>
             <groupId>org.apache.openejb</groupId>
             <artifactId>openejb-cxf</artifactId>
             <version>${versions.openejb}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.openejb</groupId>
             <artifactId>openejb-cxf-rs</artifactId>
             <version>${versions.openejb}</version>
+            <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>20160212</version>
-        </dependency>
-        <!-- Dependencies for the JSF framework -->
+        <!-- Dependencies for the JSF framework (provided)-->
         <dependency>
             <groupId>org.apache.myfaces.core</groupId>
             <artifactId>myfaces-api</artifactId>
             <version>${versions.myface}</version>
             <scope>provided</scope>
         </dependency>
-        <!-- Dependencies for the testing frameworks (Junit, Mockito & Arquillian) -->
+        <!-- Dependencies for the testing frameworks (Junit, Mockito & Arquillian) (tests only) -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -118,7 +120,7 @@
             <type>pom</type>
             <scope>test</scope>
         </dependency>
-        <!-- Application server: Tomee -->
+        <!-- Application server: Tomee (tests only) -->
         <dependency>
             <groupId>org.apache.openejb</groupId>
             <artifactId>arquillian-tomee-embedded</artifactId>
@@ -156,6 +158,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.17</version>
                 <configuration>
+                    <forkMode>always</forkMode>
                     <!-- otherwise openejb embedded and tomee embedded shares the same context and EJBContainer is broken -->
                     <reuseForks>false</reuseForks>
                     <excludes>

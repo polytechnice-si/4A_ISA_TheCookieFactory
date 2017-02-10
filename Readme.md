@@ -38,6 +38,11 @@ The software architecture to be developed in this document will rely on the foll
 
 __Important remark__: one can notice that the persistence layer (_aka_ the database) is almost the last step of this document. This is done on purpose. Databases are part of a given architecture, but must not be considered as the its essence. The essence of an architecture is the set of supported features, at the business level. Databases are in this context only a way (among others) to store data.
 
+__Technical Information__:
+
+  - [Setting up IntelliJ](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/ides/intelliJ/README.md): How to setup IntelliJ 
+  - [Docker](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/docker/README.md): a containerised version of TCF, ready to start.
+
 ## How to use this repository
   
   * The `develop` branch (the default one) represents the system under development. 
