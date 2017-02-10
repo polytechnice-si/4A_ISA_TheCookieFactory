@@ -74,23 +74,24 @@ To run the demonstration, first start the two servers in two different terminals
 ## Code information
  
 ```bash
-azrael:4A_ISA_TheCookieFactory mosser$ cloc .
-     145 text files.
-     145 unique files.                                          
-      25 files ignored.
+azrael:4A_ISA_TheCookieFactory mosser$ cloc j2e client dotNet
+     141 text files.
+     134 unique files.                                          
+      18 files ignored.
 
-http://cloc.sourceforge.net v 1.64  T=0.60 s (200.2 files/s, 10117.1 lines/s)
+github.com/AlDanial/cloc v 1.70  T=2.66 s (46.3 files/s, 2410.0 lines/s)
 -------------------------------------------------------------------------------
 Language                     files          blank        comment           code
 -------------------------------------------------------------------------------
-Java                           102            993           1370           3021
-Maven                            1              7             10            188
-XML                              7             21              0            152
-C#                               4             37             13            132
-JavaServer Faces                 4             32              0            115
-Bourne Shell                     2              4              3             12
+Java                           102            993           1370           3024
+Maven                            1              7             10            191
+XML                              7             21              0            166
+C#                               4             44             34            163
+Markdown                         3             71              0            152
+XHTML                            4             32              2            113
 JSP                              1              0              0              4
+Bourne Shell                     1              1              0              2
 -------------------------------------------------------------------------------
-SUM:                           121           1094           1396           3624
+SUM:                           123           1169           1416           3815
 -------------------------------------------------------------------------------
 ```
