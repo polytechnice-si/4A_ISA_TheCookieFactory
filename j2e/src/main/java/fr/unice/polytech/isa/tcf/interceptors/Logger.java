@@ -1,15 +1,17 @@
 package fr.unice.polytech.isa.tcf.interceptors;
 
-import fr.unice.polytech.isa.tcf.asynchronous.KitchenPrinter;
 
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
 import java.io.Serializable;
+import org.apache.openejb.util.LogCategory;
 
 public class Logger implements Serializable {
 
+    private static final LogCategory INTERCEPTORS = LogCategory.OPENEJB.createChild("interceptors");
 
-	private static java.util.logging.Logger log = java.util.logging.Logger.getLogger(Logger.class.getName());
+	private static final org.apache.openejb.util.Logger log =
+			org.apache.openejb.util.Logger.getInstance(INTERCEPTORS, Logger.class);
 
 	@AroundInvoke
 	public Object methodLogger(InvocationContext ctx) throws Exception {

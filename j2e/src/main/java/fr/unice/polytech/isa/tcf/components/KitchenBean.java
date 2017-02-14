@@ -5,14 +5,15 @@ import fr.unice.polytech.isa.tcf.Tracker;
 import fr.unice.polytech.isa.tcf.entities.Order;
 import fr.unice.polytech.isa.tcf.entities.OrderStatus;
 import fr.unice.polytech.isa.tcf.exceptions.UnknownOrderId;
-import fr.unice.polytech.isa.tcf.utils.Database;
 
 import javax.annotation.Resource;
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.jms.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import org.apache.openejb.util.LogCategory;
+import org.apache.openejb.util.Logger;
 
 @Stateless
 public class KitchenBean implements OrderProcessing, Tracker {
@@ -45,15 +46,22 @@ public class KitchenBean implements OrderProcessing, Tracker {
 	@Resource private ConnectionFactory connectionFactory;
 	@Resource(name = "KitchenPrinter") private Queue printerQueue;
 
+	private static final LogCategory JMS = LogCategory.ACTIVEMQ.createChild("jms");
+
 	private void sendToPrinter(Order o) {
 		try {
 			Connection connection = connectionFactory.createConnection();
 			connection.start();
 			Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 			MessageProducer printer = session.createProducer(printerQueue);
+			printer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 			printer.send(session.createObjectMessage(o));
+			printer.close();
+			session.close();
+			connection.close();
 		} catch (JMSException e) {
-			e.printStackTrace();
+			Logger logger = Logger.getInstance(JMS, this.getClass());
+			logger.error(e.getMessage());
 		}
 	}
 
