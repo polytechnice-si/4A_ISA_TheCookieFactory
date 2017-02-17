@@ -13,6 +13,12 @@ public class PaymentException extends Exception implements Serializable {
 		this.amount = amount;
 	}
 
+    public PaymentException(String customerName, double amount, Exception source) {
+        super(source);
+        this.name = customerName;
+        this.amount = amount;
+    }
+
 	public PaymentException() {}
 
 	public String getName() {

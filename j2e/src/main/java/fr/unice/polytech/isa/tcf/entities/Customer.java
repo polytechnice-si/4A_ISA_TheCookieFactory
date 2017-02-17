@@ -28,10 +28,13 @@ public class Customer implements Serializable {
 	@ElementCollection
 	private Set<Item> cart = new HashSet<>();
 
-	public Customer() {}
+	public Customer() {
+	    // Necessary for JPA instantiation process
+    }
+
 	public Customer(String n, String c) {
-		this.name = n;
-		this.creditCard = c;
+		name = n;
+		creditCard = c;
 	}
 
 	public int getId() {
@@ -67,12 +70,15 @@ public class Customer implements Serializable {
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof Customer)) return false;
+		if (this == o)
+		    return true;
+		if (!(o instanceof Customer))
+		    return false;
 
 		Customer customer = (Customer) o;
 
-		if (getName() != null ? !getName().equals(customer.getName()) : customer.getName() != null) return false;
+		if (getName() != null ? !getName().equals(customer.getName()) : customer.getName() != null)
+		    return false;
 		if (getCreditCard() != null ? !getCreditCard().equals(customer.getCreditCard()) : customer.getCreditCard() != null)
 			return false;
 		return getOrders() != null ? getOrders().equals(customer.getOrders()) : customer.getOrders() == null;
@@ -81,7 +87,7 @@ public class Customer implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Customer{" +
+		return "Customer {" +
 				"id=" + id +
 				", name='" + name + '\'' +
 				", creditCard='" + creditCard + '\'' +

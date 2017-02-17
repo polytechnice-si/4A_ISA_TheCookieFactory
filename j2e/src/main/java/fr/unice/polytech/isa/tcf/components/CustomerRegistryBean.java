@@ -4,9 +4,7 @@ import fr.unice.polytech.isa.tcf.CustomerFinder;
 import fr.unice.polytech.isa.tcf.CustomerRegistration;
 import fr.unice.polytech.isa.tcf.entities.Customer;
 import fr.unice.polytech.isa.tcf.exceptions.AlreadyExistingCustomerException;
-import fr.unice.polytech.isa.tcf.utils.Database;
 
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -17,22 +15,23 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.HashSet;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 @Stateless
-public class CustomerRegistryBean
-		implements CustomerRegistration, CustomerFinder {
+public class CustomerRegistryBean implements CustomerRegistration, CustomerFinder {
 
-	@PersistenceContext
-	private EntityManager manager;
+	private static final Logger log = Logger.getLogger(Logger.class.getName());
+
+	@PersistenceContext private EntityManager manager;
 
 	/******************************************
 	 ** Customer Registration implementation **
 	 ******************************************/
 
 	@Override
-	public void register(String name, String creditCard)
-			throws AlreadyExistingCustomerException {
+	public void register(String name, String creditCard) throws AlreadyExistingCustomerException {
 
 		if(findByName(name).isPresent())
 			throw new AlreadyExistingCustomerException(name);
@@ -46,14 +45,12 @@ public class CustomerRegistryBean
 
 	}
 
-
 	/************************************
 	 ** Customer Finder implementation **
 	 ************************************/
 
 	@Override
 	public Optional<Customer> findByName(String name) {
-
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
 		CriteriaQuery<Customer> criteria = builder.createQuery(Customer.class);
 		Root<Customer> root =  criteria.from(Customer.class);
@@ -62,10 +59,9 @@ public class CustomerRegistryBean
 		try {
 			return Optional.of(query.getSingleResult());
 		} catch (NoResultException nre){
-			 return Optional.empty();
+            log.log(Level.FINEST, "No result for ["+name+"]", nre);
+			return Optional.empty();
 		}
-
 	}
-
 }
 

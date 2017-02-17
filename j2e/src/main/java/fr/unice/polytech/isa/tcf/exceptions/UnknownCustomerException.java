@@ -8,7 +8,7 @@ public class UnknownCustomerException extends Exception implements Serializable 
 	private String name;
 
 	public UnknownCustomerException(String name) {
-		name = name;
+		this.name = name;
 	}
 
 

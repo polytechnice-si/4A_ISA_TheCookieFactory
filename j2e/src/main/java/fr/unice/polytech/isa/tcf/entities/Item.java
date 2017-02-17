@@ -16,11 +16,13 @@ public class Item implements Serializable {
 	@NotNull
 	private int quantity;
 
-	public Item() {}
+	public Item() {
+		// Necessary for JPA instantiation process
+	}
 
-	public Item(Cookies cookie, int quantity) {
-		this.cookie = cookie;
-		this.quantity = quantity;
+	public Item(Cookies c, int q) {
+	    cookie = c;
+		quantity = q;
 	}
 
 
@@ -43,10 +45,13 @@ public class Item implements Serializable {
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof Item)) return false;
+		if (this == o)
+		    return true;
+		if (!(o instanceof Item))
+		    return false;
 		Item item = (Item) o;
-		if (getQuantity() != item.getQuantity()) return false;
+		if (getQuantity() != item.getQuantity())
+		    return false;
 		return getCookie() == item.getCookie();
 
 	}

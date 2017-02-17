@@ -8,7 +8,6 @@ import fr.unice.polytech.isa.tcf.entities.Item;
 import fr.unice.polytech.isa.tcf.exceptions.EmptyCartException;
 import fr.unice.polytech.isa.tcf.exceptions.PaymentException;
 import fr.unice.polytech.isa.tcf.interceptors.CartCounter;
-import fr.unice.polytech.isa.tcf.interceptors.Logger;
 
 import javax.ejb.EJB;
 import javax.interceptor.Interceptors;

@@ -5,30 +5,31 @@ import fr.unice.polytech.isa.tcf.Tracker;
 import fr.unice.polytech.isa.tcf.entities.Order;
 import fr.unice.polytech.isa.tcf.entities.OrderStatus;
 import fr.unice.polytech.isa.tcf.exceptions.UnknownOrderId;
+import fr.unice.polytech.isa.tcf.utils.CookieScheduler;
 
 import javax.annotation.Resource;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.jms.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.apache.openejb.util.LogCategory;
-import org.apache.openejb.util.Logger;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 @Stateless
 public class KitchenBean implements OrderProcessing, Tracker {
 
+    private static final Logger log = Logger.getLogger(KitchenBean.class.getName());
+
 	@PersistenceContext private EntityManager entityManager;
+    @Resource private ConnectionFactory connectionFactory;
+    @Resource(name = "KitchenPrinter") private Queue printerQueue;
+    @EJB CookieScheduler scheduler;
 
 	@Override
-	public void process(Order order) {
-		order = entityManager.merge(order);
-		if (order.getCustomer().getName().contains("p")) {
-			order.setStatus(OrderStatus.IN_PROGRESS);
-		} else if (order.getCustomer().getName().contains("r")) {
-			order.setStatus(OrderStatus.READY);
-		}
-		sendToPrinter(order);
+	public void process(Order o) {
+        scheduler.add(o);
+		sendToPrinter(o);
 	}
 
 	@Override
@@ -39,14 +40,6 @@ public class KitchenBean implements OrderProcessing, Tracker {
 		return  order.getStatus();
 	}
 
-	/**
-	 * Private method to send an asynchronous message to the KitchenPrinter
-	 */
-
-	@Resource private ConnectionFactory connectionFactory;
-	@Resource(name = "KitchenPrinter") private Queue printerQueue;
-
-	private static final LogCategory JMS = LogCategory.ACTIVEMQ.createChild("jms");
 
 	private void sendToPrinter(Order o) {
 		try {
@@ -60,9 +53,7 @@ public class KitchenBean implements OrderProcessing, Tracker {
 			session.close();
 			connection.close();
 		} catch (JMSException e) {
-			Logger logger = Logger.getInstance(JMS, this.getClass());
-			logger.error(e.getMessage());
+			log.log(Level.WARNING, "Unable to send Order [" + o.getId() + "]to printer", e);
 		}
 	}
-
 }

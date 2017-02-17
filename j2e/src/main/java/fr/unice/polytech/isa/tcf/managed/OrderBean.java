@@ -19,6 +19,9 @@ import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @ManagedBean
 @SessionScoped
@@ -28,9 +31,11 @@ public class OrderBean implements Serializable {
 	 ** Components references **
 	 ***************************/
 
-	@EJB private CustomerFinder finder;
-	@EJB(name = "cart-stateless") private CartModifier cartManager;
-	@EJB private CatalogueExploration catalogue;
+	@EJB private transient CustomerFinder finder;
+	@EJB(name = "cart-stateless") private transient CartModifier cartManager;
+	@EJB private transient CatalogueExploration catalogue;
+
+    private static final Logger log = Logger.getLogger(OrderBean.class.getName());
 
 	/****************************
 	 ** Concrete Data bindings **
@@ -38,24 +43,33 @@ public class OrderBean implements Serializable {
 
 	@ManagedProperty("#{customerBean.name}")
 	private String customerName;
+
+	private Customer customer;
+	private Cookies cookie;
+	private int quantity;
+	private String orderId;
+
 	public void setCustomerName(String customerName) { this.customerName = customerName; }
 	public String getCustomerName() { return customerName; }
 
-	private Customer customer;
+
 	public Customer getCustomer() { return customer; }
 	public void setCustomer(Customer customer) { this.customer = customer; }
-	// Initializing the customer after the construction of the bean
-	@PostConstruct private void loadCustomer() { this.customer = finder.findByName(getCustomerName()).get(); }
 
-	private Cookies cookie;
+	// Initializing the customer after the construction of the bean
+	@PostConstruct private void loadCustomer() {
+        finder.findByName(getCustomerName()).ifPresent(c -> this.customer = c );
+	}
+
+
 	public Cookies getCookie() { return cookie; }
 	public void setCookie(Cookies cookie) { this.cookie = cookie; }
 
-	private int quantity;
+
 	public int getQuantity() { return quantity; }
 	public void setQuantity(int quantity) { this.quantity = quantity; }
 
-	private String orderId;
+
 	public String getOrderId() { return orderId; }
 	public void setOrderId(String orderId) { this.orderId = orderId; }
 
@@ -63,8 +77,13 @@ public class OrderBean implements Serializable {
 	 ** Virtual Data bindings **
 	 ***************************/
 
-	public List<Item> getCart() throws Exception { return new ArrayList<Item>(cartManager.contents(getCustomer())); }
-	public List<Cookies> getRecipes() { return new ArrayList<Cookies>(catalogue.listPreMadeRecipes()); }
+	public List<Item> getCart() {
+		return new ArrayList<Item>(cartManager.contents(getCustomer()));
+	}
+
+	public List<Cookies> getRecipes() {
+		return new ArrayList<Cookies>(catalogue.listPreMadeRecipes());
+	}
 
 
 	/*************
@@ -73,24 +92,26 @@ public class OrderBean implements Serializable {
 
 	public String add() {
 		cartManager.add(getCustomer(),new Item(getCookie(),getQuantity()));
-		return "ADDED";
+		return Signal.ADDED;
 	}
 
 	public String remove() {
 		cartManager.remove(getCustomer(),new Item(getCookie(),getQuantity()));
-		return "REMOVED";
+		return Signal.REMOVED;
 	}
 
 	public String process() {
 		try {
 			setOrderId(cartManager.validate(getCustomer()));
-			return "ORDERED";
+			return Signal.ORDERED;
 		} catch (PaymentException e) {
+            log.log(Level.WARNING,"payment error", e);
 			FacesContext.getCurrentInstance().addMessage("order-error", new FacesMessage("Payment error!"));
-			return "PAYMENT_ERROR";
+			return Signal.PAYMENT_ERROR;
 		} catch (EmptyCartException ece) {
+            log.log(Level.WARNING,"Empty cart, cannot proceed", ece);
 			FacesContext.getCurrentInstance().addMessage("order-error", new FacesMessage("Cannot validate an empty cart!"));
-			return "EMPTY_CART";
+			return Signal.EMPTY_CART;
 		}
 	}
 

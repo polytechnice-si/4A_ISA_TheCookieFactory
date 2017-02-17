@@ -1,31 +1,42 @@
 package fr.unice.polytech.isa.tcf.asynchronous;
 
 import fr.unice.polytech.isa.tcf.entities.Order;
+import org.apache.openejb.util.LogCategory;
 
 import javax.annotation.Resource;
+import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
+import javax.ejb.MessageDrivenContext;
 import javax.jms.*;
 import javax.jms.IllegalStateException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.logging.Logger;
 
-@MessageDriven
+@MessageDriven(activationConfig = {
+				@ActivationConfigProperty( propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
+				@ActivationConfigProperty( propertyName = "destination", propertyValue ="/queue/kitchen/printer") })
 public class KitchenPrinter implements MessageListener {
 
-	private static Logger log = Logger.getLogger(KitchenPrinter.class.getName());
+	private static final org.apache.openejb.util.Logger log =
+			org.apache.openejb.util.Logger.getInstance(LogCategory.ACTIVEMQ, KitchenPrinter.class);
+
+	@Resource
+	private MessageDrivenContext context;
 
 	/**
 	 * Message-based reception (automatically handled by the container)
 	 * @param message a JMS message that contains an Order
 	 * @throws RuntimeException
 	 */
+	@Override
 	public void onMessage(Message message) {
 		try {
 			Order data = (Order) ((ObjectMessage) message).getObject();
 			handle(data);
 		} catch (JMSException e) {
-			throw new RuntimeException("Cannot print something that is not an Order!");
+			log.error("Java message service exception while handling " + message);
+			log.error(e.getMessage(), e);
+			context.setRollbackOnly();
 		}
 	}
 
@@ -36,15 +47,17 @@ public class KitchenPrinter implements MessageListener {
 	 * @throws IllegalStateException
 	 */
 	private void handle(Order data) throws IllegalStateException {
-		data = entityManager.merge(data);
+		Order d = entityManager.merge(data);
 		try {
-			log.info("KitchenPrinter:\n  Printing order #"+data.getId());
+			log.info("KitchenPrinter:\n  Printing order #"+d.getId());
 			Thread.sleep(4000); // it takes time ... 4 seconds actually
-			log.info("\n    " + data);
-			log.info("\n  done ["+data.getId()+"]");
-			respond(data.getId());
-		} catch (InterruptedException e) { throw new IllegalStateException(e.toString()); }
-		catch (JMSException e) { throw new IllegalStateException(e.toString()); }
+			log.info("\n    " + d);
+			log.info("\n  done ["+d.getId()+"]");
+			respond(d.getId());
+		} catch (InterruptedException | JMSException e) {
+			log.error(e.getMessage(), e);
+			throw new IllegalStateException(e.toString());
+		}
 	}
 
 	/**
@@ -69,8 +82,10 @@ public class KitchenPrinter implements MessageListener {
 			producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 			producer.send(session.createTextMessage(orderId + ";PRINTED"));
 		} finally {
-			if (session != null) session.close();
-			if (connection != null) connection.close();
+			if (session != null)
+				session.close();
+			if (connection != null)
+				connection.close();
 		}
 	}
 }

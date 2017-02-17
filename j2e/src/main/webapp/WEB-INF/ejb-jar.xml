@@ -8,7 +8,7 @@
             <interceptor-class>fr.unice.polytech.isa.tcf.interceptors.CartCounter</interceptor-class>
         </interceptor>
         <interceptor>
-            <interceptor-class>fr.unice.polytech.isa.tcf.interceptors.Logger</interceptor-class>
+            <interceptor-class>fr.unice.polytech.isa.tcf.interceptors.LogParameters</interceptor-class>
         </interceptor>
         <interceptor>
             <interceptor-class>fr.unice.polytech.isa.tcf.interceptors.ItemVerifier</interceptor-class>
@@ -18,7 +18,7 @@
     <assembly-descriptor>
         <interceptor-binding>
             <ejb-name>*</ejb-name>
-            <interceptor-class>fr.unice.polytech.isa.tcf.interceptors.Logger</interceptor-class>
+            <interceptor-class>fr.unice.polytech.isa.tcf.interceptors.LogParameters</interceptor-class>
         </interceptor-binding>
     </assembly-descriptor>
 </ejb-jar>

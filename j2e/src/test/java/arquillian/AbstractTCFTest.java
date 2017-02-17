@@ -6,7 +6,7 @@ import fr.unice.polytech.isa.tcf.components.CartBean;
 import fr.unice.polytech.isa.tcf.components.carts.CartStatefulBean;
 import fr.unice.polytech.isa.tcf.entities.Customer;
 import fr.unice.polytech.isa.tcf.exceptions.AlreadyExistingCustomerException;
-import fr.unice.polytech.isa.tcf.interceptors.Logger;
+import fr.unice.polytech.isa.tcf.interceptors.LogParameters;
 import fr.unice.polytech.isa.tcf.utils.Database;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -38,7 +38,7 @@ public abstract class AbstractTCFTest {
 				// Cart components
 				.addPackage(CartStatefulBean.class.getPackage())
 				// Interceptors
-				.addPackage(Logger.class.getPackage())
+				.addPackage(LogParameters.class.getPackage())
 				// Exceptions
 				.addPackage(AlreadyExistingCustomerException.class.getPackage())
 				// Components implementations

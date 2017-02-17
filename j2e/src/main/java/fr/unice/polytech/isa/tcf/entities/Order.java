@@ -22,26 +22,25 @@ public class Order implements Serializable {
 	private Set<Item> items = new HashSet<>();
 
 	@Enumerated(EnumType.STRING)
-	private OrderStatus status = OrderStatus.IN_PROGRESS;
+	private OrderStatus status = OrderStatus.CREATED;
 
-	public Order() {}
+	public Order() {
+	    // Necessary for JPA instantiation process
+    }
 
 	public Order(Customer c) {
-		this.customer = c;
+	    customer = c;
 	}
 
 	public Order(Customer cust, Cookies cookie, int quantity) {
-		this.customer = cust;
-		this.addItem(new Item(cookie, quantity));
-		this.setStatus(OrderStatus.IN_PROGRESS);
+		customer = cust;
+		addItem(new Item(cookie, quantity));
 	}
 
 
-	public Order(Customer customer, Set<Item> items) {
-		this.customer = customer;
-		this.items = new HashSet<Item>();
-		this.items.addAll(items);
-		this.setStatus(OrderStatus.IN_PROGRESS);
+	public Order(Customer c, Set<Item> contents) {
+		customer = c;
+		items.addAll(contents);
 	}
 
 	public OrderStatus getStatus() { return status; }
@@ -65,14 +64,16 @@ public class Order implements Serializable {
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof Order)) return false;
+		if (this == o)
+			return true;
+		if (!(o instanceof Order))
+		    return false;
 		Order order = (Order) o;
 		if (getCustomer() != null ? !getCustomer().getName().equals(order.getCustomer().getName()) : order.getCustomer() != null)
 			return false;
-		if (getItems() != null ? !getItems().equals(order.getItems()) : order.getItems() != null) return false;
+		if (getItems() != null ? !getItems().equals(order.getItems()) : order.getItems() != null)
+		    return false;
 		return getStatus() == order.getStatus();
-
 	}
 
 	@Override
@@ -85,7 +86,7 @@ public class Order implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Order{" +
+		return "Order {" +
 				"id=" + id +
 				", customer=" + customer +
 				", items=" + items +
