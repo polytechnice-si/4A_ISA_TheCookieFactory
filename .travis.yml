@@ -17,11 +17,11 @@ script:
   - cd client
   - mvn -q clean install
   - cd ..
-  - cd j2e
-  - mvn -q -PskipIntegrationTestsclean install
-  - cd ..
   - cd dotNet
   - ./compile.sh
+  - cd ..
+  - cd j2e
+  - mvn -q -PskipIntegrationTests clean install
   - cd ..
 
 notifications:
