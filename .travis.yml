@@ -1,0 +1,27 @@
+language: java
+
+cache:
+  directories:
+    - $HOME/.m2
+
+before_install:
+  - sudo apt-get update -qq
+
+install:
+  - sudo apt-get install -qq mono-complete
+
+script:
+  - cd client
+  - mvn -q clean install
+  - cd ..
+  - cd j2e
+  - mvn -q clean install
+  - cd ..
+  - cd dotNet
+  - ./compile.sh
+  - cd ..
+
+notifications:
+  email:
+    recipients:
+      - sebastien.mosser@gmail.com
