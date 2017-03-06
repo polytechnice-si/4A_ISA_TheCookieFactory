@@ -1,24 +1,28 @@
-language: java
+##
+# Travis configuration file for TCF (author: sebastien mosser)
+##
 
-jdk:
+language: java  # Java is the main language for this project
+
+jdk:            # Running using Oracle JDK 8
   - oraclejdk8
 
-sudo: required
+sudo: required  # Mandatory to run docker
 
-services:
+services:       # Activating Docker support for this build
   - docker
 
-cache:
+cache:          # Caching maven local repository to speedup builds
   directories:
     - $HOME/.m2
 
-before_install:
+before_install: # Updating APT package list
   - sudo apt-get update -qq
 
-install:
+install:        # Installing .Net environment using Mono
   - sudo apt-get install -qq mono-complete
 
-script:
+script:         # Building the 3 sub-projects
   - cd client
   - mvn -q clean install
   - cd ../dotNet
@@ -27,24 +31,22 @@ script:
   - mvn -q clean package
   - cd ..
 
-after_script:
+after_success:  # Running integration tests
   - cd dotNet
   - nohup mono server.exe /standalone &
   - cd ../j2e
   - mvn package -Dtest=PaymentIntegrationTest
   - rm ../dotNet/server.LOCK
 
-deploy:
-  provider: script
-  script:
-    - cd docker
-    - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-    - cd client ; ./build.sh ; ./publish.sh
-    - cd ../partners ; ./build.sh ; ./publish.sh
-    - cd ../tcf ; ./build.sh ; ./publish.sh
-    - cd ..
+after_script:   # Building and then pushing Docker images
+  - cd docker
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  - cd client ; ./build.sh ; ./publish.sh
+  - cd ../partners ; ./build.sh ; ./publish.sh
+  - cd ../tcf ; ./build.sh ; ./publish.sh
+  - cd ..
 
-notifications:
+notifications:  # Using email-based notifications
   email:
     recipients:
       - sebastien.mosser@gmail.com
