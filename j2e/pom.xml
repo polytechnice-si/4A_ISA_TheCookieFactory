@@ -162,7 +162,7 @@
                     <!-- otherwise openejb embedded and tomee embedded shares the same context and EJBContainer is broken -->
                     <reuseForks>false</reuseForks>
                     <excludes>
-                        <exclude>**/*IntegrationTest.java</exclude>
+                        <exclude>**/PaymentIntegrationTest.java</exclude>
                     </excludes>
                 </configuration>
                 <executions>
@@ -174,10 +174,10 @@
                         <phase>integration-test</phase>
                         <configuration>
                             <excludes>
-                                <exclude>none</exclude>
+                                <exclude>**/*Test.java</exclude>
                             </excludes>
                             <includes>
-                                <include>**/*IntegrationTest.java</include>
+                                <include>**/PaymentIntegrationTest.java</include>
                             </includes>
                         </configuration>
                     </execution>

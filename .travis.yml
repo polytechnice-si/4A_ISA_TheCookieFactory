@@ -16,13 +16,19 @@ install:
 script:
   - cd client
   - mvn -q clean install
-  - cd ..
-  - cd dotNet
+  - cd ../dotNet
   - ./compile.sh
+  - cd ../j2e
+  - mvn -q clean package
   - cd ..
-  - cd j2e
-  - mvn -q -PskipIntegrationTests clean install
-  - cd ..
+
+after_script:
+  - cd dotNet
+  - nohup mono server.exe /standalone &
+  - cd ../j2e
+  - mvn package -Dtest=PaymentIntegrationTest
+  - rm ../dotNet/server.LOCK
+
 
 notifications:
   email:
