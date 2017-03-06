@@ -3,6 +3,11 @@ language: java
 jdk:
   - oraclejdk8
 
+sudo: required
+
+services:
+  - docker
+
 cache:
   directories:
     - $HOME/.m2
@@ -29,6 +34,15 @@ after_script:
   - mvn package -Dtest=PaymentIntegrationTest
   - rm ../dotNet/server.LOCK
 
+deploy:
+  provider: script
+  script:
+    - cd docker
+    - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+    - cd client ; ./build.sh ; ./publish.sh
+    - cd ../partners ; ./build.sh ; ./publish.sh
+    - cd ../tcf ; ./build.sh ; ./publish.sh
+    - cd ..
 
 notifications:
   email:
