@@ -23,12 +23,9 @@ install:        # Installing .Net environment using Mono
   - sudo apt-get install -qq mono-complete
 
 script:         # Building the 3 sub-projects
-  - cd client
-  - mvn -q clean install
-  - cd ../dotNet
-  - ./compile.sh
-  - cd ../j2e
-  - mvn -q clean package
+  - cd client;    mvn -q clean install
+  - cd ../dotNet; ./compile.sh
+  - cd ../j2e;    mvn -q clean package
   - cd ..
 
 after_success:  # Running integration tests
@@ -36,7 +33,7 @@ after_success:  # Running integration tests
   - nohup mono server.exe /standalone &
   - cd ../j2e
   - mvn package -Dtest=PaymentIntegrationTest
-  - rm ../dotNet/server.LOCK
+  - cd .. ; rm dotNet/server.LOCK
 
 after_script:   # Building and then pushing Docker images
   - cd docker
