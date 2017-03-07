@@ -10,17 +10,8 @@
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
       <maven.compiler.source>1.8</maven.compiler.source>
       <maven.compiler.target>1.8</maven.compiler.target>
+      <cxf.version>3.1.10</cxf.version>
     </properties>
-
-    <dependencies>
-      <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>4.12</version>
-        <scope>test</scope>
-      </dependency>
-    </dependencies>
-
 
     <build>
         <plugins>
@@ -44,6 +35,43 @@
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-codegen-plugin</artifactId>
+                <version>${cxf.version}</version>
+                <executions>
+                    <execution>
+                        <id>generate-sources</id>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <sourceRoot>${basedir}/src/main/java/</sourceRoot>
+                            <wsdlOptions>
+                                <wsdlOption>
+                                    <wsdl>${basedir}/src/main/resources/CartWS.wsdl</wsdl>
+                                    <extraargs>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>http://www.polytech.unice.fr/si/4a/isa/tcf/cart=stubs.cart</extraarg>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>http://webservice.tcf.isa.polytech.unice.fr/=stubs.cart</extraarg>
+                                    </extraargs>
+                                </wsdlOption>
+                                <wsdlOption>
+                                    <wsdl>${basedir}/src/main/resources/CustomerCareWS.wsdl</wsdl>
+                                    <extraargs>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>http://www.polytech.unice.fr/si/4a/isa/tcf/customer-care=stubs.customerCare</extraarg>
+                                        <extraarg>-p</extraarg>
+                                        <extraarg>http://webservice.tcf.isa.polytech.unice.fr/=stubs.customerCare</extraarg>
+                                    </extraargs>
+                                </wsdlOption>
+                            </wsdlOptions>
+                        </configuration>
+                        <goals>
+                            <goal>wsdl2java</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
