@@ -1,5 +1,6 @@
 package fr.unice.polytech.isa.tcf.components;
 
+import fr.unice.polytech.isa.tcf.ControlledPayment;
 import fr.unice.polytech.isa.tcf.OrderProcessing;
 import fr.unice.polytech.isa.tcf.Payment;
 import fr.unice.polytech.isa.tcf.entities.Customer;
@@ -22,7 +23,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Stateless
-public class CashierBean implements Payment {
+public class CashierBean implements Payment, ControlledPayment {
 
     private static final Logger log = Logger.getLogger(Logger.class.getName());
 

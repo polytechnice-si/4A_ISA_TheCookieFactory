@@ -14,5 +14,4 @@ public interface Payment {
 
 	String payOrder(Customer customer, Set<Item> items) throws PaymentException ;
 
-	void useBankReference(BankAPI bank);
 }
