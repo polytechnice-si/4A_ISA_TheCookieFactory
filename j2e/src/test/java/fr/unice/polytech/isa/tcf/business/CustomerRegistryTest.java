@@ -15,6 +15,7 @@ import org.junit.runner.RunWith;
 
 import javax.annotation.Resource;
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
@@ -31,6 +32,7 @@ public class CustomerRegistryTest extends AbstractTCFTest {
 
 
 	@PersistenceContext private EntityManager entityManager;
+	@Inject private UserTransaction utx;
 
 	private Customer john;
 
@@ -41,11 +43,10 @@ public class CustomerRegistryTest extends AbstractTCFTest {
 
 	@After
 	public void cleaningUp() throws Exception {
-		Optional<Customer> toDispose = finder.findByName(john.getName());
-		if(toDispose.isPresent()) {
-			Customer c = entityManager.merge(toDispose.get());
-			entityManager.remove(c);
-		}
+	    utx.begin();
+            Optional<Customer> toDispose = finder.findByName(john.getName());
+            toDispose.ifPresent(cust -> { Customer c = entityManager.merge(cust); entityManager.remove(c); });
+        utx.commit();
 	}
 
 	@Test

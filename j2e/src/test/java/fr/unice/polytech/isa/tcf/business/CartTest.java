@@ -22,8 +22,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.UserTransaction;
 // static import to lighten test writing
 import static org.junit.Assert.*;
 
@@ -36,21 +38,25 @@ public class CartTest extends AbstractTCFTest {
 	@EJB private CustomerFinder finder;
 
 	@PersistenceContext private EntityManager entityManager;
+	@Inject private UserTransaction utx;
 
 	private static final String NAME = "John";
 	private Customer john;
 
+
 	@Before
-	public void setUpContext() throws Exception {
-		john = new Customer(NAME, "1234567890");
-		entityManager.persist(john);
+	public void setUpContext() {
+        john = new Customer(NAME, "1234567890");
+        entityManager.persist(john);
 	}
 
 	@After
 	public void cleaningUp() throws Exception {
-		john = entityManager.merge(john);
-		entityManager.remove(john);
-		john = null;
+	    utx.begin();
+            john = entityManager.merge(john);
+            entityManager.remove(john);
+            john = null;
+        utx.commit();
 	}
 
 	@Test

@@ -10,13 +10,14 @@ import org.jboss.arquillian.transaction.api.annotation.TransactionMode;
 import org.jboss.arquillian.transaction.api.annotation.Transactional;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.UserTransaction;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -33,11 +34,10 @@ public class KitchenTest extends AbstractTCFTest {
 	@EJB private Tracker tracker;
 
 	@PersistenceContext private EntityManager entityManager;
+	@Inject private UserTransaction utx;
 
-	private Customer custProgress;
-	private Order inProgress;
-	private Customer custReady;
-	private Order ready;
+	private Customer customer;
+	private Order order;
 
 	@Before
 	public void setUpContext() throws Exception {
@@ -46,39 +46,26 @@ public class KitchenTest extends AbstractTCFTest {
 		items.add(new Item(Cookies.CHOCOLALALA, 3));
 		items.add(new Item(Cookies.DARK_TEMPTATION, 2));
 
-		// Customer with a "p" => Order is "in Progress"
-		custProgress = new Customer("pat", "1234567890");
-		entityManager.persist(custProgress);
+		customer = new Customer("pat", "1234567890");
+		entityManager.persist(customer);
 
-		inProgress = new Order(custProgress, items);
-		custProgress.add(inProgress);
-		entityManager.persist(inProgress);
-
-		// Customer with an "R" => Order is "Ready"
-		custReady = new Customer("ron", "1234567890");
-		entityManager.persist(custReady);
-
-		ready = new Order(custReady, items);
-		custReady.add(ready);
-		entityManager.persist(ready);
+		order = new Order(customer, items);
+		customer.add(order);
+		entityManager.persist(order);
 	}
 
 	@After
 	public void cleanUp() throws Exception {
-		custProgress = entityManager.merge(custProgress);
-		entityManager.remove(custProgress);
-		custReady = entityManager.merge(custReady);
-		entityManager.remove(custReady);
+	    utx.begin();
+            customer = entityManager.merge(customer);
+            entityManager.remove(customer);
+        utx.commit();
 	}
 
 	@Test
-	@Ignore("Order status state machine changed => test does not work")
 	public void processCommand() throws Exception {
-		processor.process(inProgress);
-		assertEquals(OrderStatus.IN_PROGRESS, tracker.status(""+inProgress.getId()));
-
-		processor.process(ready);
-		assertEquals(OrderStatus.READY, tracker.status(""+ready.getId()));
+		processor.process(order);
+		assertEquals(OrderStatus.CREATED, tracker.status(""+ order.getId()));
 	}
 
 

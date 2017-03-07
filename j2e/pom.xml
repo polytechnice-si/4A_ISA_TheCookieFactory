@@ -11,78 +11,68 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <versions.tomee.embedded>1.7.3</versions.tomee.embedded>
+        <versions.javaee>7.0-1</versions.javaee>
+        <versions.openejb>7.0.2</versions.openejb>
+        <versions.tomee>7.0.2</versions.tomee>
         <versions.openjpa>2.4.1</versions.openjpa>
         <versions.myface>2.2.10</versions.myface>
+        <versions.json>20160810</versions.json>
+        <versions.arquillian.junit>1.1.12.Final</versions.arquillian.junit>
+        <versions.arquilian.jta>1.0.3.Final</versions.arquilian.jta>
+        <versions.shrinkwrap>2.2.6</versions.shrinkwrap>
+        <versions.junit>4.12</versions.junit>
+        <versions.mockito>1.10.19</versions.mockito>
+        <versions.maven.surefire>2.19.1</versions.maven.surefire>
+        <versions.maven.compiler>3.6.1</versions.maven.compiler>
+        <versions.java>1.8</versions.java>
     </properties>
 
-    <profiles>
-        <profile>
-            <!-- Use 'mvn -P stable' to activate stable dependencies (by default) -->
-            <id>stable</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <versions.javaee>6.0-6</versions.javaee>
-                <versions.openejb>4.7.4</versions.openejb>
-                <versions.tomee>1.7.3</versions.tomee>
-            </properties>
-        </profile>
-        <profile>
-            <!-- Use 'mvn -P experimental' to activate these dependencies -->
-            <id>experimental</id>
-            <properties>
-                <versions.javaee>7.0-SNAPSHOT</versions.javaee>
-                <versions.openejb>5.0.0-SNAPSHOT</versions.openejb>
-                <versions.tomee>2.0.0-SNAPSHOT</versions.tomee>
-            </properties>
-        </profile>
-    </profiles>
-
-    <repositories>
-        <!-- Snapshot repository to access to the latest version of the OpenEJB framework -->
-        <repository>
-            <id>apache-m2-snapshot</id>
-            <name>Apache Snapshot Repository</name>
-            <url>https://repository.apache.org/content/groups/snapshots</url>
-        </repository>
-    </repositories>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.jboss.arquillian</groupId>
+                <artifactId>arquillian-bom</artifactId>
+                <version>1.0.3.Final</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>20160810</version>
+            <version>${versions.json}</version>
         </dependency>
         <!-- Dependencies for the OpenEJB framework (provided at runtime by the app server) -->
         <dependency>
-            <groupId>org.apache.openejb</groupId>
+            <groupId>org.apache.tomee</groupId>
             <artifactId>javaee-api</artifactId>
             <version>${versions.javaee}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.openejb</groupId>
+            <groupId>org.apache.tomee</groupId>
             <artifactId>openejb-core</artifactId>
             <version>${versions.openejb}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.openejb</groupId>
+            <groupId>org.apache.tomee</groupId>
             <artifactId>tomee-embedded</artifactId>
             <version>${versions.tomee}</version>
             <scope>provided</scope>
         </dependency>
         <!-- Dependency to integrate REST clients (order matters for CXF) (provided) -->
         <dependency>
-            <groupId>org.apache.openejb</groupId>
+            <groupId>org.apache.tomee</groupId>
             <artifactId>openejb-cxf</artifactId>
             <version>${versions.openejb}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.openejb</groupId>
+            <groupId>org.apache.tomee</groupId>
             <artifactId>openejb-cxf-rs</artifactId>
             <version>${versions.openejb}</version>
             <scope>provided</scope>
@@ -98,33 +88,39 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>${versions.junit}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>1.10.19</version>
+            <version>${versions.mockito}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>
-            <version>1.1.5.Final</version>
+            <version>${versions.arquillian.junit}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.shrinkwrap.resolver</groupId>
             <artifactId>shrinkwrap-resolver-depchain</artifactId>
-            <version>2.1.1</version>
+            <version>${versions.shrinkwrap}</version>
             <type>pom</type>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.extension</groupId>
+            <artifactId>arquillian-transaction-jta</artifactId>
+            <version>${versions.arquilian.jta}</version>
             <scope>test</scope>
         </dependency>
         <!-- Application server: Tomee (tests only) -->
         <dependency>
-            <groupId>org.apache.openejb</groupId>
+            <groupId>org.apache.tomee</groupId>
             <artifactId>arquillian-tomee-embedded</artifactId>
-            <version>${versions.tomee.embedded}</version>
+            <version>${versions.tomee}</version>
             <scope>test</scope>
         </dependency>
 
@@ -156,7 +152,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.17</version>
+                <version>${versions.maven.surefire}</version>
                 <configuration>
                     <forkMode>always</forkMode>
                     <!-- otherwise openejb embedded and tomee embedded shares the same context and EJBContainer is broken -->
@@ -186,16 +182,16 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
+                <version>${versions.maven.compiler}</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>${versions.java}</source>
+                    <target>${versions.java}</target>
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.apache.openejb.maven</groupId>
+                <groupId>org.apache.tomee.maven</groupId>
                 <artifactId>tomee-maven-plugin</artifactId>
-                <version>${versions.tomee.embedded}</version>
+                <version>${versions.tomee}</version>
                 <configuration>
                     <!-- From TomEE to TomEE+ to support the web services stack -->
                     <tomeeClassifier>plus</tomeeClassifier>

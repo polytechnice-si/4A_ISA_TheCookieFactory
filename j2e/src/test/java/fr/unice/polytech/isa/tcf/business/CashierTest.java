@@ -21,6 +21,7 @@ import org.junit.runner.RunWith;
 
 import javax.annotation.Resource;
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
@@ -36,6 +37,7 @@ public class CashierTest extends AbstractTCFTest {
 
 	@EJB private Payment cashier;
 	@PersistenceContext private EntityManager entityManager;
+	@Inject	private UserTransaction utx;
 
 	// Test context
 	private Set<Item> items;
@@ -50,10 +52,12 @@ public class CashierTest extends AbstractTCFTest {
 
 	@After
 	public void cleanUpContext() throws Exception {
-		john = entityManager.merge(john);
-		entityManager.remove(john);
-		pat = entityManager.merge(pat);
-		entityManager.remove(pat);
+		utx.begin();
+			john = entityManager.merge(john);
+			entityManager.remove(john);
+			pat = entityManager.merge(pat);
+			entityManager.remove(pat);
+		utx.commit();
 	}
 
 	@Test
