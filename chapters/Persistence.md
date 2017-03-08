@@ -275,8 +275,7 @@ public void testCustomerStorage() throws Exception {
 Sometimes it is necessary to manipulate transactions manually. For example, if a constraint is violated when trying to make an object persistent, the aborted transaction at the container level might hide the real reason. Here is an example where we need to manually _rollback_ a given transaction before re-throwing the internal error. One should remark that transactions are also injected by the container, as it is not a developer's responsibility to take care of the transaction pool.
 
 ```java
-@Resource
-private UserTransaction manual;
+@Resource private UserTransaction manual;
 
 @Test(expected = ConstraintViolationException.class)
 public void constraintViolation() throws Exception {
@@ -291,6 +290,24 @@ public void constraintViolation() throws Exception {
 		manual.rollback();				// rollbacking the transaction is anything went wrong
 		throw e;
 	}
+}
+```
+
+**Remark about Transactions (since EJB7)**:
+
+  - One can use both `@Inject` or `@Resource` to obtain an instance of User Transaction
+  - When using `@Before` and `@After` annotations, the `@Before` is executed in the same transaction than the `@Test`, but the `@After` is not (considering that the transaction was committed at the end of the test). As a consequence, one must manually deal with transactional behaviour if needed
+
+```java
+@Inject private UserTransaction utx;
+
+@After
+public void cleaningUp() throws Exception {
+    utx.begin();
+        john = entityManager.merge(john);
+        entityManager.remove(john);
+        john = null;
+    utx.commit();
 }
 ```
 
