@@ -1,16 +1,196 @@
-<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.polytech.unice.fr/si/4a/isa/tcf/cart" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:ns1="http://webservice.tcf.isa.polytech.unice.fr/" name="CartWebServiceImplService" targetNamespace="http://www.polytech.unice.fr/si/4a/isa/tcf/cart">
-    <wsdl:import location="CartWSType.wsdl" namespace="http://webservice.tcf.isa.polytech.unice.fr/">
-    </wsdl:import>
-    <wsdl:binding name="CartWebServiceImplServiceSoapBinding" type="ns1:CartWebService">
-        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+<?xml version='1.0' encoding='UTF-8'?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:tns="http://www.polytech.unice.fr/si/4a/isa/tcf/cart"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="CartWebServiceImplService"
+                  targetNamespace="http://www.polytech.unice.fr/si/4a/isa/tcf/cart">
+    <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                   xmlns:tns="http://www.polytech.unice.fr/si/4a/isa/tcf/cart"
+                   attributeFormDefault="unqualified" elementFormDefault="unqualified"
+                   targetNamespace="http://www.polytech.unice.fr/si/4a/isa/tcf/cart">
+            <xs:element name="addItemToCustomerCart" type="tns:addItemToCustomerCart"/>
+            <xs:element name="addItemToCustomerCartResponse" type="tns:addItemToCustomerCartResponse"/>
+            <xs:element name="getCustomerCartContents" type="tns:getCustomerCartContents"/>
+            <xs:element name="getCustomerCartContentsResponse" type="tns:getCustomerCartContentsResponse"/>
+            <xs:element name="removeItemToCustomerCart" type="tns:removeItemToCustomerCart"/>
+            <xs:element name="removeItemToCustomerCartResponse" type="tns:removeItemToCustomerCartResponse"/>
+            <xs:element name="validate" type="tns:validate"/>
+            <xs:element name="validateResponse" type="tns:validateResponse"/>
+            <xs:complexType name="validate">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="customer_name" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="validateResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="order_id" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="removeItemToCustomerCart">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="customer_name" type="xs:string"/>
+                    <xs:element minOccurs="0" name="item" type="tns:item"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="item">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="cookie" type="tns:cookies"/>
+                    <xs:element name="quantity" type="xs:int"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="removeItemToCustomerCartResponse">
+                <xs:sequence/>
+            </xs:complexType>
+            <xs:complexType name="addItemToCustomerCart">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="customer_name" type="xs:string"/>
+                    <xs:element minOccurs="0" name="item" type="tns:item"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="addItemToCustomerCartResponse">
+                <xs:sequence/>
+            </xs:complexType>
+            <xs:complexType name="getCustomerCartContents">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="customer_name" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getCustomerCartContentsResponse">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="cart_contents" type="tns:item"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:simpleType name="cookies">
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="CHOCOLALALA"/>
+                    <xs:enumeration value="DARK_TEMPTATION"/>
+                    <xs:enumeration value="SOO_CHOCOLATE"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:element name="PaymentException" type="tns:PaymentException"/>
+            <xs:complexType name="PaymentException">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="amount" type="xs:double"/>
+                    <xs:element minOccurs="0" name="name" type="xs:string"/>
+                    <xs:element minOccurs="0" name="message" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="UnknownCustomerException" type="tns:UnknownCustomerException"/>
+            <xs:complexType name="UnknownCustomerException">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="name" type="xs:string"/>
+                    <xs:element minOccurs="0" name="message" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="EmptyCartException" type="tns:EmptyCartException"/>
+            <xs:complexType name="EmptyCartException">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="name" type="xs:string"/>
+                    <xs:element minOccurs="0" name="message" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="validate">
+        <wsdl:part element="tns:validate" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getCustomerCartContentsResponse">
+        <wsdl:part element="tns:getCustomerCartContentsResponse" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="removeItemToCustomerCartResponse">
+        <wsdl:part element="tns:removeItemToCustomerCartResponse" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="removeItemToCustomerCart">
+        <wsdl:part element="tns:removeItemToCustomerCart" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="validateResponse">
+        <wsdl:part element="tns:validateResponse" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="addItemToCustomerCart">
+        <wsdl:part element="tns:addItemToCustomerCart" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="PaymentException">
+        <wsdl:part element="tns:PaymentException" name="PaymentException">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="UnknownCustomerException">
+        <wsdl:part element="tns:UnknownCustomerException" name="UnknownCustomerException">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getCustomerCartContents">
+        <wsdl:part element="tns:getCustomerCartContents" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="addItemToCustomerCartResponse">
+        <wsdl:part element="tns:addItemToCustomerCartResponse" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="EmptyCartException">
+        <wsdl:part element="tns:EmptyCartException" name="EmptyCartException">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="CartWebService">
+        <wsdl:operation name="validate">
+            <wsdl:input message="tns:validate" name="validate">
+            </wsdl:input>
+            <wsdl:output message="tns:validateResponse" name="validateResponse">
+            </wsdl:output>
+            <wsdl:fault message="tns:EmptyCartException" name="EmptyCartException">
+            </wsdl:fault>
+            <wsdl:fault message="tns:PaymentException" name="PaymentException">
+            </wsdl:fault>
+            <wsdl:fault message="tns:UnknownCustomerException" name="UnknownCustomerException">
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="removeItemToCustomerCart">
+            <wsdl:input message="tns:removeItemToCustomerCart" name="removeItemToCustomerCart">
+            </wsdl:input>
+            <wsdl:output message="tns:removeItemToCustomerCartResponse" name="removeItemToCustomerCartResponse">
+            </wsdl:output>
+            <wsdl:fault message="tns:UnknownCustomerException" name="UnknownCustomerException">
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="addItemToCustomerCart">
+            <wsdl:input message="tns:addItemToCustomerCart" name="addItemToCustomerCart">
+            </wsdl:input>
+            <wsdl:output message="tns:addItemToCustomerCartResponse" name="addItemToCustomerCartResponse">
+            </wsdl:output>
+            <wsdl:fault message="tns:UnknownCustomerException" name="UnknownCustomerException">
+            </wsdl:fault>
+        </wsdl:operation>
         <wsdl:operation name="getCustomerCartContents">
+            <wsdl:input message="tns:getCustomerCartContents" name="getCustomerCartContents">
+            </wsdl:input>
+            <wsdl:output message="tns:getCustomerCartContentsResponse" name="getCustomerCartContentsResponse">
+            </wsdl:output>
+            <wsdl:fault message="tns:UnknownCustomerException" name="UnknownCustomerException">
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="CartWebServiceImplServiceSoapBinding" type="tns:CartWebService">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="validate">
             <soap:operation soapAction="" style="document"/>
-            <wsdl:input name="getCustomerCartContents">
+            <wsdl:input name="validate">
                 <soap:body use="literal"/>
             </wsdl:input>
-            <wsdl:output name="getCustomerCartContentsResponse">
+            <wsdl:output name="validateResponse">
                 <soap:body use="literal"/>
             </wsdl:output>
+            <wsdl:fault name="EmptyCartException">
+                <soap:fault name="EmptyCartException" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="PaymentException">
+                <soap:fault name="PaymentException" use="literal"/>
+            </wsdl:fault>
             <wsdl:fault name="UnknownCustomerException">
                 <soap:fault name="UnknownCustomerException" use="literal"/>
             </wsdl:fault>
@@ -39,20 +219,14 @@
                 <soap:fault name="UnknownCustomerException" use="literal"/>
             </wsdl:fault>
         </wsdl:operation>
-        <wsdl:operation name="validate">
+        <wsdl:operation name="getCustomerCartContents">
             <soap:operation soapAction="" style="document"/>
-            <wsdl:input name="validate">
+            <wsdl:input name="getCustomerCartContents">
                 <soap:body use="literal"/>
             </wsdl:input>
-            <wsdl:output name="validateResponse">
+            <wsdl:output name="getCustomerCartContentsResponse">
                 <soap:body use="literal"/>
             </wsdl:output>
-            <wsdl:fault name="EmptyCartException">
-                <soap:fault name="EmptyCartException" use="literal"/>
-            </wsdl:fault>
-            <wsdl:fault name="PaymentException">
-                <soap:fault name="PaymentException" use="literal"/>
-            </wsdl:fault>
             <wsdl:fault name="UnknownCustomerException">
                 <soap:fault name="UnknownCustomerException" use="literal"/>
             </wsdl:fault>

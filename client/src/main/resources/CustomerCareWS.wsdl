@@ -1,8 +1,136 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.polytech.unice.fr/si/4a/isa/tcf/customer-care" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:ns1="http://webservice.tcf.isa.polytech.unice.fr/" name="CustomerCareServiceImplService" targetNamespace="http://www.polytech.unice.fr/si/4a/isa/tcf/customer-care">
-    <wsdl:import location="CustomerCareWSType.wsdl" namespace="http://webservice.tcf.isa.polytech.unice.fr/">
-    </wsdl:import>
-    <wsdl:binding name="CustomerCareServiceImplServiceSoapBinding" type="ns1:CustomerCareService">
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:tns="http://www.polytech.unice.fr/si/4a/isa/tcf/customer-care"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="CustomerCareServiceImplService"
+                  targetNamespace="http://www.polytech.unice.fr/si/4a/isa/tcf/customer-care">
+    <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                   xmlns:tns="http://www.polytech.unice.fr/si/4a/isa/tcf/customer-care"
+                   attributeFormDefault="unqualified" elementFormDefault="unqualified"
+                   targetNamespace="http://www.polytech.unice.fr/si/4a/isa/tcf/customer-care">
+            <xs:element name="listAllRecipes" type="tns:listAllRecipes"/>
+            <xs:element name="listAllRecipesResponse" type="tns:listAllRecipesResponse"/>
+            <xs:element name="register" type="tns:register"/>
+            <xs:element name="registerResponse" type="tns:registerResponse"/>
+            <xs:element name="track" type="tns:track"/>
+            <xs:element name="trackResponse" type="tns:trackResponse"/>
+            <xs:complexType name="track">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="order_id" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="trackResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="status" type="tns:orderStatus"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="listAllRecipes">
+                <xs:sequence/>
+            </xs:complexType>
+            <xs:complexType name="listAllRecipesResponse">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="recipes" type="tns:cookies"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="register">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="customer_name" type="xs:string"/>
+                    <xs:element minOccurs="0" name="credit_card_number" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="registerResponse">
+                <xs:sequence/>
+            </xs:complexType>
+            <xs:simpleType name="orderStatus">
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="CREATED"/>
+                    <xs:enumeration value="VALIDATED"/>
+                    <xs:enumeration value="IN_PROGRESS"/>
+                    <xs:enumeration value="READY"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType name="cookies">
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="CHOCOLALALA"/>
+                    <xs:enumeration value="DARK_TEMPTATION"/>
+                    <xs:enumeration value="SOO_CHOCOLATE"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:element name="UnknownOrderId" type="tns:UnknownOrderId"/>
+            <xs:complexType name="UnknownOrderId">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="orderId" type="xs:string"/>
+                    <xs:element minOccurs="0" name="message" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="AlreadyExistingCustomerException" type="tns:AlreadyExistingCustomerException"/>
+            <xs:complexType name="AlreadyExistingCustomerException">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="conflictingName" type="xs:string"/>
+                    <xs:element minOccurs="0" name="message" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="trackResponse">
+        <wsdl:part element="tns:trackResponse" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="UnknownOrderId">
+        <wsdl:part element="tns:UnknownOrderId" name="UnknownOrderId">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="track">
+        <wsdl:part element="tns:track" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="listAllRecipes">
+        <wsdl:part element="tns:listAllRecipes" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="register">
+        <wsdl:part element="tns:register" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="AlreadyExistingCustomerException">
+        <wsdl:part element="tns:AlreadyExistingCustomerException" name="AlreadyExistingCustomerException">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="listAllRecipesResponse">
+        <wsdl:part element="tns:listAllRecipesResponse" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="registerResponse">
+        <wsdl:part element="tns:registerResponse" name="parameters">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="CustomerCareService">
+        <wsdl:operation name="track">
+            <wsdl:input message="tns:track" name="track">
+            </wsdl:input>
+            <wsdl:output message="tns:trackResponse" name="trackResponse">
+            </wsdl:output>
+            <wsdl:fault message="tns:UnknownOrderId" name="UnknownOrderId">
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="listAllRecipes">
+            <wsdl:input message="tns:listAllRecipes" name="listAllRecipes">
+            </wsdl:input>
+            <wsdl:output message="tns:listAllRecipesResponse" name="listAllRecipesResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="register">
+            <wsdl:input message="tns:register" name="register">
+            </wsdl:input>
+            <wsdl:output message="tns:registerResponse" name="registerResponse">
+            </wsdl:output>
+            <wsdl:fault message="tns:AlreadyExistingCustomerException" name="AlreadyExistingCustomerException">
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="CustomerCareServiceImplServiceSoapBinding" type="tns:CustomerCareService">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <wsdl:operation name="track">
             <soap:operation soapAction="" style="document"/>

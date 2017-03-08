@@ -27,9 +27,10 @@ A Web service contract is defined by an annotated interface. The annotations are
   * A `WebMethod` annotation tags the methods to expose as service operations;
   * A `WebParam` annotation tags the parameters to change their name, or handle xml namespace manually;
   * A `WebResult` annotation tags the returned value, like `@WebParam`.
+  * A `WebService` annotation is used to specify the _namespace_ associated to the service (consider it as a _package_ name).
 
 ```java
-@WebService
+@WebService(targetNamespace = "http://www.polytech.unice.fr/si/4a/isa/tcf/cart")
 public interface CartWebService {
 
 	@WebMethod
@@ -43,7 +44,7 @@ public interface CartWebService {
 }
 ``` 
 
-The implementation of these operations is simply done by a concrete class that implements the interface and delegates business work to the bean. This concrete class is actually a stateless bean that consumes another bean.
+The implementation of these operations is simply done by a concrete class that implements the interface and delegates business work to the bean. This concrete class is actually a stateless bean that consumes another bean, located in the same _targetNamespace_.
 
 ```java
 @WebService(targetNamespace = "http://www.polytech.unice.fr/si/4a/isa/tcf")
@@ -114,7 +115,7 @@ public static void main() {
 
 The previously described code works well, but rely on a very string assumption: the service will always be located at the very same location (on localhost). Moreover, the client will load at runtime the WSDL contract, so if one moves the contract elsewhere, the client code does not work anymore. And it is anyway not reasonable to package a distributed application that will only run on localhost. We need to _clean_ our default implementation to be more _aware_ of the server location.
 
-First point, look at the WSDL contract. Even if stored locally as a resource, it refers to a remote file located at [http://localhost:8080/tcf-backend/webservices/CartWS?wsdl=CartWebService.wsdl](http://localhost:8080/tcf-backend/webservices/CartWS?wsdl=CartWebService.wsdl). We store this file as a local one, side by side with the initial contract, in a file named `CartWSType.wsdl` (as it basically defines the data types associated to our contract). Then, we edit the `CartWS.wsdl` file to point to this local file instead of the remote one (in the `wsdlLocation` attribute). We should now edit the initialization code to refer to our local file instead of the remote one.
+First point, we should now edit the initialization code to refer to our local file instead of the remote one in the stub implementation.
 
 ```java
 private static CartWebService initialize() {

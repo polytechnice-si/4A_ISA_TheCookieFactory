@@ -13,7 +13,7 @@ import javax.jws.WebResult;
 import javax.jws.WebService;
 import java.util.Set;
 
-@WebService
+@WebService(targetNamespace = "http://www.polytech.unice.fr/si/4a/isa/tcf/cart")
 public interface CartWebService {
 
 	@WebMethod

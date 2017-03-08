@@ -52,8 +52,6 @@
                                     <extraargs>
                                         <extraarg>-p</extraarg>
                                         <extraarg>http://www.polytech.unice.fr/si/4a/isa/tcf/cart=stubs.cart</extraarg>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>http://webservice.tcf.isa.polytech.unice.fr/=stubs.cart</extraarg>
                                     </extraargs>
                                 </wsdlOption>
                                 <wsdlOption>
@@ -61,8 +59,6 @@
                                     <extraargs>
                                         <extraarg>-p</extraarg>
                                         <extraarg>http://www.polytech.unice.fr/si/4a/isa/tcf/customer-care=stubs.customerCare</extraarg>
-                                        <extraarg>-p</extraarg>
-                                        <extraarg>http://webservice.tcf.isa.polytech.unice.fr/=stubs.customerCare</extraarg>
                                     </extraargs>
                                 </wsdlOption>
                             </wsdlOptions>
