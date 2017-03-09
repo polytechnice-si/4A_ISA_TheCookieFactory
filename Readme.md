@@ -36,6 +36,7 @@ The software architecture to be developed in this document will rely on the foll
   9. [Web user interface using JSF](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/chapters/UI_JSF.md) 
   10. [Asynchronous Communication using Messages](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/chapters/MessageDrivenBeans.md) 
   11. [Conclusions](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/chapters/Conclusions.md)
+  12. _Bonus_: [Using behavioural-driven development to model test scenarios](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/chapters/BDD.md)  
 
 __Important remark__: one can notice that the persistence layer (_aka_ the database) is almost the last step of this document. This is done on purpose. Databases are part of a given architecture, but must not be considered as the its essence. The essence of an architecture is the set of supported features, at the business level. Databases are in this context only a way (among others) to store data.
 

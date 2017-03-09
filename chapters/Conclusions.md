@@ -40,9 +40,14 @@ This reference implementation demonstrates the following points with respect to 
 
 ## Perspectives
 
-  - [ ]  Use "real" application servers to support TCF deployment (Tomcat, IIS)
+  - [ ]  Build a continuous delivery pipeline to automate TCF production
     - [ ]  See the DevOps course contents
   - [ ]  Use a "real" database server (_e.g._ postgres, MySQL)
     - [ ]  See the DevOps course contents 
   - [ ]  Use an _Enterprise Service Bus_ (ESB) to decouple the J2E system from the .Net one
     - [ ]  Consider to attend the _Service Integration_ course next year (id: SOA-1). 
+  - [ ] Model the business processes existing inside TCF
+    - [ ]  Consider to attend the _Business Process Modelling_ course next year (id: SOA-1). 
+
+    
+  * Bonus: [Using behavioural-driven development to model test scenarios](https://github.com/polytechnice-si/4A_ISA_TheCookieFactory/blob/develop/chapters/BDD.md)  
