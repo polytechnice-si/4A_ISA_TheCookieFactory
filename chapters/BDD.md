@@ -192,7 +192,7 @@ A report is generated in the `/target/cucumber-report/feature-overview.html` fil
 
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/polytechnice-si/4A_ISA_TheCookieFactory/develop/docs/bdd_scenario.png"/>
+  <img src="https://raw.githubusercontent.com/polytechnice-si/4A_ISA_TheCookieFactory/develop/docs/bdd_feature.png"/>
 </p>
 
 
