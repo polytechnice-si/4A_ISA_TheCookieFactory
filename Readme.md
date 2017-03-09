@@ -97,3 +97,9 @@ Bourne Shell                     1              1              0              2
 SUM:                           123           1169           1416           3815
 -------------------------------------------------------------------------------
 ```
+
+## Technological Stack
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/polytechnice-si/4A_ISA_TheCookieFactory/develop/docs/tech_stack.png"/>
+</p>
