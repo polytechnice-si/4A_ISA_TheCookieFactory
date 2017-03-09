@@ -39,3 +39,9 @@ Feature: Ordering Cookies
       And Seb asks for his cart contents
     Then there is 1 item inside the cart
       And the cart contains the following item: 5 x CHOCOLALALA
+
+
+  Scenario: Getting the right price for a given cart
+    When Seb orders 5 x CHOCOLALALA
+      And Seb orders 3 x DARK_TEMPTATION
+    Then the price of Seb's cart is equals to 12.20

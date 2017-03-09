@@ -24,12 +24,11 @@ import fr.unice.polytech.isa.tcf.entities.*;
 @RunWith(CukeSpace.class)
 @CucumberOptions(features = "src/test/resources")
 public class OrderingCookies extends AbstractTCFTest {
-
-
-
+    
     @EJB private CustomerRegistration registration;
     @EJB private CustomerFinder finder;
     @EJB(name = "cart-stateless") private CartModifier cart;
+    @EJB(name = "cart-stateless") private CartProcessor processor;
 
     private Customer customer;
     private Set<Item> cartContents;
@@ -43,7 +42,7 @@ public class OrderingCookies extends AbstractTCFTest {
     @When("^(.*) asks for (?:his|her) cart contents$")
     public void retrieve_cart_contents(String customerName) {
         customer = finder.findByName(customerName).get();
-        cartContents = cart.contents(customer);
+        cartContents = processor.contents(customer);
     }
 
     @When("^(.*) orders (\\d+) x (.*)$")
@@ -69,6 +68,12 @@ public class OrderingCookies extends AbstractTCFTest {
     public void check_cart_contents(int howMany, String recipe) {
         Item expected = new Item(Cookies.valueOf(recipe), howMany);
         assertTrue(cartContents.contains(expected));
+    }
+
+    @Then("^the price of (.*)'s cart is equals to (\\d+.\\d+?)$")
+    public void check_cart_price(String customerName, float expectedPrice) {
+        customer = finder.findByName(customerName).get();
+        assertEquals(expectedPrice, processor.price(customer), 0.01);
     }
 
     /**

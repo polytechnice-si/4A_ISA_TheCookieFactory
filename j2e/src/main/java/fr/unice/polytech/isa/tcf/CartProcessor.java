@@ -1,5 +1,6 @@
 package fr.unice.polytech.isa.tcf;
 
+
 import fr.unice.polytech.isa.tcf.entities.Customer;
 import fr.unice.polytech.isa.tcf.entities.Item;
 import fr.unice.polytech.isa.tcf.exceptions.EmptyCartException;
@@ -9,10 +10,13 @@ import javax.ejb.Local;
 import java.util.Set;
 
 @Local
-public interface CartModifier {
+public interface CartProcessor {
 
-	boolean add(Customer c, Item item);
+    Set<Item> contents(Customer c);
 
-	boolean remove(Customer c, Item item);
+    double price(Customer c);
+
+    String validate(Customer c) throws PaymentException, EmptyCartException;
+
 
 }

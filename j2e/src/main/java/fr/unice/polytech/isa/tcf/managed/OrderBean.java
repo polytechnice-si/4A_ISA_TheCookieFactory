@@ -1,6 +1,7 @@
 package fr.unice.polytech.isa.tcf.managed;
 
 import fr.unice.polytech.isa.tcf.CartModifier;
+import fr.unice.polytech.isa.tcf.CartProcessor;
 import fr.unice.polytech.isa.tcf.CatalogueExploration;
 import fr.unice.polytech.isa.tcf.CustomerFinder;
 import fr.unice.polytech.isa.tcf.entities.Cookies;
@@ -33,6 +34,7 @@ public class OrderBean implements Serializable {
 
 	@EJB private transient CustomerFinder finder;
 	@EJB(name = "cart-stateless") private transient CartModifier cartManager;
+	@EJB(name = "cart-stateless") private transient CartProcessor cartProcessor;
 	@EJB private transient CatalogueExploration catalogue;
 
     private static final Logger log = Logger.getLogger(OrderBean.class.getName());
@@ -78,7 +80,7 @@ public class OrderBean implements Serializable {
 	 ***************************/
 
 	public List<Item> getCart() {
-		return new ArrayList<Item>(cartManager.contents(getCustomer()));
+		return new ArrayList<Item>(cartProcessor.contents(getCustomer()));
 	}
 
 	public List<Cookies> getRecipes() {
@@ -102,7 +104,7 @@ public class OrderBean implements Serializable {
 
 	public String process() {
 		try {
-			setOrderId(cartManager.validate(getCustomer()));
+			setOrderId(cartProcessor.validate(getCustomer()));
 			return Signal.ORDERED;
 		} catch (PaymentException e) {
             log.log(Level.WARNING,"payment error", e);

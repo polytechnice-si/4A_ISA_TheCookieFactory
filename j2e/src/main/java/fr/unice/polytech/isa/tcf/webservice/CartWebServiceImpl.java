@@ -1,6 +1,7 @@
 package fr.unice.polytech.isa.tcf.webservice;
 
 import fr.unice.polytech.isa.tcf.CartModifier;
+import fr.unice.polytech.isa.tcf.CartProcessor;
 import fr.unice.polytech.isa.tcf.CustomerFinder;
 import fr.unice.polytech.isa.tcf.entities.Customer;
 import fr.unice.polytech.isa.tcf.entities.Item;
@@ -19,6 +20,7 @@ import java.util.Set;
 public class CartWebServiceImpl implements CartWebService {
 
 	@EJB(name="stateless-cart") private CartModifier cart;
+	@EJB(name="stateless-cart") private CartProcessor processor;
 	@EJB private CustomerFinder finder;
 
 	@Override
@@ -36,13 +38,13 @@ public class CartWebServiceImpl implements CartWebService {
 	@Override
 	public Set<Item> getCustomerCartContents(String customerName)
 			throws UnknownCustomerException {
-		return cart.contents(readCustomer(customerName));
+		return processor.contents(readCustomer(customerName));
 	}
 
 	@Override
 	public String validate(String customerName)
 			throws PaymentException, EmptyCartException, UnknownCustomerException {
-		return cart.validate(readCustomer(customerName));
+		return processor.validate(readCustomer(customerName));
 	}
 
 	private Customer readCustomer(String customerName)
