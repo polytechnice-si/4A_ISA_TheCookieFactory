@@ -204,4 +204,4 @@ IntelliJ supports Cucumber thanks to the eponymous plugin. It will provide autom
   <img src="https://raw.githubusercontent.com/polytechnice-si/4A_ISA_TheCookieFactory/develop/docs/bdd_intellij.png"/>
 </p> 
 
-__Remark__: Unfortunately, the execution plugin associated to Cucumber os not compatible with Cukespace, so one cannot triggers the tests directly from the IDE.
+__Remark__: Unfortunately, the execution plugin associated to Cucumber is not compatible with Cukespace, so one cannot trigger the tests directly from the IDE.
